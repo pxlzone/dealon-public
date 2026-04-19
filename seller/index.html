@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>if(window.parent!==window)document.documentElement.classList.add('is-embed');</script>
+<title>DealOn — for sellers</title>
+<meta name="description" content="Short video explainer for UK business owners considering a sale — DealOn's AI-native M&amp;A model, fees, and timeline.">
+<meta name="theme-color" content="#060610">
+<!-- Open Graph: absolute URLs for social crawlers. Change the origin if the public site is not https://dealon.ae/ -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="DealOn">
+<meta property="og:url" content="https://dealon.ae/seller/">
+<meta property="og:title" content="DealOn — for sellers">
+<meta property="og:description" content="Short video explainer for UK business owners considering a sale — DealOn's AI-native M&amp;A model, fees, and timeline.">
+<meta property="og:image" content="https://dealon.ae/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DealOn — for sellers">
+<meta name="twitter:description" content="Short video explainer for UK business owners considering a sale — DealOn's AI-native M&amp;A model, fees, and timeline.">
+<meta name="twitter:image" content="https://dealon.ae/og-image.png">
+<script>
+(function () {
+  function siteRootHref() {
+    var u = new URL(location.href);
+    var p = u.pathname;
+    if (p.endsWith('.html')) {
+      u.pathname = p.slice(0, p.lastIndexOf('/') + 1);
+    } else if (p.length > 0 && !p.endsWith('/')) {
+      u.pathname = p + '/';
+    }
+    u.hash = '';
+    u.search = '';
+    return u.href;
+  }
+  var assetBase = new URL('..', siteRootHref()).href;
+  function addLink(rel, file, extra) {
+    var l = document.createElement('link');
+    l.rel = rel;
+    l.href = new URL(file, assetBase).href;
+    if (extra) {
+      if (extra.type) l.type = extra.type;
+      if (extra.sizes) l.setAttribute('sizes', extra.sizes);
+    }
+    document.head.appendChild(l);
+  }
+  addLink('icon', 'favicon.ico', { sizes: 'any' });
+  addLink('icon', 'favicon-32.png', { type: 'image/png', sizes: '32x32' });
+  addLink('icon', 'favicon.png', { type: 'image/png', sizes: '512x512' });
+  addLink('apple-touch-icon', 'apple-touch-icon.png');
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     DEALON — SELLER EXPLAINER
+     Brand tokens sourced from DealOn Web Style Guide.
+     Palette: deep #0A0A18, accent teal #00E5BF, purple #7C5CFC, pink #FF6B9D
+     Typography: Playfair Display (display), Outfit (body), IBM Plex Mono (eyebrow)
+     ============================================================ */
+
+  :root {
+    --bg-void: #060610;
+    --bg-deep: #0A0A18;
+    --bg-surface: #0F0F20;
+    --bg-card: #181834;
+    --bg-card-hover: #1E1E42;
+    --text-primary: #EEEEF0;
+    --text-secondary: #9494AD;
+    --text-muted: #5E5E7A;
+    --text-dim: #3A3A55;
+    --accent: #00E5BF;
+    --accent-soft: rgba(0,229,191,0.12);
+    --accent-glow: rgba(0,229,191,0.25);
+    --accent-bright: #33FFD6;
+    --purple: #7C5CFC;
+    --pink: #FF6B9D;
+    --border: rgba(255,255,255,0.06);
+    --border-accent: rgba(0,229,191,0.2);
+    --gradient-hero: linear-gradient(135deg, #00E5BF 0%, #7C5CFC 50%, #FF6B9D 100%);
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'Outfit', system-ui, sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    background: #050510;
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    font-weight: 300;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 0 24px;
+    position: relative;
+  }
+
+  /* ---- The 16:9 stage ---- */
+  .stage {
+    width: min(92vw, calc(86vh * 16 / 9));
+    aspect-ratio: 16 / 9;
+    background: var(--bg-deep);
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7),
+                0 0 60px rgba(124, 92, 252, 0.05);
+  }
+
+  /* index.html iframe: vh can be 0 if iframe had no explicit height — min() then zeroes width */
+  html.is-embed .stage {
+    width: 100%;
+    max-width: 100%;
+  }
+  html.is-embed body {
+    padding: 10px;
+    gap: 8px;
+  }
+
+  /* Tablet: 1:1 stage, flex-fill column — removes dead flex “padding” hatched overlay */
+  @media (min-width: 641px) and (max-width: 900px) {
+    body {
+      justify-content: flex-start;
+      align-items: stretch;
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+    html.is-embed body {
+      min-height: 100%;
+    }
+    .stage {
+      flex: 1 1 auto;
+      min-height: 0;
+      aspect-ratio: 1 / 1;
+      width: 100%;
+      max-width: 100%;
+    }
+    .controls-row {
+      flex-shrink: 0;
+      width: 100% !important;
+      max-width: 100%;
+    }
+  }
+
+  /* Wide desktop iframe: stage fills height (no fixed aspect) */
+  @media (min-width: 901px) {
+    html.is-embed body {
+      justify-content: flex-start;
+      align-items: stretch;
+      min-height: 100%;
+    }
+    html.is-embed .stage {
+      flex: 1 1 auto;
+      min-height: 0;
+      aspect-ratio: unset;
+      height: auto;
+    }
+    html.is-embed .controls-row {
+      flex-shrink: 0;
+      width: 100% !important;
+      max-width: 100%;
+    }
+  }
+
+  /* Out of flex flow — some engines reserve a strip for <audio> between stage and controls */
+  #music {
+    position: absolute;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* subtle vignette + top gradient wash */
+  .stage::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse at 20% 0%, rgba(0, 229, 191, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 100%, rgba(124, 92, 252, 0.06) 0%, transparent 50%);
+    z-index: 1;
+  }
+  .stage::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.45) 100%);
+    z-index: 100;
+  }
+
+  /* ---- Persistent watermark top-left: DealOn gradient mark + wordmark ---- */
+  .watermark {
+    position: absolute;
+    top: 22px;
+    left: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 50;
+    opacity: 0.55;
+  }
+  .watermark-mark {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    background: var(--gradient-hero);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--bg-void);
+    letter-spacing: -0.02em;
+  }
+  .watermark-text {
+    font-family: var(--font-body);
+    font-size: clamp(13px, 1.3vw, 16px);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+  }
+
+  /* ---- Scene indicator top-right ---- */
+  .scene-badge {
+    position: absolute;
+    top: 22px;
+    right: 24px;
+    font-family: var(--font-mono);
+    font-size: clamp(10px, 1vw, 12px);
+    color: var(--text-muted);
+    letter-spacing: 0.2em;
+    z-index: 50;
+  }
+  .scene-badge span { color: var(--accent); }
+
+  /* ---- Scenes ---- */
+  .scene {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6% 6% 7%;
+    opacity: 0;
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+    z-index: 10;
+  }
+  .scene.active { opacity: 1; }
+
+  /* ---- Typography utilities ---- */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: clamp(10px, 0.95vw, 13px);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--accent);
+    margin-bottom: 1.8em;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .headline {
+    font-family: var(--font-display);
+    font-size: clamp(38px, 6vw, 88px);
+    font-weight: 400;
+    line-height: 1.05;
+    text-align: center;
+    letter-spacing: -0.02em;
+    max-width: 92%;
+    color: var(--text-primary);
+  }
+  .headline em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 400;
+  }
+  .headline-med {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4.4vw, 62px);
+    font-weight: 400;
+    line-height: 1.12;
+    text-align: center;
+    letter-spacing: -0.015em;
+    max-width: 92%;
+  }
+  .headline-med em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .sub {
+    font-family: var(--font-body);
+    font-size: clamp(14px, 1.55vw, 20px);
+    font-weight: 300;
+    color: var(--text-secondary);
+    margin-top: 1.6em;
+    text-align: center;
+    max-width: 62%;
+    line-height: 1.6;
+  }
+  .accent-text { color: var(--accent); }
+
+  /* ---- Big-number scene (gradient fill on large figure) ---- */
+  .big-number {
+    font-family: var(--font-display);
+    font-size: clamp(100px, 18vw, 260px);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.04em;
+    padding: 0.06em 0.02em;
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .big-number-label {
+    font-family: var(--font-mono);
+    font-size: clamp(10px, 1vw, 13px);
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--text-muted);
+    margin-bottom: 0.4em;
+  }
+
+  /* Label + caption share one column so “On a £5M deal…” and advisor-fee line feel balanced */
+  .scene:has(> .big-number-label) > .big-number-label,
+  .scene:has(> .big-number-label) > .sub {
+    max-width: min(24rem, 88%);
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    text-wrap: balance;
+  }
+  .scene:has(> .big-number-label) > .big-number-label {
+    margin-bottom: 0.15em;
+    letter-spacing: 0.18em;
+    line-height: 1.45;
+  }
+  .scene:has(> .big-number-label) > .sub {
+    margin-top: 0.65em;
+    font-size: clamp(13px, 1.45vw, 18px);
+    line-height: 1.55;
+  }
+
+  /* Supporting line under a section title (same width across explainers) */
+  .sub.sub--lede {
+    margin-top: 0.65em;
+    max-width: min(28rem, 68%);
+    margin-left: auto;
+    margin-right: auto;
+    text-wrap: balance;
+  }
+
+  /* ---- Wordmark reveal ---- */
+  .wordmark-big {
+    display: flex;
+    align-items: center;
+    gap: clamp(14px, 1.8vw, 24px);
+  }
+  .wordmark-mark-big {
+    width: clamp(70px, 9vw, 120px);
+    height: clamp(70px, 9vw, 120px);
+    border-radius: clamp(14px, 1.8vw, 22px);
+    background: var(--gradient-hero);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: clamp(40px, 5.5vw, 72px);
+    font-weight: 600;
+    color: var(--bg-void);
+    letter-spacing: -0.02em;
+    box-shadow: 0 0 60px var(--accent-glow), 0 0 120px rgba(124, 92, 252, 0.2);
+  }
+  .wordmark-text-big {
+    font-family: var(--font-body);
+    font-size: clamp(56px, 8vw, 120px);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  /* ---- IM-lite teaser card (replaces Freda's receipt) ---- */
+  .teaser {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: clamp(20px, 2.4vw, 32px);
+    width: clamp(300px, 34vw, 440px);
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
+    transform: rotate(-1deg);
+    position: relative;
+  }
+  .teaser::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    height: 3px;
+    width: 100%;
+    background: var(--gradient-hero);
+    border-radius: 12px 12px 0 0;
+  }
+  .teaser-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .teaser-title {
+    font-family: var(--font-display);
+    font-size: clamp(20px, 2.2vw, 28px);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+  }
+  .teaser-subtitle {
+    font-family: var(--font-body);
+    font-size: clamp(11px, 1.1vw, 13px);
+    color: var(--text-muted);
+    margin-bottom: 18px;
+  }
+  .teaser-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 14px -1px;
+  }
+  .teaser-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 5px 0;
+    font-family: var(--font-body);
+    font-size: clamp(12px, 1.2vw, 14px);
+  }
+  .teaser-row .label { color: var(--text-muted); font-weight: 300; }
+  .teaser-row .value { color: var(--text-primary); font-weight: 500; font-variant-numeric: tabular-nums; }
+  .teaser-valuation {
+    margin-top: 14px;
+    padding: 14px 16px;
+    background: var(--accent-soft);
+    border-left: 2px solid var(--accent);
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .teaser-valuation .label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+  }
+  .teaser-valuation .value {
+    font-family: var(--font-display);
+    font-size: clamp(16px, 1.8vw, 22px);
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  /* ---- Pain-point grid ---- */
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(14px, 1.6vw, 24px);
+    width: 82%;
+    margin-top: 2em;
+  }
+  .pain-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 14px;
+    padding: clamp(18px, 2.2vw, 28px) clamp(12px, 1.4vw, 18px);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    position: relative;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  .scene.active .pain-item { opacity: 1; transform: translateY(0); }
+  .scene.active .pain-item:nth-child(1) { transition-delay: 0.15s; }
+  .scene.active .pain-item:nth-child(2) { transition-delay: 0.35s; }
+  .scene.active .pain-item:nth-child(3) { transition-delay: 0.55s; }
+  .scene.active .pain-item:nth-child(4) { transition-delay: 0.75s; }
+  .pain-icon {
+    width: clamp(36px, 4vw, 52px);
+    height: clamp(36px, 4vw, 52px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+  }
+  .pain-icon svg { width: 100%; height: 100%; }
+  .pain-label {
+    font-family: var(--font-body);
+    font-size: clamp(12px, 1.25vw, 15px);
+    font-weight: 400;
+    color: var(--text-secondary);
+    text-align: center;
+    line-height: 1.35;
+  }
+  .pain-item::after {
+    content: "";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--pink);
+    opacity: 0;
+    transform: scale(0.6);
+    transition: opacity 0.4s ease 1s, transform 0.4s ease 1s;
+    background-image: linear-gradient(135deg, #FF6B9D 0%, #FF4785 100%);
+    box-shadow: 0 0 12px rgba(255, 107, 157, 0.4);
+  }
+  .pain-item::before {
+    content: "×";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bg-void);
+    font-size: 14px;
+    font-weight: 700;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.4s ease 1s;
+  }
+  .scene.active .pain-item::after { opacity: 1; transform: scale(1); }
+  .scene.active .pain-item::before { opacity: 1; }
+
+  /* ---- Flow diagram ---- */
+  .flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(4px, 0.8vw, 14px);
+    margin-top: 2.2em;
+    flex-wrap: nowrap;
+    width: 92%;
+  }
+  .flow-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    flex: 0 0 auto;
+  }
+  .flow-dot {
+    width: clamp(56px, 7vw, 92px);
+    height: clamp(56px, 7vw, 92px);
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    transition: all 0.5s ease;
+  }
+  .flow-dot svg { width: 40%; height: 40%; }
+  .flow-dot.hero {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    box-shadow: 0 0 30px var(--accent-glow);
+  }
+  .flow-dot.hero::after {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 229, 191, 0.25);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  .flow-step.hero {
+    position: relative;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.08); }
+  }
+  .flow-label {
+    font-family: var(--font-mono);
+    font-size: clamp(9px, 0.95vw, 11px);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+  .flow-arrow {
+    color: var(--text-dim);
+    font-size: clamp(14px, 1.6vw, 20px);
+    margin-top: -18px;
+  }
+
+  /* ---- Timeline comparison ---- */
+  .timeline {
+    width: 80%;
+    margin-top: 2.4em;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .timeline-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .timeline-label {
+    font-family: var(--font-mono);
+    font-size: clamp(10px, 1.05vw, 13px);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    width: 140px;
+    flex-shrink: 0;
+    text-align: right;
+  }
+  .timeline-bar {
+    flex: 1;
+    height: 40px;
+    background: var(--bg-card);
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .timeline-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+  }
+  .timeline-old .timeline-fill {
+    background: repeating-linear-gradient(-45deg, var(--bg-card-hover) 0 10px, var(--bg-surface) 10px 20px);
+  }
+  .timeline-new .timeline-fill {
+    background: var(--gradient-hero);
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+  .scene.active .timeline-old .timeline-fill { width: 100%; }
+  .scene.active .timeline-new .timeline-fill { width: 38%; }
+  .timeline-value {
+    font-family: var(--font-display);
+    font-size: clamp(16px, 1.8vw, 22px);
+    width: 120px;
+    flex-shrink: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease 1.6s;
+  }
+  .timeline-old .timeline-value { color: var(--text-muted); text-decoration: line-through; text-decoration-color: var(--pink); }
+  .timeline-new .timeline-value { color: var(--accent); font-weight: 600; }
+  .scene.active .timeline-value { opacity: 1; }
+
+  /* ---- Fee comparison ---- */
+  .fee-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(20px, 3vw, 48px);
+    width: 78%;
+    margin-top: 2em;
+  }
+  .fee-card {
+    padding: clamp(20px, 2.5vw, 32px);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    text-align: left;
+    transition: all 0.5s ease;
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  .scene.active .fee-card { opacity: 1; transform: translateY(0); }
+  .scene.active .fee-card:nth-child(1) { transition-delay: 0.2s; }
+  .scene.active .fee-card:nth-child(2) { transition-delay: 0.5s; }
+  .fee-card.highlight {
+    border-color: var(--accent);
+    background: linear-gradient(135deg, var(--bg-card) 0%, rgba(0, 229, 191, 0.04) 100%);
+    box-shadow: 0 0 40px var(--accent-glow);
+  }
+  .fee-card-label {
+    font-family: var(--font-mono);
+    font-size: clamp(10px, 1vw, 12px);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .fee-card.highlight .fee-card-label { color: var(--accent); }
+  .fee-card-value {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 4.4vw, 58px);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    padding: 0.05em 0;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+  }
+  .fee-card.highlight .fee-card-value {
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .fee-card-note {
+    font-family: var(--font-body);
+    font-size: clamp(11px, 1.1vw, 13px);
+    color: var(--text-secondary);
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  /* ---- Closing tagline ---- */
+  .close-tagline {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(18px, 2.2vw, 28px);
+    color: var(--text-secondary);
+    font-weight: 400;
+    margin-top: 1em;
+    letter-spacing: -0.01em;
+  }
+
+  .close-micro {
+    font-family: var(--font-mono);
+    font-size: clamp(9px, 0.9vw, 11px);
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--text-muted);
+    margin-top: 1.8em;
+  }
+  .close-micro .dot-accent {
+    color: var(--accent);
+    margin: 0 10px;
+    letter-spacing: 0;
+  }
+
+  /* ---- Entrance animations (generic) ---- */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .scene.active .fade-up { opacity: 1; transform: translateY(0); }
+  .scene.active .delay-1 { transition-delay: 0.2s; }
+  .scene.active .delay-2 { transition-delay: 0.5s; }
+  .scene.active .delay-3 { transition-delay: 0.9s; }
+  .scene.active .delay-4 { transition-delay: 1.3s; }
+
+  /* ---- Start overlay ---- */
+  .start-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 200;
+    background: rgba(6, 6, 16, 0.96);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    cursor: pointer;
+    transition: opacity 0.6s ease;
+  }
+  .start-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .start-icon {
+    width: clamp(72px, 9vw, 110px);
+    height: clamp(72px, 9vw, 110px);
+    border-radius: 50%;
+    background: var(--accent-soft);
+    border: 1px solid var(--border-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .start-overlay:hover .start-icon {
+    transform: scale(1.08);
+    box-shadow: 0 0 50px var(--accent-glow);
+  }
+  .start-icon::before {
+    content: "";
+    width: 0; height: 0;
+    border-style: solid;
+    border-width: clamp(14px, 1.8vw, 20px) 0 clamp(14px, 1.8vw, 20px) clamp(20px, 2.6vw, 30px);
+    border-color: transparent transparent transparent var(--accent);
+    margin-left: clamp(5px, 0.7vw, 8px);
+  }
+  .start-text {
+    font-family: var(--font-mono);
+    font-size: clamp(11px, 1.2vw, 14px);
+    color: var(--text-secondary);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+  }
+  .start-subtext {
+    font-family: var(--font-mono);
+    font-size: clamp(9px, 1vw, 11px);
+    color: var(--text-muted);
+    margin-top: 4px;
+    letter-spacing: 0.18em;
+  }
+
+  /* ---- Controls & progress ---- */
+  .controls-row {
+    width: min(92vw, calc(86vh * 16 / 9));
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .progress-track {
+    width: 100%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.04);
+    overflow: hidden;
+    border-radius: 1px;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--gradient-hero);
+    width: 0%;
+    transition: width 0.2s linear;
+  }
+  .controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .controls.controls--prestart .btn {
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .controls.controls--finished #muteBtn,
+  .controls.controls--finished #playBtn {
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .controls.controls--no-audio #muteBtn {
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .btn {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    padding: 9px 18px;
+    border-radius: 6px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: border-color 0.25s ease, color 0.25s ease;
+  }
+  .btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* ---- Phone / narrow: portrait stage + room for stacked type (standalone + iframe) ---- */
+  @media (max-width: 640px) {
+    body, html.is-embed body {
+      padding: 10px 8px;
+      gap: 8px;
+      justify-content: flex-start;
+      align-items: stretch;
+      min-height: 100svh;
+      min-height: 100dvh;
+    }
+    html.is-embed body {
+      min-height: 100%;
+    }
+    .stage {
+      flex: 1 1 auto;
+      min-height: 0;
+      width: min(100%, 96vw);
+      aspect-ratio: 9 / 16;
+      max-height: none;
+    }
+    html.is-embed .stage {
+      width: 100%;
+      max-width: 100%;
+    }
+    .controls-row {
+      flex-shrink: 0;
+      width: 100% !important;
+      max-width: 100%;
+    }
+    .watermark { top: 10px; left: 10px; transform: scale(0.9); transform-origin: left top; }
+    .scene-badge { top: 10px; right: 10px; }
+    .scene { padding: 8% 5% 9%; }
+    .headline { font-size: clamp(22px, 7.2vw, 42px); line-height: 1.1; }
+    .headline-med { font-size: clamp(18px, 5.2vw, 34px); line-height: 1.12; }
+    .big-number { font-size: clamp(48px, 19vw, 100px); line-height: 1.08; }
+    .sub { max-width: 94%; margin-top: 0.75em; font-size: clamp(11px, 3.4vw, 15px); }
+    .scene:has(> .big-number-label) > .sub {
+      margin-top: 0.55em;
+      font-size: clamp(12px, 3.2vw, 16px);
+    }
+    .sub.sub--lede { max-width: min(26rem, 92%); }
+    .eyebrow {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 0.85em;
+      max-width: min(22rem, 92%);
+      text-align: center;
+      text-wrap: balance;
+      letter-spacing: 0.12em;
+      line-height: 1.45;
+    }
+    .eyebrow::before {
+      display: block;
+      width: 28px;
+      margin: 0 auto 10px;
+    }
+    .pain-grid {
+      grid-template-columns: 1fr 1fr;
+      width: 94%;
+      gap: 10px;
+      margin-top: 1.2em;
+    }
+    .pain-item { padding: 12px 8px; gap: 8px; }
+    /* Flow: top-align columns so dots share a baseline; arrow box = dot height so → centers on circles */
+    .flow {
+      flex-wrap: wrap;
+      width: 100%;
+      margin-top: 0.85em;
+      row-gap: 10px;
+      column-gap: 2px;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .flow-step { gap: 6px; }
+    .flow-dot {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      min-height: 44px;
+    }
+    .flow-label {
+      font-size: 7px;
+      letter-spacing: 0.1em;
+      line-height: 1.2;
+      max-width: 76px;
+    }
+    .flow-arrow {
+      margin-top: 0;
+      align-self: flex-start;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      line-height: 1;
+      flex-shrink: 0;
+      padding: 0 1px;
+    }
+    .timeline { width: 94%; margin-top: 1.2em; gap: 12px; }
+    .timeline-row { flex-wrap: wrap; gap: 8px; justify-content: center; }
+    .timeline-label { width: auto; text-align: center; flex: 1 1 100%; }
+    .timeline-bar { flex: 1 1 100%; min-height: 32px; }
+    .timeline-value { width: auto; flex: 1 1 auto; text-align: center; }
+    .fee-split {
+      grid-template-columns: 1fr;
+      width: 100%;
+      max-width: 100%;
+      gap: 8px;
+      margin-top: 0.55em;
+    }
+    .fee-card { padding: 10px 11px; }
+    .fee-card-label {
+      font-size: 8px;
+      letter-spacing: 0.1em;
+      margin-bottom: 5px;
+    }
+    .fee-card-value {
+      font-size: clamp(20px, 6.5vw, 32px);
+      margin-bottom: 5px;
+      line-height: 1.08;
+    }
+    .fee-card-note {
+      font-size: 10px;
+      line-height: 1.32;
+    }
+    /* Fair fees scene: less vertical centering, room for stacked cards */
+    .scene:has(.fee-split) {
+      justify-content: center;
+      padding-top: 0;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .scene:has(.fee-split) .headline-med {
+      font-size: clamp(15px, 4.2vw, 24px);
+      margin-bottom: 0.15em !important;
+    }
+    .scene:has(.fee-split) .sub {
+      margin-top: 0.2em !important;
+      max-width: 100% !important;
+      font-size: clamp(10px, 2.9vw, 12px);
+    }
+    .btn { padding: 7px 12px; font-size: 11px; }
+    .controls { flex-wrap: wrap; gap: 8px; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+
+  <!-- Persistent watermark -->
+  <div class="watermark">
+    <div class="watermark-mark">D</div>
+    <div class="watermark-text">DealOn</div>
+  </div>
+
+  <!-- Scene counter -->
+  <div class="scene-badge" id="sceneBadge">SELLERS · <span>01</span>/09</div>
+
+  <!-- Start overlay -->
+  <div class="start-overlay" id="startOverlay">
+    <div class="start-icon"></div>
+    <div class="start-text">Click to play</div>
+    <div class="start-subtext">with sound</div>
+  </div>
+
+  <!-- ========== SCENE 1: The seller ========== -->
+  <div class="scene" data-duration="4000">
+    <div class="eyebrow fade-up">For business owners</div>
+    <div class="headline fade-up delay-1">You've built a <em>business</em>.</div>
+    <div class="sub fade-up delay-2">Years of work. Real customers. Real value.</div>
+  </div>
+
+  <!-- ========== SCENE 2: Time to exit + 57,400 stat ========== -->
+  <div class="scene" data-duration="5000">
+    <div class="headline-med fade-up" style="margin-bottom: 1.2em;">
+      Now it's time to <em>move on</em>.
+    </div>
+    <div class="fade-up delay-2" style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+      <div style="font-family: var(--font-mono); font-size: clamp(10px, 1vw, 12px); text-transform: uppercase; letter-spacing: 0.22em; color: var(--text-muted);">UK owners facing exit</div>
+      <div style="font-family: var(--font-display); font-size: clamp(48px, 8vw, 110px); font-weight: 400; letter-spacing: -0.03em; line-height: 1.15; padding: 0.08em 0.02em; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">57,400</div>
+      <div style="font-family: var(--font-body); font-size: clamp(12px, 1.2vw, 15px); color: var(--text-muted); font-weight: 300;">every year · 41% of owners now over 50</div>
+    </div>
+  </div>
+
+  <!-- ========== SCENE 3: Selling is painful — pain grid ========== -->
+  <div class="scene" data-duration="6000">
+    <div class="headline-med fade-up">
+      But selling is <em>painful</em>.
+    </div>
+    <div class="pain-grid">
+      <div class="pain-item">
+        <div class="pain-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <path d="M3 10h18M8 2v4M16 2v4"/>
+          </svg>
+        </div>
+        <div class="pain-label">9–12 months<br>to complete</div>
+      </div>
+      <div class="pain-item">
+        <div class="pain-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"/>
+          </svg>
+        </div>
+        <div class="pain-label">5–10%<br>advisor fees</div>
+      </div>
+      <div class="pain-item">
+        <div class="pain-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/>
+            <path d="M14 2v6h6M8 13h8M8 17h6"/>
+          </svg>
+        </div>
+        <div class="pain-label">Excel, email,<br>PDFs</div>
+      </div>
+      <div class="pain-item">
+        <div class="pain-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-10-8-10-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 10 8 10 8a18.5 18.5 0 01-2.16 3.19M1 1l22 22"/>
+            <path d="M14.12 14.12a3 3 0 11-4.24-4.24"/>
+          </svg>
+        </div>
+        <div class="pain-label">Zero visibility<br>for the seller</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SCENE 4: The £500K cost shock ========== -->
+  <div class="scene" data-duration="4800">
+    <div class="big-number-label fade-up">On a £5M deal, that's…</div>
+    <div class="big-number fade-up delay-1">£500K</div>
+    <div class="sub fade-up delay-3">in advisor fees alone. Most SME owners can't justify it.</div>
+  </div>
+
+  <!-- ========== SCENE 5: DealOn wordmark reveal ========== -->
+  <div class="scene" data-duration="3600">
+    <div class="wordmark-big fade-up">
+      <div class="wordmark-mark-big">D</div>
+      <div class="wordmark-text-big">DealOn</div>
+    </div>
+    <div class="close-tagline fade-up delay-2">M&amp;A, rebuilt for SMEs.</div>
+    <div class="close-micro fade-up delay-3"><span class="dot-accent">·</span>Powered by proprietary AI<span class="dot-accent">·</span></div>
+  </div>
+
+  <!-- ========== SCENE 6: How it works — flow ========== -->
+  <div class="scene" data-duration="6500">
+    <div class="headline-med fade-up">
+      Upload. Match. <em>Close.</em>
+    </div>
+    <div class="sub sub--lede fade-up delay-1">One platform. One login. Every stage of the sale.</div>
+
+    <div class="flow fade-up delay-2">
+      <div class="flow-step">
+        <div class="flow-dot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M17 8l-5-5-5 5M12 3v12"/></svg>
+        </div>
+        <div class="flow-label">Upload</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-dot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/></svg>
+        </div>
+        <div class="flow-label">AI valuation</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step hero">
+        <div class="flow-dot hero">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75M1 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
+        </div>
+        <div class="flow-label">Buyer match</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-dot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2h8"/><path d="M8 8h8M8 12h6M16 20l2 2 4-4"/></svg>
+        </div>
+        <div class="flow-label">Due diligence</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-dot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        </div>
+        <div class="flow-label">SPA signed</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SCENE 7: Speed — timeline comparison ========== -->
+  <div class="scene" data-duration="5500">
+    <div class="eyebrow fade-up">The result</div>
+    <div class="headline-med fade-up delay-1">
+      Close in <em>14 weeks</em>. Not nine months.
+    </div>
+    <div class="timeline fade-up delay-2">
+      <div class="timeline-row timeline-old">
+        <div class="timeline-label">Traditional</div>
+        <div class="timeline-bar"><div class="timeline-fill"></div></div>
+        <div class="timeline-value">9 months</div>
+      </div>
+      <div class="timeline-row timeline-new">
+        <div class="timeline-label">DealOn</div>
+        <div class="timeline-bar"><div class="timeline-fill"></div></div>
+        <div class="timeline-value">14 weeks</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SCENE 8: Fee model ========== -->
+  <div class="scene" data-duration="5500">
+    <div class="headline-med fade-up" style="margin-bottom: 0.4em;">
+      Fair fees. <em>No surprises.</em>
+    </div>
+    <div class="sub sub--lede fade-up delay-1">
+      Just £1,000 up front. 5% on completion. That's it.
+    </div>
+    <div class="fee-split">
+      <div class="fee-card">
+        <div class="fee-card-label">Traditional boutique</div>
+        <div class="fee-card-value">£25K+</div>
+        <div class="fee-card-note">retainer &amp; £2–5K / month — regardless of outcome. Plus 5% on exit, often on total assets.</div>
+      </div>
+      <div class="fee-card highlight">
+        <div class="fee-card-label">DealOn</div>
+        <div class="fee-card-value">£1,000</div>
+        <div class="fee-card-note">retainer. Then 5% success fee on the transfer price. No monthly. No interim. No hidden extras.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SCENE 9: Close ========== -->
+  <div class="scene" data-duration="4500">
+    <div class="wordmark-big fade-up">
+      <div class="wordmark-mark-big">D</div>
+      <div class="wordmark-text-big">DealOn</div>
+    </div>
+    <div class="close-tagline fade-up delay-2">Sell your business. On your terms.</div>
+  </div>
+
+</div>
+
+<!-- Audio: music.mp3 at repo root -->
+<audio id="music" src="../music.mp3" preload="auto"></audio>
+
+<div class="controls-row">
+  <div class="progress-track">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+  <div class="controls controls--prestart" id="controlsBar">
+    <button class="btn" id="muteBtn">Mute sound</button>
+    <button class="btn" id="playBtn">Pause</button>
+    <button class="btn" id="replayBtn">Replay</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  const scenes = Array.from(document.querySelectorAll('.scene'));
+  const progressBar = document.getElementById('progressBar');
+  const sceneBadge = document.getElementById('sceneBadge').querySelector('span');
+  const playBtn = document.getElementById('playBtn');
+  const replayBtn = document.getElementById('replayBtn');
+  const muteBtn = document.getElementById('muteBtn');
+  const controlsEl = document.getElementById('controlsBar');
+  const startOverlay = document.getElementById('startOverlay');
+  const music = document.getElementById('music');
+
+  function showControlsActive() {
+    controlsEl.classList.remove('controls--prestart', 'controls--finished');
+  }
+  function showControlsFinished() {
+    controlsEl.classList.remove('controls--prestart');
+    controlsEl.classList.add('controls--finished');
+  }
+
+  let currentIndex = 0;
+  let timerId = null;
+  let sceneStart = 0;
+  let elapsedInScene = 0;
+  let isPlaying = false;
+  let hasStarted = false;
+  let audioAvailable = true;
+
+  music.addEventListener('error', () => {
+    audioAvailable = false;
+    controlsEl.classList.add('controls--no-audio');
+  });
+
+  const totalDuration = scenes.reduce((s, el) => s + parseInt(el.dataset.duration, 10), 0);
+
+  function showScene(i) {
+    scenes.forEach((s, idx) => s.classList.toggle('active', idx === i));
+    const n = String(i + 1).padStart(2, '0');
+    sceneBadge.textContent = n;
+  }
+
+  function playAudioSafely() {
+    if (!audioAvailable) return;
+    const p = music.play();
+    if (p && typeof p.catch === 'function') p.catch(() => {});
+  }
+
+  function scheduleNext() {
+    if (!isPlaying) return;
+    const dur = parseInt(scenes[currentIndex].dataset.duration, 10);
+    sceneStart = performance.now() - elapsedInScene;
+
+    const tick = () => {
+      if (!isPlaying) return;
+      const now = performance.now();
+      const sceneElapsed = now - sceneStart;
+
+      let past = 0;
+      for (let i = 0; i < currentIndex; i++) past += parseInt(scenes[i].dataset.duration, 10);
+      const globalElapsed = past + sceneElapsed;
+      progressBar.style.width = Math.min(100, (globalElapsed / totalDuration) * 100) + '%';
+
+      if (sceneElapsed >= dur) {
+        elapsedInScene = 0;
+        if (currentIndex < scenes.length - 1) {
+          currentIndex++;
+          showScene(currentIndex);
+          scheduleNext();
+        } else {
+          isPlaying = false;
+          playBtn.textContent = 'Play';
+          progressBar.style.width = '100%';
+          if (audioAvailable) music.pause();
+          showControlsFinished();
+        }
+      } else {
+        timerId = requestAnimationFrame(tick);
+      }
+    };
+    timerId = requestAnimationFrame(tick);
+  }
+
+  function firstPlay() {
+    if (hasStarted) return;
+    hasStarted = true;
+    startOverlay.classList.add('hidden');
+    showControlsActive();
+    isPlaying = true;
+    playBtn.textContent = 'Pause';
+    if (audioAvailable) { music.currentTime = 0; playAudioSafely(); }
+    showScene(0);
+    scheduleNext();
+  }
+
+  function play() {
+    const atEnd = currentIndex >= scenes.length - 1 &&
+                  elapsedInScene >= parseInt(scenes[currentIndex].dataset.duration, 10);
+    if (atEnd) {
+      currentIndex = 0;
+      elapsedInScene = 0;
+      showScene(0);
+      progressBar.style.width = '0%';
+      if (audioAvailable) music.currentTime = 0;
+      showControlsActive();
+    }
+    isPlaying = true;
+    playBtn.textContent = 'Pause';
+    playAudioSafely();
+    scheduleNext();
+  }
+
+  function pause() {
+    isPlaying = false;
+    if (timerId) cancelAnimationFrame(timerId);
+    elapsedInScene = performance.now() - sceneStart;
+    playBtn.textContent = 'Play';
+    if (audioAvailable) music.pause();
+  }
+
+  function replay() {
+    if (timerId) cancelAnimationFrame(timerId);
+    showControlsActive();
+    currentIndex = 0;
+    elapsedInScene = 0;
+    isPlaying = true;
+    playBtn.textContent = 'Pause';
+    showScene(0);
+    progressBar.style.width = '0%';
+    if (audioAvailable) { music.currentTime = 0; playAudioSafely(); }
+    scheduleNext();
+  }
+
+  startOverlay.addEventListener('click', firstPlay);
+  playBtn.addEventListener('click', () => (isPlaying ? pause() : play()));
+  replayBtn.addEventListener('click', replay);
+  muteBtn.addEventListener('click', () => {
+    music.muted = !music.muted;
+    muteBtn.textContent = music.muted ? 'Unmute' : 'Mute sound';
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.code === 'Space' && hasStarted) {
+      e.preventDefault();
+      isPlaying ? pause() : play();
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
