@@ -2077,9 +2077,10 @@ button.btn {
 
 .seller-contact-modal {
   --seller-modal-pad-top: calc(72px + env(safe-area-inset-top, 0px) + 0.65rem);
-  --seller-modal-pad-bot: calc(1rem + env(safe-area-inset-bottom, 0px));
-  /* Column stack + overlay scroll fixes mobile: centered flex alone clips the bottom when
-     the dialog is taller than the visible viewport (Safari/chrome). */
+  /* Extra bottom slack so scrolled-to-end clears chrome / thumbs; adds scroll range under the card */
+  --seller-modal-pad-bot: calc(6rem + env(safe-area-inset-bottom, 0px));
+  /* Overlay scroll (all viewports): dialog grows with content — no clipping from nested scroll
+     or vh/dvh math; taller than the window pans on this layer. */
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
@@ -2106,21 +2107,20 @@ button.btn {
 }
 
 .seller-contact-modal__backdrop {
-  /*
-    Fixed so it stays glued to the viewport while the overlay scrolls (mobile tall forms).
-    Stacked under the dialog within #sellerContactModal’s stacking context.
-  */
+  /* Fixed viewport while #sellerContactModal scrolls taller content above it. Stacked under the dialog. */
   position: fixed;
   inset: 0;
   z-index: 0;
-  background: rgba(6, 6, 18, 0.72);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(6, 6, 18, 0.58);
+  backdrop-filter: blur(28px) saturate(1.35);
+  -webkit-backdrop-filter: blur(28px) saturate(1.35);
 }
 
 @media (prefers-color-scheme: light) {
   .seller-contact-modal__backdrop {
-    background: rgba(17, 23, 44, 0.35);
+    background: rgba(17, 23, 44, 0.3);
+    backdrop-filter: blur(28px) saturate(1.25);
+    -webkit-backdrop-filter: blur(28px) saturate(1.25);
   }
 
   .seller-contact-modal__dialog.contact-form-card {
@@ -2150,29 +2150,7 @@ button.btn {
   z-index: 1;
   width: min(520px, 100%);
   flex-shrink: 0;
-  /*
-    dvh tracks the visible viewport on mobile (dynamic URL bar).
-    Fallback for older browsers: the overlay itself scrolls (see .seller-contact-modal).
-  */
-  max-height: min(
-    calc(100vh - var(--seller-modal-pad-top) - var(--seller-modal-pad-bot)),
-    880px
-  );
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
   margin-block: auto;
-}
-
-@supports (height: 1dvh) {
-  .seller-contact-modal__dialog {
-    max-height: min(
-      calc(
-        100dvh - var(--seller-modal-pad-top) - var(--seller-modal-pad-bot)
-      ),
-      880px
-    );
-  }
 }
 
 .seller-contact-modal__dialog.contact-form-card {
@@ -2555,7 +2533,7 @@ button.btn {
 
 @media (max-width: 768px) {
   .seller-contact-modal {
-    --seller-modal-pad-bot: calc(1.65rem + env(safe-area-inset-bottom, 0px));
+    --seller-modal-pad-bot: calc(8rem + env(safe-area-inset-bottom, 0px));
   }
 
   .hero { padding: 7rem 0 3rem; padding-inline: var(--page-pad-inline); }
