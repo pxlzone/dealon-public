@@ -1994,6 +1994,35 @@ button.btn {
   margin-top: 0.45rem;
 }
 
+.seller-contact-modal .contact-submit:disabled {
+  background: rgba(115, 115, 150, 0.35);
+  color: rgba(238, 238, 248, 0.55);
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.85;
+  transform: none;
+}
+
+.seller-contact-modal .contact-submit:disabled:hover {
+  box-shadow: none;
+  transform: none;
+}
+
+.seller-contact-modal .contact-submit:disabled::before {
+  display: none;
+}
+
+.seller-contact-modal .contact-submit:disabled .btn-arrow {
+  transform: none;
+}
+
+@media (prefers-color-scheme: light) {
+  .seller-contact-modal .contact-submit:disabled {
+    background: rgba(17, 23, 44, 0.12);
+    color: rgba(17, 23, 44, 0.45);
+  }
+}
+
 .seller-contact-modal__close {
   position: absolute;
   top: clamp(0.55rem, 2vw, 1rem);
@@ -2051,15 +2080,79 @@ button.btn {
 
 .seller-contact-modal__success-flow {
   text-align: center;
-  padding: 0.35rem 0 0.25rem;
+  padding: 1.25rem 0 1.65rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
 }
 
 .seller-contact-modal__success {
   border-radius: var(--radius-md);
   border: 1px solid var(--border-accent);
   background: var(--accent-soft);
-  padding: clamp(1.1rem, 3vw, 1.35rem);
-  margin-bottom: 1.35rem;
+  padding: clamp(1.85rem, 5vw, 2.65rem) clamp(1.35rem, 4vw, 2rem);
+  margin-bottom: 1.75rem;
+}
+
+.seller-contact-modal__success-icon {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 1.5rem;
+}
+
+.seller-contact-modal__success-icon svg {
+  width: 4.5rem;
+  height: 4.5rem;
+  overflow: visible;
+}
+
+.seller-contact-modal__success-icon .success-ring {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.25;
+  stroke-linecap: round;
+  transform-origin: center;
+  stroke-dasharray: 175.93;
+  stroke-dashoffset: 175.93;
+}
+
+.seller-contact-modal__success-icon .success-tick {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+}
+
+.seller-contact-modal__success-icon--animating .success-ring {
+  animation: sellerContactSuccessRing 0.58s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.seller-contact-modal__success-icon--animating .success-tick {
+  animation: sellerContactSuccessTick 0.42s cubic-bezier(0.4, 0, 0.2, 1) 0.52s forwards;
+}
+
+@keyframes sellerContactSuccessRing {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes sellerContactSuccessTick {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .seller-contact-modal__success-icon .success-ring,
+  .seller-contact-modal__success-icon .success-tick {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
 }
 
 .seller-contact-modal__success-line {
@@ -2067,7 +2160,7 @@ button.btn {
   font-size: var(--fs-body);
   font-weight: 500;
   color: var(--text-primary);
-  margin: 0 0 0.4rem;
+  margin: 0 0 0.65rem;
   line-height: 1.45;
 }
 
@@ -2076,11 +2169,13 @@ button.btn {
   font-weight: 300;
   color: var(--text-secondary);
   margin: 0;
+  line-height: 1.55;
 }
 
 .seller-contact-modal__done-btn {
   width: 100%;
   justify-content: center;
+  margin-top: 0.25rem;
 }
 
 .seller-contact-modal__recaptcha-wrap {
@@ -2310,9 +2405,8 @@ button.btn {
     </p>
 
     <form id="contact-form" action="https://formsubmit.co/serj@pxl.zone" method="post">
-      <input type="hidden" name="_subject" id="contactFormSubject" value="DealOn website — seller enquiry">
+      <input type="hidden" name="_subject" id="contactFormSubject" value="DealOn — Website enquiry">
       <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="cta_intent" id="contactCtaIntent" value="">
       <input type="hidden" name="topic" id="contact-topic" value="General">
       <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-10000px;height:0;width:0;opacity:0;">
 
@@ -2367,6 +2461,12 @@ button.btn {
 
     <div id="sellerContactSuccessFlow" class="seller-contact-modal__success-flow" hidden>
       <div class="seller-contact-modal__success" role="status" aria-live="polite">
+        <div class="seller-contact-modal__success-icon" id="sellerContactSuccessIcon" aria-hidden="true">
+          <svg width="72" height="72" viewBox="0 0 72 72" role="presentation">
+            <circle class="success-ring" cx="36" cy="36" r="28" />
+            <path class="success-tick" d="M22 37.5 L32.5 48 L52 26" />
+          </svg>
+        </div>
         <p class="seller-contact-modal__success-line">Thanks — your message has been sent.</p>
         <p class="seller-contact-modal__success-sub">We’ll reply shortly.</p>
       </div>

@@ -5,10 +5,12 @@
   var formFlow = document.getElementById('sellerContactFormFlow');
   var successFlow = document.getElementById('sellerContactSuccessFlow');
   var formError = document.getElementById('sellerContactFormError');
+  var subjectField = document.getElementById('contactFormSubject');
   var topicField = document.getElementById('contact-topic');
-  var intentInput = document.getElementById('contactCtaIntent');
   var messageEl = document.getElementById('contact-message');
   var websiteEl = document.getElementById('contact-website');
+  var nameInput = document.getElementById('contact-name');
+  var emailInput = document.getElementById('contact-email');
   var titleEl = document.getElementById('sellerContactTitle');
   var descEl = document.getElementById('sellerContactDesc');
   var submitBtn = form ? form.querySelector('.contact-submit') : null;
@@ -34,6 +36,10 @@
       : '';
   RECAPTCHA_SITE_KEY = rawRecaptchaCfg || GOOGLE_RECAPTCHA_TEST_SITEKEY;
 
+  function onRecaptchaStateChange() {
+    syncSubmitEnabled();
+  }
+
   function tryRenderSellerRecaptcha() {
     if (!RECAPTCHA_SITE_KEY) return;
     var mount = document.getElementById('sellerContactRecaptcha');
@@ -46,7 +52,11 @@
       recaptchaSellerWidgetId = grecaptcha.render(mount, {
         sitekey: RECAPTCHA_SITE_KEY,
         theme: light ? 'light' : 'dark',
+        callback: onRecaptchaStateChange,
+        'expired-callback': onRecaptchaStateChange,
+        'error-callback': onRecaptchaStateChange,
       });
+      syncSubmitEnabled();
     } catch (_err) {
       recaptchaSellerWidgetId = null;
     }
@@ -59,6 +69,7 @@
       try {
         grecaptcha.reset(recaptchaSellerWidgetId);
       } catch (_e) {}
+      syncSubmitEnabled();
       return;
     }
     tryRenderSellerRecaptcha();
@@ -69,6 +80,41 @@
     if (!a) return '';
     if (/formsubmit\.co\/ajax\//i.test(a)) return a;
     return a.replace(/formsubmit\.co\//i, 'formsubmit.co/ajax/');
+  }
+
+  function isMandatoryComplete() {
+    var nameOk = nameInput && nameInput.value.trim() !== '';
+    var emailOk =
+      emailInput &&
+      emailInput.value.trim() !== '' &&
+      typeof emailInput.checkValidity === 'function' &&
+      emailInput.checkValidity();
+    var webOk = websiteEl && websiteEl.value.trim() !== '';
+    return !!(nameOk && emailOk && webOk);
+  }
+
+  function isRecaptchaComplete() {
+    if (!RECAPTCHA_SITE_KEY) return true;
+    if (recaptchaSellerWidgetId === null || typeof grecaptcha === 'undefined')
+      return false;
+    var token = '';
+    try {
+      token = grecaptcha.getResponse(recaptchaSellerWidgetId);
+    } catch (_e) {
+      return false;
+    }
+    return !!(token && String(token).trim() !== '');
+  }
+
+  function syncSubmitEnabled() {
+    if (!submitBtn) return;
+    if (!modal.classList.contains('seller-contact-modal--open')) return;
+    if (successFlow && !successFlow.hidden) return;
+    if (submitBtn.getAttribute('aria-busy') === 'true') {
+      submitBtn.disabled = true;
+      return;
+    }
+    submitBtn.disabled = !(isMandatoryComplete() && isRecaptchaComplete());
   }
 
   function hideFormError() {
@@ -85,17 +131,27 @@
 
   function resetModalView() {
     hideFormError();
+    var succIcon = document.getElementById('sellerContactSuccessIcon');
+    if (succIcon) succIcon.classList.remove('seller-contact-modal__success-icon--animating');
     if (formFlow) formFlow.hidden = false;
     if (successFlow) successFlow.hidden = true;
     if (submitBtn) {
-      submitBtn.disabled = false;
       submitBtn.removeAttribute('aria-busy');
     }
+    syncSubmitEnabled();
   }
 
   function showSuccessInModal() {
     if (formFlow) formFlow.hidden = true;
     if (successFlow) successFlow.hidden = false;
+    var icon = document.getElementById('sellerContactSuccessIcon');
+    if (icon) {
+      icon.classList.remove('seller-contact-modal__success-icon--animating');
+      void icon.getBoundingClientRect();
+      window.requestAnimationFrame(function () {
+        icon.classList.add('seller-contact-modal__success-icon--animating');
+      });
+    }
     var doneBtn = successFlow
       ? successFlow.querySelector('.seller-contact-modal__done-btn')
       : null;
@@ -106,10 +162,7 @@
         } catch (_e) {}
       });
     }
-    if (submitBtn) {
-      submitBtn.disabled = false;
-      submitBtn.removeAttribute('aria-busy');
-    }
+    if (submitBtn) submitBtn.removeAttribute('aria-busy');
   }
 
   function headlineForIntent(intent) {
@@ -137,6 +190,31 @@
     }
   }
 
+  function subjectForIntent(intent) {
+    switch (intent) {
+      case 'consultation':
+        return 'DealOn — Book free consultation';
+      case 'start-deal':
+        return 'DealOn — Start your deal';
+      case 'buyer-register':
+        return 'DealOn — Register as buyer';
+      case 'valuation':
+        return 'DealOn — Free valuation';
+      case 'advisor':
+        return 'DealOn — Talk to an advisor';
+      case 'talk':
+        return 'DealOn — Talk to us';
+      case 'footer':
+        return 'DealOn — Contact form';
+      case 'hash':
+      case 'direct-link':
+      case 'general':
+      default:
+        return 'DealOn — Website enquiry';
+    }
+  }
+
+  /* Human-readable enquiry goal in FormSubmit tables / CRM (synced from CTA). */
   function topicForIntent(intent) {
     switch (intent) {
       case 'start-deal':
@@ -217,8 +295,7 @@
     var v = intent && typeof intent === 'string' ? intent.trim() : '';
     if (!v) v = 'general';
 
-    if (intentInput) intentInput.value = v;
-
+    if (subjectField) subjectField.value = subjectForIntent(v);
     if (topicField) topicField.value = topicForIntent(v);
 
     var headline = headlineForIntent(v);
@@ -247,9 +324,11 @@
     if (triggerEl && triggerEl.dataset)
       intentAttr = triggerEl.dataset.contactIntent || '';
     setIntent(intentAttr || opts.intent || 'general');
+    syncSubmitEnabled();
 
     window.requestAnimationFrame(function () {
       syncRecaptchaOnModalOpen();
+      syncSubmitEnabled();
       var focusEl = document.getElementById('contact-name');
       if (focusEl) {
         try {
@@ -266,6 +345,7 @@
     unlockScroll();
     resetModalView();
     form.reset();
+    syncSubmitEnabled();
     try {
       if (history.replaceState && location.hash === '#seller-contact') {
         history.replaceState(null, '', location.pathname + location.search);
@@ -304,8 +384,12 @@
     openModal({ trigger: opener });
   });
 
+  form.addEventListener('input', syncSubmitEnabled);
+  form.addEventListener('change', syncSubmitEnabled);
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
+    if (submitBtn && submitBtn.disabled) return;
     hideFormError();
 
     var ajaxUrl = getFormSubmitAjaxUrl();
@@ -348,8 +432,8 @@
         showFormError(
           'Something went wrong. Try again shortly, or reach us via the links below.'
         );
-        submitBtn.disabled = false;
         submitBtn.removeAttribute('aria-busy');
+        syncSubmitEnabled();
       });
   });
 
@@ -375,5 +459,6 @@
 
   window.dealonSellerContactRecaptchaLoaded = function () {
     tryRenderSellerRecaptcha();
+    syncSubmitEnabled();
   };
 })();
