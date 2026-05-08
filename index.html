@@ -260,7 +260,8 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   justify-content: center;
   position: relative;
   overflow: hidden;
-  padding: 0 clamp(1.5rem, 4vw, 4rem);
+  padding: 0;
+  padding-inline: var(--page-pad-inline);
 }
 
 .hero-inner {
@@ -272,7 +273,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: clamp(1.5rem, 4vw, 4rem);
+  gap: var(--page-gutter-x);
 }
 
 /* Animated grid background */
@@ -747,7 +748,8 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
    SECTION UTILITIES
    ═══════════════════════════════════════════ */
 .section {
-  padding: clamp(5rem, 10vw, 9rem) clamp(1.5rem, 4vw, 4rem);
+  padding-block: clamp(5rem, 10vw, 9rem);
+  padding-inline: var(--page-pad-inline);
   position: relative;
 }
 
@@ -1833,7 +1835,8 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
    CTA (CONTACT)
    ═══════════════════════════════════════════ */
 .cta {
-  padding: clamp(6rem, 12vw, 10rem) clamp(1.5rem, 4vw, 4rem);
+  padding-block: clamp(6rem, 12vw, 10rem);
+  padding-inline: var(--page-pad-inline);
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -2081,7 +2084,7 @@ button.btn {
   position: fixed;
   inset: 0;
   z-index: 12050;
-  padding: clamp(1rem, 4vw, 2.75rem);
+  padding-inline: var(--page-pad-inline);
   padding-top: calc(72px + env(safe-area-inset-top, 0px) + 0.65rem);
   padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
   box-sizing: border-box;
@@ -2256,7 +2259,8 @@ button.btn {
   border-radius: var(--radius-md);
   border: 1px solid var(--border-accent);
   background: var(--accent-soft);
-  padding: clamp(1.85rem, 5vw, 2.65rem) clamp(1.35rem, 4vw, 2rem);
+  padding-block: clamp(1.85rem, 5vw, 2.65rem);
+  padding-inline: var(--page-gutter-x);
   margin-bottom: 1.75rem;
 }
 
@@ -2374,7 +2378,9 @@ button.btn {
    FOOTER
    ═══════════════════════════════════════════ */
 .footer {
-  padding: 4rem clamp(1.5rem, 4vw, 4rem) 2.5rem;
+  padding-top: 4rem;
+  padding-bottom: 2.5rem;
+  padding-inline: var(--page-pad-inline);
   border-top: 1px solid var(--border);
   position: relative;
   overflow: hidden;
@@ -2513,7 +2519,7 @@ button.btn {
 }
 
 @media (max-width: 768px) {
-  .hero { padding: 7rem 1.5rem 3rem; }
+  .hero { padding: 7rem 0 3rem; padding-inline: var(--page-pad-inline); }
   .hero-h1 br.mobile-only { display: block; }
   .services-grid { grid-template-columns: 1fr; }
   .services-header { grid-template-columns: 1fr; gap: 1.5rem; }
@@ -2571,6 +2577,49 @@ button.btn {
     bottom: -148px;
     width: min(96vw, 540px);
     height: min(52vw, 280px);
+  }
+}
+
+@media (max-width: 640px) {
+  .contact-form-card {
+    padding: 1.1rem 0.9rem;
+  }
+
+  .fee-table {
+    font-size: var(--fs-xs);
+  }
+
+  .fee-table thead th,
+  .fee-table tbody td {
+    padding: 0.7rem 0.55rem;
+  }
+
+  .service-card {
+    padding: 1.35rem 1rem;
+  }
+
+  .reason-card {
+    padding: 1.35rem 1rem;
+  }
+
+  .stat-cell {
+    padding: 2rem 0.85rem;
+  }
+
+  .sector-cell {
+    padding: 1.25rem 0.85rem;
+  }
+
+  .team-card {
+    padding: 1.35rem 1rem;
+  }
+
+  .about-hl {
+    padding: 1rem 0.85rem;
+  }
+
+  .fee-callout {
+    padding: 1.25rem 0.9rem;
   }
 }
 </style>

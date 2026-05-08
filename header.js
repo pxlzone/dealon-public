@@ -56,15 +56,14 @@
   const closeAnimMs = 220;
   let scrollLockY = 0;
 
-  function setScrolledState() {
+  function syncNavBar() {
     if (!nav) return;
-    if (window.scrollY > 80) {
-      nav.style.background = 'var(--nav-bg-scrolled)';
-      nav.style.borderBottomColor = 'var(--nav-border-scrolled)';
-    } else if (!nav.classList.contains('menu-open')) {
-      nav.style.background = 'transparent';
-      nav.style.borderBottomColor = 'transparent';
-    }
+    var solid = window.scrollY > 80 || nav.classList.contains('menu-open');
+    nav.style.setProperty(
+      '--nav-tint',
+      solid ? 'var(--nav-bg-scrolled)' : 'transparent'
+    );
+    nav.style.borderBottomColor = solid ? 'var(--nav-border-scrolled)' : 'transparent';
   }
 
   function lockBodyScroll() {
@@ -103,14 +102,15 @@
       closeTimer = setTimeout(function () {
         navLinks.classList.remove('show', 'closing');
         unlockBodyScroll();
-        setScrolledState();
+        syncNavBar();
         closeTimer = null;
       }, closeAnimMs);
     } else {
       if (nav) nav.classList.remove('menu-open');
       unlockBodyScroll();
-      setScrolledState();
+      syncNavBar();
     }
+    syncNavBar();
     if (navToggle) navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
   }
 
@@ -130,6 +130,6 @@
   window.addEventListener('resize', function () {
     if (!mq.matches) setMenuOpen(false);
   });
-  window.addEventListener('scroll', setScrolledState, { passive: true });
-  setScrolledState();
+  window.addEventListener('scroll', syncNavBar, { passive: true });
+  syncNavBar();
 })();
