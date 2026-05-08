@@ -68,9 +68,10 @@
   --bg-card: #181834;
   --bg-card-hover: #1e1e42;
   --text-primary: #eeeef0;
-  --text-secondary: #9494ad;
-  --text-muted: #5e5e7a;
-  --text-dim: #3a3a55;
+  /* Stronger auxiliary / tertiary hierarchy vs void/deep backgrounds (light theme overrides below). */
+  --text-secondary: #aeb0cf;
+  --text-muted: #9395b8;
+  --text-dim: #7a7c9f;
   --accent: #00e5bf;
   --accent-soft: rgba(0,229,191,0.12);
   --accent-glow: rgba(0,229,191,0.25);
@@ -85,10 +86,10 @@
   --font-display: 'Playfair Display', Georgia, serif;
   --font-body: 'Outfit', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
-  --fs-micro: clamp(0.68rem, 0.66rem + 0.12vw, 0.76rem);
+  --fs-micro: clamp(0.69rem, 0.67rem + 0.14vw, 0.8125rem);
   --fs-xs: clamp(0.76rem, 0.74rem + 0.16vw, 0.86rem);
   --fs-sm: clamp(0.86rem, 0.84rem + 0.18vw, 0.96rem);
-  --fs-body: clamp(0.98rem, 0.96rem + 0.2vw, 1.08rem);
+  --fs-body: clamp(1rem, 0.97rem + 0.2vw, 1.08rem);
   --fs-lead: clamp(1.06rem, 1.02rem + 0.28vw, 1.2rem);
   --fs-title-sm: clamp(1.02rem, 0.98rem + 0.3vw, 1.18rem);
   --fs-title-md: clamp(1.12rem, 1.06rem + 0.38vw, 1.32rem);
@@ -106,16 +107,24 @@
   --service-tag-hover-border: rgba(255,255,255,0.08);
   --badge-surface: rgba(6,6,16,0.7);
   --network-rgb: 0, 229, 191;
-  --network-line-alpha-max: 0.15;
-  --network-node-alpha: 0.5;
-  --network-link-distance: 120;
-  --network-line-width: 0.5;
-  --network-node-count: 60;
+  /* Dark UI: keep the neural viz readable on #0a0a18 (was ~half light-mode strength). */
+  --network-line-alpha-max: 0.26;
+  --network-node-alpha: 0.72;
+  --network-link-distance: 136;
+  --network-line-width: 0.78;
+  --network-node-count: 72;
   --button-ghost-bg: rgba(10,10,24,0.72);
   --button-ghost-bg-hover: rgba(18,18,38,0.86);
   --fee-table-wrap-bg: color-mix(in srgb, var(--bg-surface) 72%, transparent);
   --fee-dealon-col-bg: rgba(0,229,191,0.06);
   --fee-callout-bg: linear-gradient(135deg, rgba(0,229,191,0.12), rgba(124,92,252,0.12));
+  /* Inset panels on --bg-deep sections — barely lifted from #0a0a18 so they read without a strong gray step */
+  --band-inset-surface: #0c0c1c;
+  --band-inset-surface-hover: #0f0f22;
+  --explainer-chrome-bg: #0b0b1a;
+  /* Atmospheric violet blobs (blur 18px — same family as footer) */
+  --violet-blur-gradient: radial-gradient(ellipse at center, rgba(124,92,252,0.17) 0%, rgba(124,92,252,0.06) 38%, transparent 72%);
+  --violet-blur-gradient-strong: radial-gradient(ellipse at center, rgba(124,92,252,0.22) 0%, rgba(124,92,252,0.08) 38%, transparent 72%);
 }
 
 @media (prefers-color-scheme: light) {
@@ -161,6 +170,11 @@
     --fee-table-wrap-bg: rgba(248, 251, 255, 0.95);
     --fee-dealon-col-bg: rgba(0,185,173,0.1);
     --fee-callout-bg: linear-gradient(135deg, rgba(0,185,173,0.14), rgba(124,92,252,0.12));
+    --band-inset-surface: var(--bg-void);
+    --band-inset-surface-hover: var(--bg-surface);
+    --explainer-chrome-bg: var(--bg-deep);
+    --violet-blur-gradient: radial-gradient(ellipse at center, rgba(124,92,252,0.13) 0%, rgba(124,92,252,0.045) 38%, transparent 72%);
+    --violet-blur-gradient-strong: radial-gradient(ellipse at center, rgba(124,92,252,0.16) 0%, rgba(124,92,252,0.055) 38%, transparent 72%);
   }
 
   body::after { opacity: 0.01; }
@@ -301,6 +315,19 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   25% { transform: translate(40px, -30px) scale(1.08); }
   50% { transform: translate(-20px, 40px) scale(0.95); }
   75% { transform: translate(30px, 20px) scale(1.04); }
+}
+
+/* Tight violet mist — same blur language as .footer::after */
+.hero-violet-mist {
+  position: absolute;
+  width: min(88vw, 820px);
+  height: min(42vw, 340px);
+  top: clamp(6%, 12vh, 20%);
+  right: clamp(-14%, -10vw, -2%);
+  background: var(--violet-blur-gradient);
+  filter: blur(18px);
+  pointer-events: none;
+  z-index: 1;
 }
 
 /* Scan line effect */
@@ -711,7 +738,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   font-size: var(--fs-xs);
   font-weight: 400;
   color: var(--text-dim);
-  opacity: 0.72;
+  opacity: 0.9;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   margin-bottom: 1rem;
@@ -755,6 +782,88 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   background: var(--border);
 }
 
+/* Section-level violet washes (stack like .footer — content above blob) */
+.section--violet-haze {
+  overflow: hidden;
+}
+
+.section--violet-haze::before {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  width: min(92vw, 1000px);
+  height: min(52vw, 400px);
+  background: var(--violet-blur-gradient);
+  filter: blur(18px);
+}
+
+.section--violet-haze > * {
+  position: relative;
+  z-index: 1;
+}
+
+.section--violet-haze--tr::before {
+  top: -180px;
+  right: max(-12%, -8vw);
+  left: auto;
+  bottom: auto;
+  transform: none;
+}
+
+.section--violet-haze--bl::before {
+  bottom: -220px;
+  left: max(-10%, -6vw);
+  top: auto;
+  right: auto;
+  transform: none;
+}
+
+.section--violet-haze--bc::before {
+  left: 50%;
+  bottom: -240px;
+  transform: translateX(-50%);
+  top: auto;
+  right: auto;
+}
+
+/* Top band, left-weighted — wide / low-contrast (DealOn Difference) */
+.section--violet-haze--tl-wide::before {
+  top: -195px;
+  left: max(-28%, -18vw);
+  right: auto;
+  bottom: auto;
+  transform: none;
+  width: min(140vw, 1680px);
+  height: min(36vw, 300px);
+  background: var(--violet-blur-gradient);
+  opacity: 0.48;
+}
+
+.stats-wrap--violet-haze {
+  position: relative;
+  overflow: hidden;
+}
+
+.stats-wrap--violet-haze::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -150px;
+  transform: translateX(-50%);
+  width: min(92vw, 1000px);
+  height: 280px;
+  background: var(--violet-blur-gradient);
+  filter: blur(18px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.stats-wrap--violet-haze .stats-row {
+  position: relative;
+  z-index: 1;
+}
+
 /* ═══════════ EXPLAINER VIEWER ═══════════ */
 .explainer-tabs{position:relative;display:inline-flex;width:fit-content;gap:.3rem;padding:.3rem;margin:2.5rem auto 2.1rem;background:rgba(255,255,255,0.025);border:1px solid var(--border);border-radius:999px}
 .explainer-tab{position:relative;z-index:1;display:inline-flex;align-items:center;justify-content:center;gap:.55rem;font-family:var(--font-body);font-size:var(--fs-xs);font-weight:500;letter-spacing:.02em;color:var(--text-muted);padding:.65rem 1.2rem;border-radius:999px;cursor:pointer;transition:color .25s ease;border:none;background:transparent;white-space:nowrap}
@@ -776,7 +885,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   aspect-ratio:16/11;
   min-height:520px;
   max-height:max(80vh, 520px);
-  background:var(--bg-deep);
+  background:var(--explainer-chrome-bg);
   border-radius:var(--radius-lg);
   overflow:hidden;
   box-shadow:
@@ -790,7 +899,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   height:100%;
   border:0;
   display:block;
-  background:var(--bg-deep);
+  background:var(--explainer-chrome-bg);
 }
 .explainer-desc{max-width:620px;margin-bottom:1rem}
 @media(max-width:700px){
@@ -840,7 +949,8 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5rem;
-  align-items: center;
+  /* Row height follows the text column; the visual stretches to match — never a fixed-taller card. */
+  align-items: stretch;
 }
 
 .about-text { order: 1; }
@@ -848,11 +958,21 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .about-visual {
   position: relative;
-  height: 500px;
+  min-height: 0;
+  height: auto;
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   background: var(--bg-deep);
   overflow: hidden;
+}
+
+/* Canvas out of flow so it cannot set a min-height above the copy column (neural resize still uses parent rect). */
+.about-visual canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 /* Animated neural network visualization */
@@ -980,14 +1100,14 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 
 .reason-card {
-  background: var(--bg-void);
+  background: var(--band-inset-surface);
   padding: 2.5rem;
   position: relative;
   transition: background 0.4s ease;
   cursor: default;
 }
 
-.reason-card:hover { background: var(--bg-surface); }
+.reason-card:hover { background: var(--band-inset-surface-hover); }
 
 .reason-card::before {
   content: '';
@@ -1328,13 +1448,13 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 
 .sector-cell {
-  background: var(--bg-void);
+  background: var(--band-inset-surface);
   padding: 2rem;
   transition: all 0.3s ease;
   cursor: default;
 }
 
-.sector-cell:hover { background: var(--bg-surface); }
+.sector-cell:hover { background: var(--band-inset-surface-hover); }
 
 .sector-icon-small {
   font-size: 1.35rem;
@@ -1367,6 +1487,27 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .ai-section {
   background: var(--bg-deep);
   overflow: hidden;
+}
+
+.ai-section::after {
+  content: '';
+  position: absolute;
+  bottom: -205px;
+  right: max(-10%, -6vw);
+  top: auto;
+  left: auto;
+  width: min(88vw, 760px);
+  height: min(44vw, 360px);
+  background: var(--violet-blur-gradient);
+  filter: blur(18px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+}
+
+.ai-section > .container {
+  position: relative;
+  z-index: 1;
 }
 
 .ai-layout {
@@ -1452,13 +1593,6 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 
 @media (min-width: 1101px) {
-  /* Make Why DealOn visual follow row height without forcing it taller */
-  .about-grid { align-items: stretch; }
-  .about-visual {
-    height: 100%;
-    min-height: 0;
-  }
-
   /* Scale AI visual cluster up for desktop emphasis */
   .ai-visual { height: 620px; }
   .ai-ring--1 { width: 520px; height: 520px; }
@@ -1690,6 +1824,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   height: 800px;
   background: radial-gradient(circle, var(--accent-soft) 0%, transparent 60%);
   pointer-events: none;
+  z-index: 0;
 }
 
 .cta-inner {
@@ -2224,7 +2359,7 @@ button.btn {
   transform: translateX(-50%);
   width: min(92vw, 1100px);
   height: 420px;
-  background: radial-gradient(ellipse at center, rgba(124,92,252,0.22) 0%, rgba(124,92,252,0.08) 38%, transparent 72%);
+  background: var(--violet-blur-gradient-strong);
   filter: blur(18px);
   pointer-events: none;
   z-index: 0;
@@ -2331,6 +2466,13 @@ button.btn {
   .team-grid { grid-template-columns: repeat(2, 1fr); }
   .ai-layout { grid-template-columns: 1fr; }
   .ai-visual { height: 300px; }
+  .ai-section::after {
+    right: 50%;
+    transform: translateX(50%);
+    bottom: -168px;
+    width: min(92vw, 600px);
+    height: min(48vw, 300px);
+  }
   .faq-layout { grid-template-columns: 1fr; gap: 3rem; }
   .fee-layout { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; }
@@ -2378,6 +2520,29 @@ button.btn {
   }
   .footer-grid { grid-template-columns: 1fr; }
   .about-highlights { grid-template-columns: 1fr; }
+
+  /* Violet accents: calmer on small viewports */
+  .section--violet-haze--bc::before {
+    bottom: -195px;
+    width: min(96vw, 920px);
+    height: min(52vw, 300px);
+  }
+  .section--violet-haze--tl-wide::before {
+    top: -130px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-52%);
+    width: min(118vw, 720px);
+    height: 220px;
+    opacity: 0.4;
+  }
+  .ai-section::after {
+    right: 50%;
+    transform: translateX(50%);
+    bottom: -148px;
+    width: min(96vw, 540px);
+    height: min(52vw, 280px);
+  }
 }
 </style>
 </head>
@@ -2484,6 +2649,7 @@ button.btn {
   <div class="hero-orb hero-orb--1"></div>
   <div class="hero-orb hero-orb--2"></div>
   <div class="hero-orb hero-orb--3"></div>
+  <div class="hero-violet-mist" aria-hidden="true"></div>
   <div class="hero-scanline"></div>
 
   <div class="hero-inner">
@@ -2590,7 +2756,7 @@ button.btn {
 </div>
 
 <!-- ═══════════ STATS ROW ═══════════ -->
-<div class="stats-wrap">
+<div class="stats-wrap stats-wrap--violet-haze">
   <div class="stats-row">
     <div class="stat-cell">
       <div class="stat-value">£2b+</div>
@@ -2609,7 +2775,7 @@ button.btn {
 
 
 <!-- ═══════════ HOW IT WORKS (EXPLAINERS) ═══════════ -->
-<section class="section section--dark" id="how-it-works">
+<section class="section section--dark section--violet-haze section--violet-haze--bc" id="how-it-works">
   <div class="container" style="text-align:center">
     <div class="section-eyebrow reveal" style="justify-content:center">See how it works</div>
     <h2 class="section-heading reveal">A 40-second tour of <em>DealOn</em></h2>
@@ -2629,7 +2795,7 @@ button.btn {
 <div class="divider"></div>
 
 <!-- ═══════════ ABOUT / WHY DEALON ═══════════ -->
-<section class="section" id="about">
+<section class="section section--violet-haze section--violet-haze--bl" id="about">
   <div class="container">
     <div class="about-grid reveal">
       <div class="about-visual">
@@ -2682,7 +2848,7 @@ button.btn {
 <div class="divider"></div>
 
 <!-- ═══════════ FOUR REASONS ═══════════ -->
-<section class="section section--dark">
+<section class="section section--dark section--violet-haze section--violet-haze--tl-wide">
   <div class="container">
     <div class="section-eyebrow reveal">The DealOn Difference</div>
     <h2 class="section-heading reveal">Four reasons business owners <em>choose us</em></h2>
@@ -2715,7 +2881,7 @@ button.btn {
 <div class="divider"></div>
 
 <!-- ═══════════ SERVICES ═══════════ -->
-<section class="section" id="services">
+<section class="section section--violet-haze section--violet-haze--tr" id="services">
   <div class="container">
     <div class="services-header reveal">
       <div>
@@ -2885,18 +3051,18 @@ button.btn {
             <tr>
               <td>Retainer Fee</td>
               <td class="fee-free">£1,000</td>
-              <td class="fee-charged">£10k–£25k</td>
-              <td class="fee-charged">£25k–£75k</td>
+              <td class="fee-charged">£25k+</td>
+              <td class="fee-charged">£75k+</td>
             </tr>
             <tr>
               <td>Monthly Fee</td>
-              <td class="fee-free">None — £0</td>
-              <td class="fee-charged">£2k–£5k/mo</td>
+              <td class="fee-free">None</td>
+              <td class="fee-charged">£5k/mo</td>
               <td class="fee-free">None</td>
             </tr>
             <tr>
               <td>Interim Fee</td>
-              <td class="fee-free">None — £0</td>
+              <td class="fee-free">None</td>
               <td class="fee-free">None</td>
               <td class="fee-charged">On milestone</td>
             </tr>
@@ -2904,7 +3070,7 @@ button.btn {
               <td>Success Fee Basis</td>
               <td class="fee-free">Transfer Price</td>
               <td>Transfer Price</td>
-              <td class="fee-charged">Total Assets*</td>
+              <td class="fee-charged">Total Assets</td>
             </tr>
             <tr>
               <td>Success Fee (≤£5m)</td>
@@ -2914,7 +3080,7 @@ button.btn {
             </tr>
             <tr>
               <td>Buy-Side Success Fee</td>
-              <td class="fee-free">From 3.5%*</td>
+              <td class="fee-free">From 3.5%</td>
               <td class="fee-charged">3–5%</td>
               <td class="fee-charged">3–5%</td>
             </tr>
@@ -2934,7 +3100,7 @@ button.btn {
 <div class="divider"></div>
 
 <!-- ═══════════ SECTORS ═══════════ -->
-<section class="section section--dark" id="sectors">
+<section class="section section--dark section--violet-haze section--violet-haze--tr" id="sectors">
   <div class="container">
     <div class="section-eyebrow reveal">Sectors</div>
     <h2 class="section-heading reveal">Deep expertise across <em>EMEA industries</em></h2>
