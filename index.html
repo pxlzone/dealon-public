@@ -2072,14 +2072,22 @@ button.btn {
 }
 
 .seller-contact-modal {
+  --seller-modal-pad-top: calc(72px + env(safe-area-inset-top, 0px) + 0.65rem);
+  --seller-modal-pad-bot: calc(1rem + env(safe-area-inset-bottom, 0px));
+  /* Column stack + overlay scroll fixes mobile: centered flex alone clips the bottom when
+     the dialog is taller than the visible viewport (Safari/chrome). */
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   position: fixed;
   inset: 0;
   z-index: 12050;
   padding-inline: var(--page-pad-inline);
-  padding-top: calc(72px + env(safe-area-inset-top, 0px) + 0.65rem);
-  padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  padding-top: var(--seller-modal-pad-top);
+  padding-bottom: var(--seller-modal-pad-bot);
   box-sizing: border-box;
   opacity: 0;
   visibility: hidden;
@@ -2094,8 +2102,13 @@ button.btn {
 }
 
 .seller-contact-modal__backdrop {
-  position: absolute;
+  /*
+    Fixed so it stays glued to the viewport while the overlay scrolls (mobile tall forms).
+    Stacked under the dialog within #sellerContactModal’s stacking context.
+  */
+  position: fixed;
   inset: 0;
+  z-index: 0;
   background: rgba(6, 6, 18, 0.72);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -2130,12 +2143,32 @@ button.btn {
 
 .seller-contact-modal__dialog {
   position: relative;
+  z-index: 1;
   width: min(520px, 100%);
-  max-height: min(88vh, 880px);
+  flex-shrink: 0;
+  /*
+    dvh tracks the visible viewport on mobile (dynamic URL bar).
+    Fallback for older browsers: the overlay itself scrolls (see .seller-contact-modal).
+  */
+  max-height: min(
+    calc(100vh - var(--seller-modal-pad-top) - var(--seller-modal-pad-bot)),
+    880px
+  );
   overflow-y: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
   margin-block: auto;
+}
+
+@supports (height: 1dvh) {
+  .seller-contact-modal__dialog {
+    max-height: min(
+      calc(
+        100dvh - var(--seller-modal-pad-top) - var(--seller-modal-pad-bot)
+      ),
+      880px
+    );
+  }
 }
 
 .seller-contact-modal__dialog.contact-form-card {
@@ -2512,6 +2545,10 @@ button.btn {
 }
 
 @media (max-width: 768px) {
+  .seller-contact-modal {
+    --seller-modal-pad-bot: calc(1.65rem + env(safe-area-inset-bottom, 0px));
+  }
+
   .hero { padding: 7rem 0 3rem; padding-inline: var(--page-pad-inline); }
   .hero-h1 br.mobile-only { display: block; }
   .services-grid { grid-template-columns: 1fr; }
