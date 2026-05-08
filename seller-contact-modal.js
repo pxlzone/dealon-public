@@ -2,12 +2,16 @@
   var modal = document.getElementById('sellerContactModal');
   var dialog = document.getElementById('sellerContactDialog');
   var form = document.getElementById('contact-form');
+  var formFlow = document.getElementById('sellerContactFormFlow');
+  var successFlow = document.getElementById('sellerContactSuccessFlow');
+  var formError = document.getElementById('sellerContactFormError');
   var topicField = document.getElementById('contact-topic');
   var intentInput = document.getElementById('contactCtaIntent');
   var messageEl = document.getElementById('contact-message');
   var websiteEl = document.getElementById('contact-website');
   var titleEl = document.getElementById('sellerContactTitle');
   var descEl = document.getElementById('sellerContactDesc');
+  var submitBtn = form ? form.querySelector('.contact-submit') : null;
   var lastFocus = null;
   var scrollY = 0;
 
@@ -19,6 +23,94 @@
   var DEFAULT_MODAL_TITLE = 'Get in touch';
   var DEFAULT_MODAL_LEDE =
     'Brief details below — we usually reply within one business day.';
+
+  /* Checkbox v2. Google’s documented test site key passes locally; production: window.DEALON_RECAPTCHA_SITE_KEY = '…'; in <head> before scripts. */
+  var GOOGLE_RECAPTCHA_TEST_SITEKEY = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
+  var recaptchaSellerWidgetId = null;
+  var RECAPTCHA_SITE_KEY = '';
+  var rawRecaptchaCfg =
+    typeof window.DEALON_RECAPTCHA_SITE_KEY === 'string'
+      ? window.DEALON_RECAPTCHA_SITE_KEY.trim()
+      : '';
+  RECAPTCHA_SITE_KEY = rawRecaptchaCfg || GOOGLE_RECAPTCHA_TEST_SITEKEY;
+
+  function tryRenderSellerRecaptcha() {
+    if (!RECAPTCHA_SITE_KEY) return;
+    var mount = document.getElementById('sellerContactRecaptcha');
+    if (!mount || recaptchaSellerWidgetId !== null) return;
+    if (typeof grecaptcha === 'undefined' || typeof grecaptcha.render !== 'function') return;
+    try {
+      var light =
+        typeof window.matchMedia === 'function' &&
+        window.matchMedia('(prefers-color-scheme: light)').matches;
+      recaptchaSellerWidgetId = grecaptcha.render(mount, {
+        sitekey: RECAPTCHA_SITE_KEY,
+        theme: light ? 'light' : 'dark',
+      });
+    } catch (_err) {
+      recaptchaSellerWidgetId = null;
+    }
+  }
+
+  function syncRecaptchaOnModalOpen() {
+    if (!RECAPTCHA_SITE_KEY) return;
+    if (typeof grecaptcha === 'undefined') return;
+    if (recaptchaSellerWidgetId !== null) {
+      try {
+        grecaptcha.reset(recaptchaSellerWidgetId);
+      } catch (_e) {}
+      return;
+    }
+    tryRenderSellerRecaptcha();
+  }
+
+  function getFormSubmitAjaxUrl() {
+    var a = (form.getAttribute('action') || '').trim();
+    if (!a) return '';
+    if (/formsubmit\.co\/ajax\//i.test(a)) return a;
+    return a.replace(/formsubmit\.co\//i, 'formsubmit.co/ajax/');
+  }
+
+  function hideFormError() {
+    if (!formError) return;
+    formError.hidden = true;
+    formError.textContent = '';
+  }
+
+  function showFormError(msg) {
+    if (!formError) return;
+    formError.textContent = msg;
+    formError.hidden = false;
+  }
+
+  function resetModalView() {
+    hideFormError();
+    if (formFlow) formFlow.hidden = false;
+    if (successFlow) successFlow.hidden = true;
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.removeAttribute('aria-busy');
+    }
+  }
+
+  function showSuccessInModal() {
+    if (formFlow) formFlow.hidden = true;
+    if (successFlow) successFlow.hidden = false;
+    var doneBtn = successFlow
+      ? successFlow.querySelector('.seller-contact-modal__done-btn')
+      : null;
+    if (doneBtn) {
+      window.requestAnimationFrame(function () {
+        try {
+          doneBtn.focus();
+        } catch (_e) {}
+      });
+    }
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.removeAttribute('aria-busy');
+    }
+  }
 
   function headlineForIntent(intent) {
     var lede = DEFAULT_MODAL_LEDE;
@@ -95,8 +187,7 @@
         };
       default:
         return {
-          message:
-            'Anything that helps us route your enquiry.',
+          message: 'Anything that helps us route your enquiry.',
         };
     }
   }
@@ -143,6 +234,9 @@
   function openModal(opts) {
     opts = opts || {};
     lastFocus = document.activeElement;
+    resetModalView();
+    form.reset();
+
     lockScroll();
     modal.hidden = false;
     modal.classList.add('seller-contact-modal--open');
@@ -150,18 +244,19 @@
 
     var intentAttr = '';
     var triggerEl = opts.trigger;
-    if (triggerEl && triggerEl.dataset) intentAttr = triggerEl.dataset.contactIntent || '';
+    if (triggerEl && triggerEl.dataset)
+      intentAttr = triggerEl.dataset.contactIntent || '';
     setIntent(intentAttr || opts.intent || 'general');
 
-    var focusEl =
-      document.getElementById('contact-name') || dialog.querySelector('input, textarea');
-    if (focusEl) {
-      window.requestAnimationFrame(function () {
+    window.requestAnimationFrame(function () {
+      syncRecaptchaOnModalOpen();
+      var focusEl = document.getElementById('contact-name');
+      if (focusEl) {
         try {
           focusEl.focus();
         } catch (_e) {}
-      });
-    }
+      }
+    });
   }
 
   function closeModal() {
@@ -169,6 +264,8 @@
     modal.setAttribute('aria-hidden', 'true');
     modal.hidden = true;
     unlockScroll();
+    resetModalView();
+    form.reset();
     try {
       if (history.replaceState && location.hash === '#seller-contact') {
         history.replaceState(null, '', location.pathname + location.search);
@@ -207,9 +304,58 @@
     openModal({ trigger: opener });
   });
 
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    hideFormError();
+
+    var ajaxUrl = getFormSubmitAjaxUrl();
+    if (!ajaxUrl) {
+      showFormError('Configuration error — please refresh and try again.');
+      return;
+    }
+
+    if (RECAPTCHA_SITE_KEY) {
+      if (recaptchaSellerWidgetId === null || typeof grecaptcha === 'undefined') {
+        showFormError(
+          'Verification is still loading — wait a moment and try again.'
+        );
+        return;
+      }
+      if (!grecaptcha.getResponse(recaptchaSellerWidgetId)) {
+        showFormError('Please complete the verification below.');
+        return;
+      }
+    }
+
+    if (!submitBtn) return;
+    submitBtn.disabled = true;
+    submitBtn.setAttribute('aria-busy', 'true');
+
+    var fd = new FormData(form);
+    fetch(ajaxUrl, {
+      method: 'POST',
+      body: fd,
+      headers: { Accept: 'application/json' },
+    })
+      .then(function (res) {
+        if (!res.ok) throw new Error('Request failed');
+        return res.text();
+      })
+      .then(function () {
+        showSuccessInModal();
+      })
+      .catch(function () {
+        showFormError(
+          'Something went wrong. Try again shortly, or reach us via the links below.'
+        );
+        submitBtn.disabled = false;
+        submitBtn.removeAttribute('aria-busy');
+      });
+  });
+
   window.addEventListener('hashchange', function () {
     if (location.hash !== '#seller-contact') return;
-    requestAnimationFrame(function () {
+    window.requestAnimationFrame(function () {
       if (!modal.hidden && modal.classList.contains('seller-contact-modal--open')) return;
       openModal({ intent: 'hash', updateHash: false });
     });
@@ -217,7 +363,7 @@
 
   function bootstrapFromHash() {
     if (location.hash !== '#seller-contact') return;
-    requestAnimationFrame(function () {
+    window.requestAnimationFrame(function () {
       openModal({ intent: 'direct-link', updateHash: false });
     });
   }
@@ -226,4 +372,8 @@
   } else {
     bootstrapFromHash();
   }
+
+  window.dealonSellerContactRecaptchaLoaded = function () {
+    tryRenderSellerRecaptcha();
+  };
 })();
