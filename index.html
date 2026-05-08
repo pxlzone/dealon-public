@@ -83,6 +83,13 @@
   --font-display: 'Playfair Display', Georgia, serif;
   --font-body: 'Outfit', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
+  --fs-micro: clamp(0.68rem, 0.66rem + 0.12vw, 0.76rem);
+  --fs-xs: clamp(0.76rem, 0.74rem + 0.16vw, 0.86rem);
+  --fs-sm: clamp(0.86rem, 0.84rem + 0.18vw, 0.96rem);
+  --fs-body: clamp(0.98rem, 0.96rem + 0.2vw, 1.08rem);
+  --fs-lead: clamp(1.06rem, 1.02rem + 0.28vw, 1.2rem);
+  --fs-title-sm: clamp(1.02rem, 0.98rem + 0.3vw, 1.18rem);
+  --fs-title-md: clamp(1.12rem, 1.06rem + 0.38vw, 1.32rem);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -99,6 +106,9 @@
   --network-rgb: 0, 229, 191;
   --network-line-alpha-max: 0.15;
   --network-node-alpha: 0.5;
+  --network-link-distance: 120;
+  --network-line-width: 0.5;
+  --network-node-count: 60;
   --button-ghost-bg: rgba(10,10,24,0.72);
   --button-ghost-bg-hover: rgba(18,18,38,0.86);
   --fee-table-wrap-bg: color-mix(in srgb, var(--bg-surface) 72%, transparent);
@@ -116,8 +126,8 @@
     --bg-card-hover: #fafcff;
     --text-primary: #11172c;
     --text-secondary: #3f4d78;
-    --text-muted: #5c6891;
-    --text-dim: #7f8aad;
+    --text-muted: #4b587f;
+    --text-dim: #6b769a;
     --accent: #00B9AD;
     --accent-soft: rgba(0,185,173,0.12);
     --accent-glow: rgba(0,185,173,0.16);
@@ -139,8 +149,11 @@
     --service-tag-hover-border: rgba(17,23,44,0.16);
     --badge-surface: rgba(246,248,252,0.82);
     --network-rgb: 0, 140, 116;
-    --network-line-alpha-max: 0.18;
-    --network-node-alpha: 0.42;
+    --network-line-alpha-max: 0.3;
+    --network-node-alpha: 0.74;
+    --network-link-distance: 148;
+    --network-line-width: 0.9;
+    --network-node-count: 86;
     --button-ghost-bg: rgba(246,248,252,0.9);
     --button-ghost-bg-hover: rgba(243,252,250,0.98);
     --fee-table-wrap-bg: rgba(248, 251, 255, 0.95);
@@ -210,6 +223,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   background: transparent;
   border-bottom: 1px solid transparent;
   transition: background 0.4s ease, border-color 0.4s ease;
+  overflow: visible;
 }
 
 .nav-inner {
@@ -228,6 +242,8 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   display: flex;
   align-items: center;
   line-height: 1;
+  position: relative;
+  z-index: 10003;
 }
 
 .nav-logo-img {
@@ -237,12 +253,12 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 
 .nav .nav-logo-img {
-  transform: scale(1.1);
+  transform: scale(1.2);
   transform-origin: left center;
 }
 
 .footer .nav-logo-img {
-  transform: scale(1.1);
+  transform: scale(1.2);
   transform-origin: left center;
 }
 
@@ -258,12 +274,12 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   .nav-links a {
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    font-size: clamp(0.7rem, 0.68rem + 0.16vw, 0.78rem);
+    font-size: var(--fs-xs);
   }
 }
 
 .nav-links a {
-  font-size: clamp(0.74rem, 0.72rem + 0.2vw, 0.82rem);
+  font-size: var(--fs-xs);
   font-weight: 400;
   color: var(--text-secondary);
   letter-spacing: 0.03em;
@@ -292,7 +308,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   background: transparent;
   border: 1px solid var(--accent) !important;
   color: var(--accent) !important;
-  font-size: 0.78rem !important;
+  font-size: var(--fs-xs) !important;
   font-weight: 500;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -319,7 +335,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   justify-content: center;
   position: relative;
   overflow: hidden;
-  padding: 0;
+  padding: 0 clamp(1.5rem, 4vw, 4rem);
 }
 
 .hero-inner {
@@ -414,13 +430,13 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .hero-content {
   position: relative;
   z-index: 2;
-  max-width: 820px;
+  max-width: 900px;
   flex: 1 1 auto;
 }
 
 .hero-eyebrow {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: var(--fs-xs);
   font-weight: 400;
   color: var(--text-dim);
   opacity: 0.72;
@@ -468,7 +484,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .hero-h1 br.mobile-only { display: none; }
 
 .hero-sub {
-  font-size: 1.1rem;
+  font-size: var(--fs-lead);
   font-weight: 300;
   color: var(--text-secondary);
   line-height: 1.85;
@@ -480,6 +496,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .hero-actions {
   display: flex;
+  flex-wrap: nowrap;
   gap: 1rem;
   align-items: center;
   opacity: 0;
@@ -492,12 +509,17 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   white-space: nowrap;
 }
 
+@media (max-width: 1260px) {
+  .hero-actions { flex-wrap: wrap; }
+  .hero-actions .btn { white-space: normal; }
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
   padding: 0.9rem 2rem;
-  font-size: 0.82rem;
+  font-size: var(--fs-xs);
   font-weight: 500;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -595,7 +617,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .insight-title {
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: var(--fs-micro);
   color: var(--accent);
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -608,7 +630,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .insight-hero-label {
   font-family: var(--font-body);
-  font-size: 0.72rem;
+  font-size: var(--fs-xs);
   color: var(--text-muted);
   font-weight: 300;
   margin-bottom: 0.35rem;
@@ -628,7 +650,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .insight-hero-sub {
   font-family: var(--font-body);
-  font-size: 0.72rem;
+  font-size: var(--fs-xs);
   color: var(--text-dim);
   font-weight: 300;
   margin-top: 0.35rem;
@@ -666,7 +688,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .insight-stat-label {
   font-family: var(--font-mono);
-  font-size: 0.55rem;
+  font-size: var(--fs-micro);
   color: var(--text-dim);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -689,14 +711,14 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .insight-row-label {
   font-family: var(--font-body);
-  font-size: 0.75rem;
+  font-size: var(--fs-xs);
   color: var(--text-muted);
   font-weight: 300;
 }
 
 .insight-row-value {
   font-family: var(--font-body);
-  font-size: 0.8rem;
+  font-size: var(--fs-sm);
   color: var(--text-primary);
   font-weight: 500;
 }
@@ -705,13 +727,13 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .insight-cta {
   display: block;
-  margin: 0 1.75rem 1.5rem;
+  margin: 0 1.75rem 0.35rem;
   padding: 0.75rem;
   text-align: center;
   background: var(--accent);
   color: var(--bg-void);
   font-family: var(--font-body);
-  font-size: 0.72rem;
+  font-size: var(--fs-xs);
   font-weight: 500;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -736,17 +758,23 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   background: var(--bg-deep);
 }
 
+.ticker-marquee {
+  display: flex;
+  width: max-content;
+  animation: tickerMarquee 42s linear infinite;
+}
+
 .ticker-track {
   display: flex;
   gap: 2rem;
-  animation: tickerScroll 40s linear infinite;
-  width: max-content;
+  flex-shrink: 0;
+  padding-right: 2rem;
 }
 
 .ticker-item {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--text-dim);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   white-space: nowrap;
@@ -764,7 +792,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   opacity: 0.4;
 }
 
-@keyframes tickerScroll {
+@keyframes tickerMarquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
@@ -786,7 +814,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .section-eyebrow {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: var(--fs-xs);
   font-weight: 400;
   color: var(--text-dim);
   opacity: 0.72;
@@ -821,7 +849,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 
 .section-desc {
-  font-size: 1.05rem;
+  font-size: var(--fs-body);
   font-weight: 300;
   color: var(--text-secondary);
   line-height: 1.8;
@@ -835,14 +863,14 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 /* ═══════════ EXPLAINER VIEWER ═══════════ */
 .explainer-tabs{position:relative;display:inline-flex;width:fit-content;gap:.3rem;padding:.3rem;margin:2.5rem auto 2.1rem;background:rgba(255,255,255,0.025);border:1px solid var(--border);border-radius:999px}
-.explainer-tab{position:relative;z-index:1;display:inline-flex;align-items:center;justify-content:center;gap:.55rem;font-family:var(--font-body);font-size:.82rem;font-weight:500;letter-spacing:.02em;color:var(--text-muted);padding:.65rem 1.2rem;border-radius:999px;cursor:pointer;transition:color .25s ease;border:none;background:transparent;white-space:nowrap}
+.explainer-tab{position:relative;z-index:1;display:inline-flex;align-items:center;justify-content:center;gap:.55rem;font-family:var(--font-body);font-size:var(--fs-xs);font-weight:500;letter-spacing:.02em;color:var(--text-muted);padding:.65rem 1.2rem;border-radius:999px;cursor:pointer;transition:color .25s ease;border:none;background:transparent;white-space:nowrap}
 .explainer-tab:hover{color:var(--text-secondary)}
 .explainer-tab.active{color:var(--accent)}
 .explainer-tab.active[data-persona="buyer"]{color:#a68cff}
 .explainer-tab-slider{position:absolute;top:.3rem;bottom:.3rem;left:0;height:auto;border-radius:999px;background:var(--accent-soft);transition:transform .28s var(--ease-out-expo),width .28s var(--ease-out-expo),background-color .28s ease;pointer-events:none}
 .explainer-tab-slider.is-buyer{background:rgba(124,92,252,.14)}
-.explainer-tab-badge{font-family:var(--font-mono);font-size:.52rem;font-weight:500;letter-spacing:.13em;text-transform:uppercase;padding:.22rem .48rem;border-radius:var(--radius-sm);background:rgba(124,92,252,.14);color:#a68cff;border:1px solid rgba(124,92,252,.22);line-height:1;white-space:nowrap}
-.explainer-caveat{display:flex;width:fit-content;align-items:center;justify-content:center;gap:.85rem;font-family:var(--font-mono);font-size:.62rem;color:var(--text-muted);letter-spacing:.14em;text-transform:uppercase;margin:0 auto 1.75rem;opacity:.75}
+.explainer-tab-badge{font-family:var(--font-mono);font-size:var(--fs-micro);font-weight:500;letter-spacing:.13em;text-transform:uppercase;padding:.22rem .48rem;border-radius:var(--radius-sm);background:rgba(124,92,252,.14);color:#a68cff;border:1px solid rgba(124,92,252,.22);line-height:1;white-space:nowrap}
+.explainer-caveat{display:flex;width:fit-content;align-items:center;justify-content:center;gap:.85rem;font-family:var(--font-mono);font-size:var(--fs-micro);color:var(--text-muted);letter-spacing:.14em;text-transform:uppercase;margin:0 auto 1.75rem;opacity:.75}
 .explainer-caveat::before,.explainer-caveat::after{display:none}
 /* position + absolute iframe: height:100% inside aspect-ratio-only box often computes to 0 */
 /* Frame + ratio aligned with embedded explainer pattern (see index copy — how-explainer-frame) */
@@ -872,8 +900,8 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 .explainer-desc{max-width:620px;margin-bottom:1rem}
 @media(max-width:700px){
-  .explainer-tab{padding:.55rem 1rem;font-size:.75rem}
-  .explainer-tab-badge{font-size:.48rem;padding:.18rem .38rem}
+  .explainer-tab{padding:.55rem 1rem;font-size:var(--fs-xs)}
+  .explainer-tab-badge{font-size:var(--fs-micro);padding:.18rem .38rem}
 }
 @media(max-width:640px){
   .explainer-frame{
@@ -948,6 +976,18 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   z-index: 2;
 }
 
+@media (prefers-color-scheme: light) {
+  .about-visual {
+    background: linear-gradient(180deg, #f7faff 0%, #edf2fc 100%);
+    border-color: rgba(17,23,44,0.14);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.65);
+  }
+
+  .about-visual-overlay {
+    background: linear-gradient(180deg, rgba(246,248,252,0.04) 34%, rgba(238,242,251,0.72) 100%);
+  }
+}
+
 .about-visual-badge {
   position: absolute;
   bottom: 1.5rem;
@@ -975,7 +1015,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .about-badge-label {
   font-family: var(--font-mono);
-  font-size: 0.58rem;
+  font-size: var(--fs-micro);
   color: var(--text-dim);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -984,7 +1024,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .about-text p {
   font-weight: 300;
-  font-size: 1.05rem;
+  font-size: var(--fs-body);
   color: var(--text-secondary);
   line-height: 1.9;
   margin-bottom: 1.5rem;
@@ -1019,13 +1059,13 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 
 .about-hl-title {
-  font-size: 0.85rem;
+  font-size: var(--fs-title-sm);
   font-weight: 500;
   margin-bottom: 0.3rem;
 }
 
 .about-hl-text {
-  font-size: 0.8rem;
+  font-size: var(--fs-sm);
   color: var(--text-muted);
   font-weight: 300;
   line-height: 1.6;
@@ -1080,7 +1120,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .reason-title {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: var(--fs-title-md);
   font-weight: 500;
   margin-bottom: 0.75rem;
   line-height: 1.3;
@@ -1089,7 +1129,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .reason-text {
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: var(--fs-sm);
   font-weight: 300;
   line-height: 1.75;
 }
@@ -1178,7 +1218,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .service-title {
   font-family: var(--font-display);
-  font-size: 1.2rem;
+  font-size: var(--fs-title-md);
   font-weight: 500;
   margin-bottom: 0.75rem;
   letter-spacing: -0.01em;
@@ -1187,7 +1227,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .service-desc {
   color: var(--text-secondary);
-  font-size: 0.85rem;
+  font-size: var(--fs-sm);
   font-weight: 300;
   line-height: 1.7;
 }
@@ -1201,7 +1241,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .service-tag {
   font-family: var(--font-mono);
-  font-size: 0.58rem;
+  font-size: var(--fs-micro);
   color: var(--text-dim);
   padding: 0.25rem 0.55rem;
   border: 1px solid var(--border);
@@ -1221,7 +1261,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
    ═══════════════════════════════════════════ */
 .stats-row {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1px;
   max-width: 1280px;
   margin: 0 auto;
@@ -1250,7 +1290,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .stat-label {
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: var(--fs-micro);
   color: var(--text-dim);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1278,20 +1318,21 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .fee-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.85rem;
+  font-size: var(--fs-sm);
 }
 
 .fee-table thead th {
   background: var(--bg-surface);
   padding: 1rem 1.25rem;
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: var(--fs-micro);
   font-weight: 500;
   color: var(--text-muted);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-align: left;
   border-bottom: 1px solid var(--border);
+  text-wrap: balance;
 }
 
 .fee-table thead th:first-child { border-right: 1px solid var(--border); }
@@ -1304,6 +1345,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   border-bottom: 1px solid var(--border);
   font-weight: 300;
   color: var(--text-secondary);
+  text-wrap: balance;
 }
 
 .fee-table tbody tr:last-child td {
@@ -1314,7 +1356,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   border-right: 1px solid var(--border);
   font-weight: 400;
   color: var(--text-primary);
-  font-size: 0.82rem;
+  font-size: var(--fs-sm);
 }
 
 .fee-table .fee-free {
@@ -1336,6 +1378,16 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 
 @media (prefers-color-scheme: light) {
+  .hero-eyebrow,
+  .section-eyebrow {
+    color: var(--text-secondary);
+    opacity: 0.84;
+  }
+  .about-badge-label {
+    color: var(--text-secondary);
+    opacity: 0.86;
+  }
+
   .fee-callout {
     background: linear-gradient(135deg, rgba(0,185,173,0.08), rgba(124,92,252,0.06));
     border-color: rgba(0,185,173,0.14);
@@ -1355,13 +1407,13 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .fee-callout-title {
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: var(--fs-title-sm);
   font-weight: 500;
   margin-bottom: 0.5rem;
 }
 
 .fee-callout-text {
-  font-size: 0.88rem;
+  font-size: var(--fs-sm);
   color: var(--text-secondary);
   font-weight: 300;
   line-height: 1.7;
@@ -1402,14 +1454,14 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 
 .sector-name {
-  font-size: 0.95rem;
+  font-size: var(--fs-title-sm);
   font-weight: 500;
   margin-bottom: 0.5rem;
   text-wrap: balance;
 }
 
 .sector-sub {
-  font-size: 0.78rem;
+  font-size: var(--fs-sm);
   color: var(--text-muted);
   font-weight: 300;
   line-height: 1.6;
@@ -1506,11 +1558,11 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 
 @media (min-width: 1101px) {
-  /* Make Why DealOn visual fill the section height on desktop */
+  /* Make Why DealOn visual follow row height without forcing it taller */
   .about-grid { align-items: stretch; }
   .about-visual {
-    height: auto;
-    min-height: 100%;
+    height: 100%;
+    min-height: 0;
   }
 
   /* Scale AI visual cluster up for desktop emphasis */
@@ -1532,7 +1584,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .ai-text p {
   font-weight: 300;
-  font-size: 1.05rem;
+  font-size: var(--fs-body);
   color: var(--text-secondary);
   line-height: 1.9;
   margin-bottom: 1.5rem;
@@ -1563,11 +1615,11 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   justify-content: center;
   margin-top: 0.15rem;
   color: var(--accent);
-  font-size: 0.65rem;
+  font-size: var(--fs-micro);
 }
 
 .ai-feature-text {
-  font-size: 0.9rem;
+  font-size: var(--fs-sm);
   color: var(--text-secondary);
   font-weight: 300;
   line-height: 1.6;
@@ -1632,7 +1684,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 
 .team-role {
-  font-size: 0.78rem;
+  font-size: var(--fs-xs);
   color: var(--text-muted);
   font-weight: 300;
   margin-bottom: 0.75rem;
@@ -1640,7 +1692,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 
 .team-bio {
-  font-size: 0.75rem;
+  font-size: var(--fs-xs);
   color: var(--text-dim);
   font-weight: 300;
   line-height: 1.6;
@@ -1673,7 +1725,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.95rem;
+  font-size: var(--fs-body);
   font-weight: 400;
   color: var(--text-primary);
   text-align: left;
@@ -1717,7 +1769,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 
 .faq-a p {
-  font-size: 0.88rem;
+  font-size: var(--fs-sm);
   color: var(--text-secondary);
   font-weight: 300;
   line-height: 1.8;
@@ -1778,7 +1830,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 
 .cta-sub {
-  font-size: 1.1rem;
+  font-size: var(--fs-lead);
   font-weight: 300;
   color: var(--text-secondary);
   margin-bottom: 2.5rem;
@@ -1796,7 +1848,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .cta-note {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: var(--fs-micro);
   color: var(--text-dim);
   margin-top: 1.5rem;
   letter-spacing: 0.05em;
@@ -1840,7 +1892,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 
 .footer-brand-text {
-  font-size: 0.85rem;
+  font-size: var(--fs-sm);
   color: var(--text-muted);
   font-weight: 300;
   line-height: 1.7;
@@ -1850,7 +1902,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .footer-col-title {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: var(--fs-micro);
   color: var(--text-dim);
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -1859,7 +1911,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .footer-links a {
   display: block;
-  font-size: 0.88rem;
+  font-size: var(--fs-sm);
   color: var(--text-secondary);
   font-weight: 300;
   margin-bottom: 0.65rem;
@@ -1882,7 +1934,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .footer-legal {
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: var(--fs-micro);
   color: var(--text-dim);
   letter-spacing: 0.05em;
 }
@@ -1892,9 +1944,19 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .footer-reg {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: var(--fs-micro);
   color: var(--text-dim);
   letter-spacing: 0.03em;
+}
+
+.insight-note {
+  font-size: clamp(0.6rem, 0.58rem + 0.08vw, 0.66rem);
+  color: var(--text-muted);
+  padding: 0.2rem 1.75rem 1.1rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+  text-wrap: balance;
 }
 
 /* ═══════════════════════════════════════════
@@ -1915,50 +1977,122 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 /* Nav: many links + CTA need hamburger before typical “tablet” width */
 @media (max-width: 940px) {
+  .nav {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .nav.menu-open {
+    background: var(--nav-bg-scrolled);
+    border-bottom-color: var(--nav-border-scrolled);
+  }
   .nav-links {
     display: flex;
     flex-direction: column;
-    position: absolute;
-    top: 100%;
-    left: 0;
+    position: fixed;
+    inset: 0;
+    top: 0;
     right: 0;
+    bottom: 0;
+    left: 0;
     margin: 0;
     list-style: none;
-    background: var(--nav-mobile-bg);
-    padding: 0 2rem;
+    background: color-mix(in srgb, var(--nav-mobile-bg) 78%, transparent);
+    padding: calc(84px + env(safe-area-inset-top, 0px)) clamp(1.5rem, 4vw, 4rem) calc(1.5rem + env(safe-area-inset-bottom, 0px));
     gap: 0;
-    border-bottom: 1px solid transparent;
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    max-height: 0;
+    border-bottom: 0;
+    backdrop-filter: blur(28px) saturate(1.2);
+    -webkit-backdrop-filter: blur(28px) saturate(1.2);
+    max-height: none;
     overflow: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transform: translateY(-6px);
-    transition:
-      max-height 0.45s var(--ease-out-expo),
-      opacity 0.3s ease,
-      visibility 0.3s ease,
-      transform 0.35s var(--ease-out-expo),
-      padding 0.35s ease,
-      gap 0.3s ease,
-      border-bottom-color 0.3s ease;
-  }
-  .nav-links.show {
-    max-height: min(520px, 78vh);
+    display: none;
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    transform: translateY(0);
-    padding: 1.25rem 2rem 1.5rem;
-    gap: 1rem;
-    border-bottom-color: var(--border);
+    transform: none;
+    z-index: 10000;
+    transition: none;
   }
-  .nav-links.show .nav-cta { margin-top: 0.5rem; text-align: center; }
-  .nav-mobile-toggle { display: block; color: var(--text-secondary); font-size: 1.2rem; }
+  .nav-links.show {
+    display: flex;
+    gap: 1.15rem;
+    animation: mobileMenuIn 0.22s ease-out;
+  }
+  .nav-links.closing {
+    animation: mobileMenuOut 0.22s ease-in forwards;
+    pointer-events: none;
+  }
+  .nav-links.show li,
+  .nav-links.show a { width: 100%; }
+  .nav-links.show li:last-child {
+    margin-top: auto;
+    padding-top: 1rem;
+  }
+  .nav-links.show a {
+    text-align: left;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+  }
+  .nav-links.show .nav-cta {
+    margin-top: 0.8rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    text-align: center;
+    font-size: var(--fs-xs);
+    border-radius: 999px;
+  }
+  .nav-mobile-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: var(--text-secondary);
+    position: relative;
+    z-index: 10002;
+  }
+  .nav-mobile-toggle-icon {
+    position: relative;
+    width: 20px;
+    height: 14px;
+    display: block;
+  }
+  .nav-mobile-toggle-icon span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-radius: 999px;
+    background: currentColor;
+    transition: transform 0.26s ease, opacity 0.2s ease, top 0.26s ease;
+  }
+  .nav-mobile-toggle-icon span:nth-child(1) { top: 0; }
+  .nav-mobile-toggle-icon span:nth-child(2) { top: 6px; }
+  .nav-mobile-toggle-icon span:nth-child(3) { top: 12px; }
+
+  .nav.menu-open .nav-mobile-toggle-icon span:nth-child(1) {
+    top: 6px;
+    transform: rotate(45deg);
+  }
+  .nav.menu-open .nav-mobile-toggle-icon span:nth-child(2) {
+    opacity: 0;
+  }
+  .nav.menu-open .nav-mobile-toggle-icon span:nth-child(3) {
+    top: 6px;
+    transform: rotate(-45deg);
+  }
+
+  @keyframes mobileMenuIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes mobileMenuOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-6px); }
+  }
 }
 
 @media (max-width: 940px) and (prefers-reduced-motion: reduce) {
@@ -1970,10 +2104,24 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   .hero-h1 br.mobile-only { display: block; }
   .services-grid { grid-template-columns: 1fr; }
   .services-header { grid-template-columns: 1fr; gap: 1.5rem; }
+  .ai-visual { order: 1; }
+  .ai-text { order: 2; }
   .stats-row { grid-template-columns: repeat(2, 1fr); }
   .reasons-grid { grid-template-columns: 1fr; }
   .sectors-grid { grid-template-columns: 1fr 1fr; }
+  .sectors-grid .sector-cell:last-child { grid-column: 1 / -1; }
   .team-grid { grid-template-columns: 1fr; }
+  .reason-card { padding-top: 3.5rem; }
+  .reason-num {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.5rem;
+    margin-bottom: 0;
+    font-size: 2rem;
+    line-height: 1;
+    opacity: 0.65;
+    pointer-events: none;
+  }
   .hero-actions { flex-direction: column; align-items: flex-start; width: 100%; }
   .hero-actions .btn { width: 100%; justify-content: center; }
   .cta-actions {
@@ -2008,7 +2156,11 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
       <li><a href="#how-it-works">How It Works</a></li>
       <li><a href="#contact" class="nav-cta">Talk to Us</a></li>
     </ul>
-    <button class="nav-mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">☰</button>
+    <button class="nav-mobile-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span class="nav-mobile-toggle-icon" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </span>
+    </button>
   </div>
 </nav>
 
@@ -2078,12 +2230,12 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
           </div>
           <div class="insight-row">
             <span class="insight-row-label">Deals completed</span>
-            <span class="insight-row-value">£2.1bn total value</span>
+            <span class="insight-row-value">£2B total value</span>
           </div>
         </div>
 
         <a href="#contact" class="insight-cta">Get Your Free Valuation →</a>
-        <div style="font-size:0.5rem; color:var(--text-dim); padding:0.5rem 1.75rem 0.75rem; text-align:center; font-family:var(--font-mono); letter-spacing:0.04em;">Illustrative data for demonstration purposes</div>
+        <div class="insight-note">Illustrative data for demonstration purposes</div>
       </div>
     </div>
   </div>
@@ -2091,27 +2243,31 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 <!-- ═══════════ TICKER ═══════════ -->
 <div class="ticker">
-  <div class="ticker-track">
-    <span class="ticker-item">AI Matching</span>
-    <span class="ticker-item">M&A Advisory</span>
-    <span class="ticker-item">Business Succession</span>
-    <span class="ticker-item">Buyer Identification</span>
-    <span class="ticker-item">Due Diligence</span>
-    <span class="ticker-item">Valuation Intelligence</span>
-    <span class="ticker-item">Cross-Border Deals</span>
-    <span class="ticker-item">Performance-Based Fees</span>
-    <span class="ticker-item">Post-Merger Integration</span>
-    <span class="ticker-item">EMEA Mid-Market</span>
-    <span class="ticker-item">AI Matching</span>
-    <span class="ticker-item">M&A Advisory</span>
-    <span class="ticker-item">Business Succession</span>
-    <span class="ticker-item">Buyer Identification</span>
-    <span class="ticker-item">Due Diligence</span>
-    <span class="ticker-item">Valuation Intelligence</span>
-    <span class="ticker-item">Cross-Border Deals</span>
-    <span class="ticker-item">Performance-Based Fees</span>
-    <span class="ticker-item">Post-Merger Integration</span>
-    <span class="ticker-item">EMEA Mid-Market</span>
+  <div class="ticker-marquee">
+    <div class="ticker-track">
+      <span class="ticker-item">AI Matching</span>
+      <span class="ticker-item">M&A Advisory</span>
+      <span class="ticker-item">Business Succession</span>
+      <span class="ticker-item">Buyer Identification</span>
+      <span class="ticker-item">Due Diligence</span>
+      <span class="ticker-item">Valuation Intelligence</span>
+      <span class="ticker-item">Cross-Border Deals</span>
+      <span class="ticker-item">Performance-Based Fees</span>
+      <span class="ticker-item">Post-Merger Integration</span>
+      <span class="ticker-item">EMEA Mid-Market</span>
+    </div>
+    <div class="ticker-track" aria-hidden="true">
+      <span class="ticker-item">AI Matching</span>
+      <span class="ticker-item">M&A Advisory</span>
+      <span class="ticker-item">Business Succession</span>
+      <span class="ticker-item">Buyer Identification</span>
+      <span class="ticker-item">Due Diligence</span>
+      <span class="ticker-item">Valuation Intelligence</span>
+      <span class="ticker-item">Cross-Border Deals</span>
+      <span class="ticker-item">Performance-Based Fees</span>
+      <span class="ticker-item">Post-Merger Integration</span>
+      <span class="ticker-item">EMEA Mid-Market</span>
+    </div>
   </div>
 </div>
 
@@ -2119,16 +2275,12 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 <div class="stats-wrap">
   <div class="stats-row">
     <div class="stat-cell">
-      <div class="stat-value">£2.1bn+</div>
-      <div class="stat-label">Cumulative Deal Value</div>
+      <div class="stat-value">£2b+</div>
+      <div class="stat-label">Cumulative Partners Deal Experience</div>
     </div>
     <div class="stat-cell">
-      <div class="stat-value">340+</div>
-      <div class="stat-label">Deals Completed</div>
-    </div>
-    <div class="stat-cell">
-      <div class="stat-value">68</div>
-      <div class="stat-label">Avg Days to Completion</div>
+      <div class="stat-value">150 days</div>
+      <div class="stat-label">Avg Target to Deal Completion</div>
     </div>
     <div class="stat-cell">
       <div class="stat-value">97%</div>
@@ -2201,7 +2353,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
           <div class="about-hl">
             <div class="about-hl-icon"><i class="ph ph-globe-hemisphere-west"></i></div>
             <div class="about-hl-title">Reach</div>
-            <div class="about-hl-text">Access to 14,200+ active buyer profiles across the EMEA region and the Gulf.</div>
+            <div class="about-hl-text">Access to Million+ companies across the EMEA region and the Gulf.</div>
           </div>
         </div>
       </div>
@@ -2576,16 +2728,6 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
         <div class="faq-item">
           <button class="faq-q">
-            Is DealOn regulated?
-            <span class="faq-icon"><i class="ph ph-plus"></i></span>
-          </button>
-          <div class="faq-a">
-            <p>Yes. DealOn is authorised and regulated by the Financial Conduct Authority (FCA) for corporate finance activity. We carry full professional indemnity insurance and adhere to all applicable M&A codes and best practice standards.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-q">
             Will the confidentiality of my sale be protected?
             <span class="faq-icon"><i class="ph ph-plus"></i></span>
           </button>
@@ -2628,16 +2770,6 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
       <p class="footer-brand-text">The EMEA's AI-native M&A advisory. Combining proprietary technology with world-class deal expertise to deliver faster, smarter transactions for business owners and acquirers.</p>
     </div>
     <div>
-      <div class="footer-col-title">Advisory</div>
-      <div class="footer-links">
-        <a href="#services">Sell-Side</a>
-        <a href="#services">Buy-Side</a>
-        <a href="#services">Business Succession</a>
-        <a href="#fees">Valuations</a>
-        <a href="#services">Cross-Border</a>
-      </div>
-    </div>
-    <div>
       <div class="footer-col-title">Company</div>
       <div class="footer-links">
         <a href="#about">About</a>
@@ -2650,15 +2782,13 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
       <div class="footer-col-title">Connect</div>
       <div class="footer-links">
         <a href="mailto:info@dealon.ae">info@dealon.ae</a>
-        <a href="#">+44 (0)20 7123 4567</a>
-        <a href="#">LinkedIn</a>
+        <a href="tel:+971503746636">+971 50 374 6636</a>
         <a href="#">Contact Form</a>
       </div>
     </div>
   </div>
   <div class="footer-bottom">
-    <p class="footer-legal">© 2026 DealOn Ltd. All rights reserved. &nbsp;|&nbsp; <a href="#">Privacy Policy</a> &nbsp;|&nbsp; <a href="#">Terms</a> &nbsp;|&nbsp; <a href="#">Cookie Policy</a></p>
-    <p class="footer-reg">FCA authorisation application pending. Registered in England &amp; Wales No. 12345678. <!-- PLACEHOLDER: Replace with actual company number and FCA reference upon authorisation --> 30 St Mary Axe, London EC3A 8BF. <!-- PLACEHOLDER ADDRESS --></p>
+    <p class="footer-legal">© 2026 DealOn Ltd. All rights reserved. &nbsp;|&nbsp; <a href="privacy.html">Privacy Policy</a> &nbsp;|&nbsp; <a href="terms.html">Terms</a> &nbsp;|&nbsp; <a href="cookie-policy.html">Cookie Policy</a></p>
   </div>
 </footer>
 
@@ -2737,7 +2867,10 @@ if (canvas) {
     const rgb = styles.getPropertyValue('--network-rgb').trim() || '0, 229, 191';
     const lineAlphaMax = parseFloat(styles.getPropertyValue('--network-line-alpha-max')) || 0.15;
     const nodeAlpha = parseFloat(styles.getPropertyValue('--network-node-alpha')) || 0.5;
-    return { rgb, lineAlphaMax, nodeAlpha };
+    const linkDistance = parseFloat(styles.getPropertyValue('--network-link-distance')) || 120;
+    const lineWidth = parseFloat(styles.getPropertyValue('--network-line-width')) || 0.5;
+    const nodeCount = parseInt(styles.getPropertyValue('--network-node-count'), 10) || 60;
+    return { rgb, lineAlphaMax, nodeAlpha, linkDistance, lineWidth, nodeCount };
   }
 
   function resize() {
@@ -2748,14 +2881,14 @@ if (canvas) {
 
   function initNodes() {
     nodes = [];
-    const count = 60;
+    const count = networkPalette.nodeCount;
     for (let i = 0; i < count; i++) {
       nodes.push({
         x: Math.random() * w,
         y: Math.random() * h,
         vx: (Math.random() - 0.5) * 0.4,
         vy: (Math.random() - 0.5) * 0.4,
-        r: Math.random() * 2 + 1,
+        r: Math.random() * 2.2 + 1,
       });
     }
   }
@@ -2769,13 +2902,13 @@ if (canvas) {
         const dx = nodes[i].x - nodes[j].x;
         const dy = nodes[i].y - nodes[j].y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 120) {
-          const alpha = (1 - dist / 120) * networkPalette.lineAlphaMax;
+        if (dist < networkPalette.linkDistance) {
+          const alpha = (1 - dist / networkPalette.linkDistance) * networkPalette.lineAlphaMax;
           ctx.beginPath();
           ctx.moveTo(nodes[i].x, nodes[i].y);
           ctx.lineTo(nodes[j].x, nodes[j].y);
           ctx.strokeStyle = `rgba(${networkPalette.rgb}, ${alpha})`;
-          ctx.lineWidth = 0.5;
+          ctx.lineWidth = networkPalette.lineWidth;
           ctx.stroke();
         }
       }
@@ -2825,10 +2958,38 @@ window.addEventListener('scroll', () => {
 // Mobile nav: close after in-page navigation; reset when returning to desktop width
 (function () {
   const navLinks = document.querySelector('.nav-links');
+  const navEl = document.querySelector('.nav');
+  const navToggle = document.getElementById('navToggle');
   if (!navLinks) return;
   const mq = window.matchMedia('(max-width: 940px)');
+  let closeTimer = null;
+  const closeAnimMs = 220;
+  function setMenuOpen(open) {
+    if (closeTimer) {
+      clearTimeout(closeTimer);
+      closeTimer = null;
+    }
+    if (open) {
+      navLinks.classList.remove('closing');
+      navLinks.classList.add('show');
+      if (navEl) navEl.classList.add('menu-open');
+    } else if (navLinks.classList.contains('show')) {
+      navLinks.classList.add('closing');
+      if (navEl) navEl.classList.remove('menu-open');
+      closeTimer = setTimeout(() => {
+        navLinks.classList.remove('show', 'closing');
+        closeTimer = null;
+      }, closeAnimMs);
+    }
+    if (navToggle) navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
   function closeMenu() {
-    navLinks.classList.remove('show');
+    setMenuOpen(false);
+  }
+  if (navToggle) {
+    navToggle.addEventListener('click', () => {
+      setMenuOpen(!navLinks.classList.contains('show'));
+    });
   }
   navLinks.querySelectorAll('a').forEach((a) => {
     a.addEventListener('click', closeMenu);
