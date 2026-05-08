@@ -43,13 +43,38 @@
     if (extra) {
       if (extra.type) l.type = extra.type;
       if (extra.sizes) l.setAttribute('sizes', extra.sizes);
+      if (extra.media) l.media = extra.media;
     }
     document.head.appendChild(l);
   }
+  addLink('icon', 'favicon-32-dark.png', {
+    type: 'image/png',
+    sizes: '32x32',
+    media: '(prefers-color-scheme: dark)',
+  });
+  addLink('icon', 'favicon-32-light.png', {
+    type: 'image/png',
+    sizes: '32x32',
+    media: '(prefers-color-scheme: light)',
+  });
+  addLink('icon', 'favicon-dark.png', {
+    type: 'image/png',
+    sizes: '512x512',
+    media: '(prefers-color-scheme: dark)',
+  });
+  addLink('icon', 'favicon-light.png', {
+    type: 'image/png',
+    sizes: '512x512',
+    media: '(prefers-color-scheme: light)',
+  });
   addLink('icon', 'favicon.ico', { sizes: 'any' });
-  addLink('icon', 'favicon-32.png', { type: 'image/png', sizes: '32x32' });
-  addLink('icon', 'favicon.png', { type: 'image/png', sizes: '512x512' });
-  addLink('apple-touch-icon', 'apple-touch-icon.png');
+  addLink('apple-touch-icon', 'apple-touch-icon-dark.png', {
+    media: '(prefers-color-scheme: dark)',
+  });
+  addLink('apple-touch-icon', 'apple-touch-icon-light.png', {
+    media: '(prefers-color-scheme: light)',
+  });
+  addLink('apple-touch-icon', 'apple-touch-icon-dark.png');
 })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
