@@ -34,6 +34,13 @@ body.nav-scroll-lock {
   width: 100%;
 }
 
+/* homepage seller contact overlay (seller-contact-modal.js) */
+body.seller-contact-scroll-lock {
+  position: fixed;
+  overflow: hidden;
+  width: 100%;
+}
+
 /* ═══════════════════════════════════════════
    NAVIGATION (shared with index homepage)
    ═══════════════════════════════════════════ */
@@ -176,6 +183,13 @@ body.nav-scroll-lock {
   background: var(--accent) !important;
   color: var(--bg-void) !important;
   box-shadow: 0 0 24px var(--accent-glow);
+}
+
+@media (min-width: 941px) {
+  .nav-cta {
+    padding-block: 0.88rem;
+    padding-inline: 1.65rem;
+  }
 }
 
 .nav-mobile-toggle {

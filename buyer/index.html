@@ -364,32 +364,21 @@
     text-wrap: balance;
   }
 
+  /* ---- Hero logo scenes: full DealOn SVG (light / dark via prefers-color-scheme) ---- */
   .wordmark-big {
     display: flex;
     align-items: center;
-    gap: clamp(14px, 1.8vw, 24px);
-  }
-  .wordmark-mark-big {
-    width: clamp(70px, 9vw, 120px);
-    height: clamp(70px, 9vw, 120px);
-    border-radius: clamp(14px, 1.8vw, 22px);
-    background: var(--gradient-hero);
-    display: flex;
-    align-items: center;
     justify-content: center;
-    font-family: var(--font-body);
-    font-size: clamp(40px, 5.5vw, 72px);
-    font-weight: 600;
-    color: var(--bg-void);
-    letter-spacing: -0.02em;
-    box-shadow: 0 0 60px var(--accent-glow), 0 0 120px rgba(124, 92, 252, 0.2);
   }
-  .wordmark-text-big {
-    font-family: var(--font-body);
-    font-size: clamp(56px, 8vw, 120px);
-    font-weight: 500;
-    letter-spacing: -0.03em;
-    line-height: 1;
+  .wordmark-big picture {
+    display: block;
+    line-height: 0;
+    filter: drop-shadow(0 0 48px rgba(124, 92, 252, 0.2));
+  }
+  .wordmark-logo-full {
+    width: clamp(200px, 56vw, 360px);
+    height: auto;
+    display: block;
   }
 
   /* ---- Pain-point grid ---- */
@@ -1143,11 +1132,13 @@
     <div class="sub fade-up delay-3">addressable — and most of it is invisible to buyers.</div>
   </div>
 
-  <!-- ========== SCENE 5: DealOn wordmark reveal ========== -->
+  <!-- ========== SCENE 5: DealOn logo reveal ========== -->
   <div class="scene" data-duration="3600">
     <div class="wordmark-big fade-up">
-      <div class="wordmark-mark-big">D</div>
-      <div class="wordmark-text-big">DealOn</div>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="../DealOn%20logo-dark.svg">
+        <img src="../DealOn%20logo.svg" alt="DealOn" class="wordmark-logo-full">
+      </picture>
     </div>
     <div class="close-tagline fade-up delay-2">Deal flow, reimagined.</div>
     <div class="close-micro fade-up delay-3"><span class="dot-accent">·</span>Powered by proprietary AI<span class="dot-accent">·</span></div>
@@ -1277,8 +1268,10 @@
   <!-- ========== SCENE 9: Close ========== -->
   <div class="scene" data-duration="4500">
     <div class="wordmark-big fade-up">
-      <div class="wordmark-mark-big">D</div>
-      <div class="wordmark-text-big">DealOn</div>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="../DealOn%20logo-dark.svg">
+        <img src="../DealOn%20logo.svg" alt="DealOn" class="wordmark-logo-full">
+      </picture>
     </div>
     <div class="close-tagline fade-up delay-2">Acquire with confidence.</div>
   </div>

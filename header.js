@@ -14,6 +14,11 @@
     return isHomePage() ? hash : 'index.html' + hash;
   }
 
+  function sellerContactHref() {
+    /* Hash is handled only on homepage (seller-contact-modal.js); elsewhere navigate to index. */
+    return isHomePage() ? '#seller-contact' : 'index.html#seller-contact';
+  }
+
   var logoHref = isHomePage() ? '#' : 'index.html';
 
   mount.innerHTML = `
@@ -32,7 +37,7 @@
       <li><a href="${sectionHref('#fees')}">Fee Model</a></li>
       <li><a href="${sectionHref('#faq')}">FAQs</a></li>
       <li><a href="${sectionHref('#how-it-works')}">How It Works</a></li>
-      <li><a href="${sectionHref('#contact')}" class="nav-cta">Talk to Us</a></li>
+      <li><a href="${sellerContactHref()}" class="nav-cta seller-contact-open" data-contact-intent="talk">Talk to Us</a></li>
     </ul>
     <button class="nav-mobile-toggle" id="siteNavToggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
       <span class="nav-mobile-toggle-icon" aria-hidden="true">
