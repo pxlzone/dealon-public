@@ -279,7 +279,17 @@
 
   function lockScroll() {
     if (document.body.classList.contains('seller-contact-scroll-lock')) return;
-    scrollY = window.scrollY || window.pageYOffset || 0;
+    /* Mobile nav uses the same fixed-body pattern (nav-scroll-lock). window.scrollY is then ~0; recover Y from body.top. */
+    if (document.body.classList.contains('nav-scroll-lock')) {
+      var t = (document.body.style.top || '').trim();
+      var m = /^-(\d+(?:\.\d+)?)px$/.exec(t);
+      scrollY = m
+        ? Math.round(parseFloat(m[1]))
+        : window.scrollY || window.pageYOffset || 0;
+      document.body.classList.remove('nav-scroll-lock');
+    } else {
+      scrollY = window.scrollY || window.pageYOffset || 0;
+    }
     document.body.style.top = '-' + scrollY + 'px';
     document.body.classList.add('seller-contact-scroll-lock');
   }
@@ -288,7 +298,12 @@
     if (!document.body.classList.contains('seller-contact-scroll-lock')) return;
     document.body.classList.remove('seller-contact-scroll-lock');
     document.body.style.top = '';
+    /* html { scroll-behavior: smooth } would animate this restore; force instant jump. */
+    var root = document.documentElement;
+    var prevSb = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
     window.scrollTo(0, scrollY);
+    root.style.scrollBehavior = prevSb;
   }
 
   function setIntent(intent) {
@@ -353,8 +368,12 @@
     } catch (_e) {}
     if (lastFocus && typeof lastFocus.focus === 'function') {
       try {
-        lastFocus.focus();
-      } catch (_e2) {}
+        lastFocus.focus({ preventScroll: true });
+      } catch (_e2) {
+        try {
+          lastFocus.focus();
+        } catch (_e3) {}
+      }
     }
     lastFocus = null;
   }

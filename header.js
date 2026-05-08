@@ -78,7 +78,12 @@
     if (!document.body.classList.contains('nav-scroll-lock')) return;
     document.body.classList.remove('nav-scroll-lock');
     document.body.style.top = '';
+    /* Match seller-contact-modal: html { scroll-behavior: smooth } would animate this restore. */
+    var root = document.documentElement;
+    var prevSb = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
     window.scrollTo(0, scrollLockY);
+    root.style.scrollBehavior = prevSb;
   }
 
   function setMenuOpen(open) {
