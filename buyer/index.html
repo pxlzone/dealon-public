@@ -5,7 +5,8 @@
 <script>if(window.parent!==window)document.documentElement.classList.add('is-embed');</script>
 <title>DealOn — for buyers</title>
 <meta name="description" content="Short video explainer for buyers — private equity, search funds and corporates sourcing UK SMEs (£1–20M) with DealOn's AI-native M&amp;A platform.">
-<meta name="theme-color" content="#060610">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#060610">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f6f8fc">
 <!-- Open Graph: absolute URLs for social crawlers. Change the origin if the public site is not https://dealon.ae/ -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="DealOn">
@@ -54,6 +55,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
 <style>
   /* ============================================================
      DEALON — BUYER EXPLAINER
@@ -78,16 +80,45 @@
     --pink: #FF6B9D;
     --border: rgba(255,255,255,0.06);
     --border-accent: rgba(0,229,191,0.2);
-    --gradient-hero: linear-gradient(135deg, #00E5BF 0%, #7C5CFC 50%, #FF6B9D 100%);
+    --gradient-hero: linear-gradient(32deg, #00E5BF 10%, #7C5CFC 54%, #FF6B9D 132%);
     --font-display: 'Playfair Display', Georgia, serif;
     --font-body: 'Outfit', system-ui, sans-serif;
     --font-mono: 'IBM Plex Mono', monospace;
+    --overlay-bg: rgba(6, 6, 16, 0.96);
+    --control-btn-bg: rgba(10, 10, 24, 0.78);
+    --control-btn-bg-hover: rgba(10, 10, 24, 0.92);
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg-void: #f6f8fc;
+      --bg-deep: #eef2fb;
+      --bg-surface: #e7edf8;
+      --bg-card: #f8fbff;
+      --bg-card-hover: #eff4ff;
+      --text-primary: #11172c;
+      --text-secondary: #3f4d78;
+      --text-muted: #5c6891;
+      --text-dim: #7f8aad;
+      --accent: #00B9AD;
+      --accent-soft: rgba(0,185,173,0.12);
+      --accent-glow: rgba(0,185,173,0.16);
+      --accent-bright: #1CCFC3;
+      --purple: #5a45e8;
+      --pink: #d5487b;
+      --border: rgba(17,23,44,0.1);
+      --border-accent: rgba(0,185,173,0.16);
+      --gradient-hero: linear-gradient(32deg, #00E5BF 10%, #7C5CFC 54%, #FF6B9D 132%);
+      --overlay-bg: rgba(246, 248, 252, 0.95);
+      --control-btn-bg: rgba(246, 248, 252, 0.9);
+      --control-btn-bg-hover: rgba(236, 242, 253, 0.98);
+    }
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   html, body {
-    background: #050510;
+    background: var(--bg-void);
     font-family: var(--font-body);
     color: var(--text-primary);
     overflow: hidden;
@@ -120,6 +151,7 @@
   html.is-embed .stage {
     width: 100%;
     max-width: 100%;
+    box-shadow: none;
   }
   html.is-embed body {
     padding: 10px;
@@ -143,11 +175,6 @@
       width: 100%;
       max-width: 100%;
     }
-    .controls-row {
-      flex-shrink: 0;
-      width: 100% !important;
-      max-width: 100%;
-    }
   }
 
   @media (min-width: 901px) {
@@ -161,11 +188,6 @@
       min-height: 0;
       aspect-ratio: unset;
       height: auto;
-    }
-    html.is-embed .controls-row {
-      flex-shrink: 0;
-      width: 100% !important;
-      max-width: 100%;
     }
   }
 
@@ -187,8 +209,7 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background: radial-gradient(ellipse at 80% 0%, rgba(124, 92, 252, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 20% 100%, rgba(0, 229, 191, 0.06) 0%, transparent 50%);
+    background: none;
     z-index: 1;
   }
   .stage::after {
@@ -196,7 +217,7 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.45) 100%);
+    background: none;
     z-index: 100;
   }
 
@@ -204,32 +225,17 @@
     position: absolute;
     top: 22px;
     left: 24px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
     z-index: 50;
-    opacity: 0.55;
+    opacity: 1;
   }
-  .watermark-mark {
-    width: 22px;
-    height: 22px;
-    border-radius: 6px;
-    background: var(--gradient-hero);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-body);
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--bg-void);
-    letter-spacing: -0.02em;
+  .stage.prestart .watermark {
+    opacity: 0;
+    visibility: hidden;
   }
-  .watermark-text {
-    font-family: var(--font-body);
-    font-size: clamp(13px, 1.3vw, 16px);
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    color: var(--text-primary);
+  .watermark-logo {
+    width: clamp(92px, 10vw, 126px);
+    height: auto;
+    display: block;
   }
 
   .scene-badge {
@@ -724,7 +730,7 @@
     position: absolute;
     inset: 0;
     z-index: 200;
-    background: rgba(6, 6, 16, 0.96);
+    background: var(--overlay-bg);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -738,8 +744,8 @@
     width: clamp(72px, 9vw, 110px);
     height: clamp(72px, 9vw, 110px);
     border-radius: 50%;
-    background: var(--accent-soft);
-    border: 1px solid var(--border-accent);
+    background: rgba(124, 92, 252, 0.16);
+    border: 1px solid rgba(124, 92, 252, 0.35);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -747,14 +753,14 @@
   }
   .start-overlay:hover .start-icon {
     transform: scale(1.08);
-    box-shadow: 0 0 50px var(--accent-glow);
+    box-shadow: 0 0 50px rgba(124, 92, 252, 0.28);
   }
   .start-icon::before {
     content: "";
     width: 0; height: 0;
     border-style: solid;
     border-width: clamp(14px, 1.8vw, 20px) 0 clamp(14px, 1.8vw, 20px) clamp(20px, 2.6vw, 30px);
-    border-color: transparent transparent transparent var(--accent);
+    border-color: transparent transparent transparent var(--purple);
     margin-left: clamp(5px, 0.7vw, 8px);
   }
   .start-text {
@@ -773,17 +779,26 @@
   }
 
   .controls-row {
-    width: min(92vw, calc(86vh * 16 / 9));
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 120;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: auto !important;
+    max-width: none !important;
+  }
+  .controls {
+    padding: 0 12px;
   }
   .progress-track {
     width: 100%;
-    height: 2px;
-    background: rgba(255, 255, 255, 0.04);
+    height: 3px;
+    background: rgba(255, 255, 255, 0.1);
     overflow: hidden;
-    border-radius: 1px;
+    border-radius: 999px;
   }
   .progress-bar {
     height: 100%;
@@ -804,29 +819,51 @@
   }
   .controls.controls--finished #muteBtn,
   .controls.controls--finished #playBtn {
-    visibility: hidden;
-    pointer-events: none;
+    display: none;
+  }
+  .controls.controls--finished #replayBtn {
+    width: 146px;
+    border-radius: 999px;
+    padding: 0 14px;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .replay-label {
+    display: none;
+    font-family: var(--font-body);
+    font-size: 0.76rem;
+    letter-spacing: 0.03em;
+  }
+  .controls.controls--finished #replayBtn .replay-label {
+    display: inline;
   }
   .controls.controls--no-audio #muteBtn {
-    visibility: hidden;
-    pointer-events: none;
+    display: none;
   }
   .btn {
-    background: transparent;
+    background: var(--control-btn-bg);
     color: var(--text-primary);
     border: 1px solid var(--border);
-    padding: 9px 18px;
-    border-radius: 6px;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border-radius: 50%;
     font-family: var(--font-body);
     font-size: 12px;
     font-weight: 400;
     letter-spacing: 0.05em;
     cursor: pointer;
     transition: border-color 0.25s ease, color 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
   }
+  .btn i { font-size: 1rem; line-height: 1; }
   .btn:hover {
     border-color: var(--accent);
     color: var(--accent);
+    background: var(--control-btn-bg-hover);
   }
 
   @media (max-width: 640px) {
@@ -850,11 +887,6 @@
     }
     html.is-embed .stage {
       width: 100%;
-      max-width: 100%;
-    }
-    .controls-row {
-      flex-shrink: 0;
-      width: 100% !important;
       max-width: 100%;
     }
     .watermark { top: 10px; left: 10px; transform: scale(0.9); transform-origin: left top; }
@@ -1024,11 +1056,13 @@
 </head>
 <body>
 
-<div class="stage" id="stage">
+<div class="stage prestart" id="stage">
 
   <div class="watermark">
-    <div class="watermark-mark">D</div>
-    <div class="watermark-text">DealOn</div>
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="../DealOn%20logo-dark.svg">
+      <img src="../DealOn%20logo.svg" alt="DealOn" class="watermark-logo">
+    </picture>
   </div>
 
   <div class="scene-badge" id="sceneBadge">BUYERS · <span>01</span>/09</div>
@@ -1249,21 +1283,22 @@
     <div class="close-tagline fade-up delay-2">Acquire with confidence.</div>
   </div>
 
+  <div class="controls-row">
+    <div class="controls controls--prestart" id="controlsBar">
+      <button class="btn" id="prevBtn" aria-label="Previous section" title="Previous section"><i class="ph ph-caret-left" aria-hidden="true"></i></button>
+      <button class="btn" id="muteBtn" aria-label="Mute sound" title="Mute sound"><i class="ph ph-speaker-high" aria-hidden="true"></i></button>
+      <button class="btn" id="playBtn" aria-label="Pause" title="Pause"><i class="ph ph-pause" aria-hidden="true"></i></button>
+      <button class="btn" id="replayBtn" aria-label="Replay" title="Replay"><i class="ph ph-arrow-counter-clockwise" aria-hidden="true"></i><span class="replay-label">Replay</span></button>
+      <button class="btn" id="nextBtn" aria-label="Next section" title="Next section"><i class="ph ph-caret-right" aria-hidden="true"></i></button>
+    </div>
+    <div class="progress-track">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </div>
 </div>
 
 <!-- Audio: music.mp3 at repo root -->
 <audio id="music" src="../music.mp3" preload="auto"></audio>
-
-<div class="controls-row">
-  <div class="progress-track">
-    <div class="progress-bar" id="progressBar"></div>
-  </div>
-  <div class="controls controls--prestart" id="controlsBar">
-    <button class="btn" id="muteBtn">Mute sound</button>
-    <button class="btn" id="playBtn">Pause</button>
-    <button class="btn" id="replayBtn">Replay</button>
-  </div>
-</div>
 
 <script>
 (function () {
@@ -1273,9 +1308,28 @@
   const playBtn = document.getElementById('playBtn');
   const replayBtn = document.getElementById('replayBtn');
   const muteBtn = document.getElementById('muteBtn');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
   const controlsEl = document.getElementById('controlsBar');
   const startOverlay = document.getElementById('startOverlay');
+  const stageEl = document.getElementById('stage');
   const music = document.getElementById('music');
+
+  function setPlayButtonIcon(paused) {
+    playBtn.innerHTML = paused
+      ? '<i class="ph ph-play" aria-hidden="true"></i>'
+      : '<i class="ph ph-pause" aria-hidden="true"></i>';
+    playBtn.setAttribute('aria-label', paused ? 'Play' : 'Pause');
+    playBtn.setAttribute('title', paused ? 'Play' : 'Pause');
+  }
+
+  function setMuteButtonIcon(muted) {
+    muteBtn.innerHTML = muted
+      ? '<i class="ph ph-speaker-slash" aria-hidden="true"></i>'
+      : '<i class="ph ph-speaker-high" aria-hidden="true"></i>';
+    muteBtn.setAttribute('aria-label', muted ? 'Unmute sound' : 'Mute sound');
+    muteBtn.setAttribute('title', muted ? 'Unmute sound' : 'Mute sound');
+  }
 
   function showControlsActive() {
     controlsEl.classList.remove('controls--prestart', 'controls--finished');
@@ -1335,7 +1389,7 @@
           scheduleNext();
         } else {
           isPlaying = false;
-          playBtn.textContent = 'Play';
+          setPlayButtonIcon(true);
           progressBar.style.width = '100%';
           if (audioAvailable) music.pause();
           showControlsFinished();
@@ -1351,9 +1405,10 @@
     if (hasStarted) return;
     hasStarted = true;
     startOverlay.classList.add('hidden');
+    if (stageEl) stageEl.classList.remove('prestart');
     showControlsActive();
     isPlaying = true;
-    playBtn.textContent = 'Pause';
+    setPlayButtonIcon(false);
     if (audioAvailable) { music.currentTime = 0; playAudioSafely(); }
     showScene(0);
     scheduleNext();
@@ -1371,7 +1426,7 @@
       showControlsActive();
     }
     isPlaying = true;
-    playBtn.textContent = 'Pause';
+    setPlayButtonIcon(false);
     playAudioSafely();
     scheduleNext();
   }
@@ -1380,7 +1435,7 @@
     isPlaying = false;
     if (timerId) cancelAnimationFrame(timerId);
     elapsedInScene = performance.now() - sceneStart;
-    playBtn.textContent = 'Play';
+    setPlayButtonIcon(true);
     if (audioAvailable) music.pause();
   }
 
@@ -1390,20 +1445,44 @@
     currentIndex = 0;
     elapsedInScene = 0;
     isPlaying = true;
-    playBtn.textContent = 'Pause';
+    setPlayButtonIcon(false);
     showScene(0);
     progressBar.style.width = '0%';
     if (audioAvailable) { music.currentTime = 0; playAudioSafely(); }
     scheduleNext();
   }
 
+  function stepScene(direction) {
+    if (!hasStarted) return;
+    const target = Math.max(0, Math.min(scenes.length - 1, currentIndex + direction));
+    if (target === currentIndex) return;
+    if (timerId) cancelAnimationFrame(timerId);
+    currentIndex = target;
+    elapsedInScene = 0;
+    showScene(currentIndex);
+    let past = 0;
+    for (let i = 0; i < currentIndex; i++) past += parseInt(scenes[i].dataset.duration, 10);
+    progressBar.style.width = Math.min(100, (past / totalDuration) * 100) + '%';
+    showControlsActive();
+    if (isPlaying) {
+      scheduleNext();
+    } else {
+      setPlayButtonIcon(true);
+    }
+  }
+
   startOverlay.addEventListener('click', firstPlay);
   playBtn.addEventListener('click', () => (isPlaying ? pause() : play()));
+  prevBtn.addEventListener('click', () => stepScene(-1));
+  nextBtn.addEventListener('click', () => stepScene(1));
   replayBtn.addEventListener('click', replay);
   muteBtn.addEventListener('click', () => {
     music.muted = !music.muted;
-    muteBtn.textContent = music.muted ? 'Unmute' : 'Mute sound';
+    setMuteButtonIcon(music.muted);
   });
+
+  setPlayButtonIcon(false);
+  setMuteButtonIcon(false);
 
   document.addEventListener('keydown', (e) => {
     if (e.code === 'Space' && hasStarted) {
