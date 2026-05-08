@@ -2214,9 +2214,13 @@ button.btn {
   line-height: 1.55;
 }
 
+/* Keep [hidden] effective: author `display: flex` must not beat the UA `hidden` rule. */
 .seller-contact-modal__success-flow {
   text-align: center;
   padding: 1.25rem 0 1.65rem;
+}
+
+.seller-contact-modal__success-flow:not([hidden]) {
   display: flex;
   flex-direction: column;
   align-items: stretch;
