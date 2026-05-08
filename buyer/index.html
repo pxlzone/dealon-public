@@ -300,13 +300,7 @@
     margin-bottom: 1.8em;
     display: flex;
     align-items: center;
-    gap: 14px;
-  }
-  .eyebrow::before {
-    content: "";
-    width: 32px;
-    height: 1px;
-    background: var(--accent);
+    gap: 0;
   }
 
   .headline {
@@ -915,7 +909,7 @@
       font-size: clamp(12px, 3.2vw, 16px);
     }
     .sub.sub--lede { max-width: min(26rem, 92%); }
-    /* Row flex + left rule reads as left-aligned when text wraps; stack + center on phone */
+    /* Stack + center on phone when text wraps */
     .eyebrow {
       display: block;
       margin-left: auto;
@@ -926,11 +920,6 @@
       text-wrap: balance;
       letter-spacing: 0.12em;
       line-height: 1.45;
-    }
-    .eyebrow::before {
-      display: block;
-      width: 28px;
-      margin: 0 auto 10px;
     }
     .pain-grid {
       grid-template-columns: 1fr 1fr;
