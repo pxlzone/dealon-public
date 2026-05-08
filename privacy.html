@@ -3,62 +3,125 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#060610">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f6f8fc">
   <title>Privacy Policy | DealOn</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
-      color-scheme: light dark;
-      --bg: #060610;
-      --surface: #0f0f20;
-      --text: #eeeef0;
-      --text-muted: #a5a5bd;
-      --border: rgba(255,255,255,0.08);
+      --bg-void: #060610;
+      --text-primary: #eeeef0;
+      --text-secondary: #9ca5c7;
+      --text-muted: #6f7798;
       --accent: #00b9ad;
-      --max-w: 920px;
+      --border: rgba(255,255,255,0.08);
+      --gradient-hero: linear-gradient(32deg, #00E5BF 10%, #7C5CFC 54%, #FF6B9D 132%);
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Outfit', system-ui, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+      --max-w: 1040px;
     }
     @media (prefers-color-scheme: light) {
       :root {
-        --bg: #f6f8fc;
-        --surface: #ffffff;
-        --text: #11172c;
-        --text-muted: #4f5d84;
+        --bg-void: #f6f8fc;
+        --text-primary: #131a31;
+        --text-secondary: #4f5d84;
+        --text-muted: #6b769a;
         --border: rgba(17,23,44,0.12);
       }
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.65;
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      color: var(--text-primary);
+      background:
+        radial-gradient(1100px 520px at 100% -20%, rgba(124,92,252,0.14), transparent 58%),
+        radial-gradient(900px 460px at -10% 100%, rgba(0,185,173,0.14), transparent 56%),
+        var(--bg-void);
+      line-height: 1.72;
     }
-    main {
+    .hero-grid {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,191,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,191,0.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 35%, black 10%, transparent 70%);
+      animation: gridPulse 8s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @media (prefers-color-scheme: light) {
+      .hero-grid {
+        background-image:
+          linear-gradient(rgba(0,185,173,0.14) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0,185,173,0.14) 1px, transparent 1px);
+      }
+    }
+    @keyframes gridPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .wrap {
+      position: relative;
+      z-index: 1;
       max-width: var(--max-w);
       margin: 0 auto;
-      padding: 3rem 1.25rem 4rem;
+      padding: calc(160px + env(safe-area-inset-top, 0px)) clamp(1rem, 4vw, 2rem) 7rem;
     }
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: clamp(1.2rem, 2vw, 2rem);
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 0.55rem;
     }
-    h1, h2 { line-height: 1.2; }
-    h1 { margin: 0 0 0.35rem; font-size: clamp(1.8rem, 4vw, 2.5rem); }
-    h2 { margin: 1.8rem 0 0.65rem; font-size: clamp(1.1rem, 2.5vw, 1.35rem); }
-    p, li { color: var(--text-muted); }
-    .muted { color: var(--text-muted); margin: 0 0 1.5rem; font-size: 0.95rem; }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .top-link { display: inline-block; margin-bottom: 1rem; font-size: 0.95rem; }
+    .wrap h1 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      line-height: 1.12;
+      text-wrap: balance;
+    }
+    .updated {
+      margin: 0.5rem 0 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    .wrap h2 {
+      margin: 1.7rem 0 0.55rem;
+      font-size: clamp(1.08rem, 1.3vw, 1.25rem);
+      font-weight: 500;
+      color: var(--text-primary);
+      text-wrap: balance;
+    }
+    .wrap p,
+    .wrap li {
+      color: var(--text-secondary);
+      font-size: clamp(0.96rem, 1.05vw, 1.04rem);
+    }
+    .wrap ul { margin: 0.35rem 0 0; padding-left: 1.2rem; }
+    .wrap li + li { margin-top: 0.4rem; }
+    .wrap a { color: var(--accent); text-decoration: none; }
+    .wrap a:hover { text-decoration: underline; }
   </style>
+  <link rel="stylesheet" href="header.css">
 </head>
 <body>
-  <main>
-    <a class="top-link" href="index.html">&larr; Back to DealOn</a>
-    <div class="card">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div id="siteHeaderMount"></div>
+  <div class="wrap">
+    <article>
+      <div class="eyebrow">Legal</div>
       <h1>Privacy Policy</h1>
-      <p class="muted">Last updated: May 8, 2026</p>
+      <p class="updated">Last updated: May 8, 2026</p>
 
       <p>This Privacy Policy explains, in general terms, how DealOn may collect, use, and protect personal information when you visit our website or contact our team.</p>
 
@@ -90,7 +153,8 @@
 
       <h2>Changes to This Policy</h2>
       <p>We may update this page from time to time. Material updates will be posted on this page with a revised effective date.</p>
-    </div>
-  </main>
+    </article>
+  </div>
+  <script src="header.js"></script>
 </body>
 </html>
