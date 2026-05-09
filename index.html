@@ -1290,6 +1290,23 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   color: var(--text-muted);
 }
 
+.service-soon-badge {
+  display: inline-block;
+  vertical-align: 0.1em;
+  margin-left: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  white-space: nowrap;
+}
+
 /* ═══════════════════════════════════════════
    BIG STATS ROW
    ═══════════════════════════════════════════ */
@@ -1353,6 +1370,11 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   width: 100%;
   border-collapse: collapse;
   font-size: var(--fs-sm);
+  table-layout: fixed;
+}
+
+.fee-table col:first-child {
+  width: 30%;
 }
 
 .fee-table thead th {
@@ -1365,8 +1387,10 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-align: left;
+  vertical-align: middle;
   border-bottom: 1px solid var(--border);
   text-wrap: balance;
+  overflow-wrap: break-word;
 }
 
 .fee-table thead th:first-child { border-right: 1px solid var(--border); }
@@ -1375,11 +1399,13 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .fee-table tbody td:nth-child(2) { background: var(--fee-dealon-col-bg); }
 
 .fee-table tbody td {
-  padding: 0.85rem 1.25rem;
+  padding: 1rem 1.25rem;
+  vertical-align: middle;
   border-bottom: 1px solid var(--border);
   font-weight: 300;
   color: var(--text-secondary);
   text-wrap: balance;
+  overflow-wrap: break-word;
 }
 
 .fee-table tbody tr:last-child td {
@@ -2802,7 +2828,7 @@ button.btn {
         <div class="insight-rows">
           <div class="insight-row">
             <span class="insight-row-label">Buyer database</span>
-            <span class="insight-row-value">14,200+ profiles</span>
+            <span class="insight-row-value">Millions of potential buyers</span>
           </div>
           <div class="insight-row">
             <span class="insight-row-label">Match confidence</span>
@@ -2928,12 +2954,12 @@ button.btn {
           <div class="about-hl">
             <div class="about-hl-icon"><i class="ph ph-shield-check"></i></div>
             <div class="about-hl-title">Trust</div>
-            <div class="about-hl-text">FCA-authorised. Minimal retainer. No hidden fees. We only succeed when you do.</div>
+            <div class="about-hl-text">Minimal retainer. No hidden fees. We only succeed when you do.</div>
           </div>
           <div class="about-hl">
             <div class="about-hl-icon"><i class="ph ph-globe-hemisphere-west"></i></div>
             <div class="about-hl-title">Reach</div>
-            <div class="about-hl-text">Access to Million+ companies across the EMEA region and the Gulf.</div>
+            <div class="about-hl-text">Access to millions of potential buyers in Europe and the Gulf, scored for their likelihood to acquire your company.</div>
           </div>
         </div>
       </div>
@@ -2953,22 +2979,22 @@ button.btn {
       <div class="reason-card">
         <div class="reason-num">01</div>
         <div class="reason-title">Near-zero upfront cost — success-based fees</div>
-        <div class="reason-text">Unlike most EMEA advisors who charge retainers of £10,000–£50,000 before even beginning work, DealOn charges just a nominal £1,000 retainer to secure your mandate — no monthly charges, no interim milestone fees. Our success fee is only triggered upon legal completion of the deal. This is our commitment that we are invested in your outcome, not your engagement letter.</div>
+        <div class="reason-text">Unlike most M&A advisors who charge retainers of £100,000+ during the first phase of the transaction, DealOn charges just a nominal £1,000 retainer to secure your mandate — no monthly charges, no interim milestone fees. Our success fee is only triggered upon legal completion of the deal. This is our commitment that we are invested in your outcome, not your engagement letter.</div>
       </div>
       <div class="reason-card">
         <div class="reason-num">02</div>
         <div class="reason-title">AI-powered matching finds buyers others can't</div>
-        <div class="reason-text">Our proprietary matching engine scans and scores thousands of potential acquirers against your company profile in real-time. By analysing financial fit, strategic synergy, acquisition history, and sector dynamics, we surface high-probability matches that manual processes systematically miss — expanding your buyer universe dramatically.</div>
+        <div class="reason-text">Our proprietary matching engine scans and scores millions of potential acquirers against your company profile in real-time. By analysing financial fit, strategic synergy, acquisition history, and sector dynamics, we surface high-probability matches that manual processes systematically miss — expanding your buyer universe dramatically.</div>
       </div>
       <div class="reason-card">
         <div class="reason-num">03</div>
         <div class="reason-title">City-calibre advisors, not junior associates</div>
-        <div class="reason-text">Your deal is led by senior professionals with direct experience at firms like Rothschild, Lazard, KPMG, and Goldman Sachs. At DealOn, senior people run deals — not supervise them from a distance. You get a named lead advisor who is accountable from mandate to completion, supported by our AI infrastructure.</div>
+        <div class="reason-text">Your deal is led by senior professionals with direct experience at firms like Rothschild, Lazard, Deloitte, and Goldman Sachs. At DealOn, senior people run deals — not supervise them from a distance. You get a named lead advisor who is accountable from mandate to completion, supported by our AI infrastructure.</div>
       </div>
       <div class="reason-card">
         <div class="reason-num">04</div>
         <div class="reason-title">Close in weeks, not years</div>
-        <div class="reason-text">The EMEA mid-market average is 9–12 months from mandate to completion. DealOn's combination of AI-driven buyer identification, parallel processing, and structured deal acceleration has brought our average down to 68 days, with the fastest closing in just 49 days. Speed protects value and reduces deal fatigue for both parties.</div>
+        <div class="reason-text">The EMEA mid-market average is 9–12 months from mandate to completion. DealOn's combination of AI-driven buyer identification, parallel processing, and structured deal acceleration has brought our target completion timeline to 150 days or less, with the fastest closing in just 49 days. Speed protects value and reduces deal fatigue for both parties.</div>
       </div>
     </div>
   </div>
@@ -3007,7 +3033,7 @@ button.btn {
         <div class="service-icon-wrap">
           <i class="ph ph-magnifying-glass"></i>
         </div>
-        <div class="service-title">Buy-Side Search</div>
+        <div class="service-title">Buy-Side Search <span class="service-soon-badge">Coming soon</span></div>
         <div class="service-desc">AI-powered acquisition target identification for corporates and PE funds. We find, screen, and qualify targets that match your strategic criteria — in days, not months.</div>
         <div class="service-tags">
           <span class="service-tag">Target Screening</span>
@@ -3050,7 +3076,7 @@ button.btn {
           <i class="ph ph-chart-line-up"></i>
         </div>
         <div class="service-title">Valuation Intelligence</div>
-        <div class="service-desc">AI-driven company valuations benchmarked against live market multiples and comparable transactions. We produce RICS and HMRC-compliant valuations for all purposes.</div>
+        <div class="service-desc">AI-driven company valuations benchmarked against live market multiples and comparable transactions.</div>
         <div class="service-tags">
           <span class="service-tag">DCF</span>
           <span class="service-tag">Comparable Analysis</span>
@@ -3064,7 +3090,7 @@ button.btn {
           <i class="ph ph-globe-hemisphere-west"></i>
         </div>
         <div class="service-title">Cross-Border M&A</div>
-        <div class="service-desc">Specialist capability in EMEA-international transactions, with particular expertise in European and GCC cross-border deals. We handle currency, regulatory, and cultural complexity.</div>
+        <div class="service-desc">Specialist capability in EMEA-international transactions, with particular expertise in European and GCC cross-border deals. We handle regulatory, and cultural complexity.</div>
         <div class="service-tags">
           <span class="service-tag">Europe</span>
           <span class="service-tag">GCC</span>
@@ -3095,7 +3121,7 @@ button.btn {
         <div class="ai-features">
           <div class="ai-feature">
             <div class="ai-feature-check">✓</div>
-            <div class="ai-feature-text"><strong>Intelligent Matching</strong> — Analyses 14,200+ buyer profiles against 47 compatibility dimensions including financial capacity, strategic fit, and cultural alignment.</div>
+            <div class="ai-feature-text"><strong>Intelligent Matching</strong> — Analyses millions of potential buyers against multiple compatibility dimensions including financial capacity, strategic fit, and M&A history.</div>
           </div>
           <div class="ai-feature">
             <div class="ai-feature-check">✓</div>
@@ -3129,12 +3155,18 @@ button.btn {
 
         <div class="fee-callout">
           <div class="fee-callout-title">The DealOn Promise</div>
-          <div class="fee-callout-text">For sellers: <strong style="color:var(--accent)">Just £1,000 retainer</strong> — no monthly fee, no interim charges. Our success fee is calculated on the transfer price — not total assets — keeping it transparent and fair. For buyers: we waive all retainer fees, opening access to a wider pool of quality acquirers for our sell-side clients.</div>
+          <div class="fee-callout-text">For sellers: <strong style="color:var(--accent)">Just £1,000 retainer</strong> — no monthly fee, no interim charges. Our success fee is calculated on the transfer price — not total assets — keeping it transparent and fair.</div>
         </div>
       </div>
 
       <div class="fee-table-wrap">
         <table class="fee-table">
+          <colgroup>
+            <col>
+            <col>
+            <col>
+            <col>
+          </colgroup>
           <thead>
             <tr>
               <th>Fee Type</th>
@@ -3145,40 +3177,22 @@ button.btn {
           </thead>
           <tbody>
             <tr>
-              <td>Retainer Fee</td>
+              <td>Retainer Fees</td>
               <td class="fee-free">£1,000</td>
-              <td class="fee-charged">£25k+</td>
-              <td class="fee-charged">£75k+</td>
-            </tr>
-            <tr>
-              <td>Monthly Fee</td>
-              <td class="fee-free">None</td>
-              <td class="fee-charged">£5k/mo</td>
-              <td class="fee-free">None</td>
-            </tr>
-            <tr>
-              <td>Interim Fee</td>
-              <td class="fee-free">None</td>
-              <td class="fee-free">None</td>
-              <td class="fee-charged">On milestone</td>
+              <td class="fee-charged">£100,000+</td>
+              <td class="fee-charged">£100,000+</td>
             </tr>
             <tr>
               <td>Success Fee Basis</td>
-              <td class="fee-free">Transfer Price</td>
-              <td>Transfer Price</td>
-              <td class="fee-charged">Total Assets</td>
+              <td class="fee-free">Enterprise Value</td>
+              <td>Enterprise Value</td>
+              <td>Enterprise Value or Total Assets</td>
             </tr>
             <tr>
               <td>Success Fee (≤£5m)</td>
-              <td>5%</td>
-              <td>5%</td>
-              <td>5%</td>
-            </tr>
-            <tr>
-              <td>Buy-Side Success Fee</td>
-              <td class="fee-free">From 3.5%</td>
-              <td class="fee-charged">3–5%</td>
-              <td class="fee-charged">3–5%</td>
+              <td class="fee-free">5%</td>
+              <td class="fee-charged">5-10%</td>
+              <td class="fee-charged">5-10%</td>
             </tr>
             <tr>
               <td>AI Deal Matching</td>
@@ -3282,7 +3296,7 @@ button.btn {
             <span class="faq-icon"><i class="ph ph-plus"></i></span>
           </button>
           <div class="faq-a">
-            <p>Our target average is 68 days, with our platform designed to achieve completion in as few as 49 days. The EMEA industry average is 9–12 months. Our speed comes from AI-powered buyer matching, parallel workstream management, and senior-led execution — we don't waste time on unqualified leads.</p>
+            <p>Our target average is 150 days, with our platform designed to achieve completion in as few as 49 days. The EMEA industry average is 9–12 months. Our speed comes from AI-powered buyer matching, parallel workstream management, and senior-led execution — we don't waste time on unqualified leads.</p>
           </div>
         </div>
 
@@ -3302,7 +3316,7 @@ button.btn {
             <span class="faq-icon"><i class="ph ph-plus"></i></span>
           </button>
           <div class="faq-a">
-            <p>Our engine analyses your company across 47 dimensions — sector, size, geography, growth profile, customer concentration, recurring revenue, margin profile, and more. It then scores every buyer in our database of 14,200+ active profiles for compatibility, surfacing the highest-probability matches for human review by your lead advisor.</p>
+            <p>Our engine analyses your company across multiple dimensions — sector, size, geography, growth profile, customer concentration, recurring revenue, margin profile, and more. It then scores every buyer in our database of millions of companies across Europe and the Gulf for compatibility, surfacing the highest-probability matches for human review by your lead advisor.</p>
           </div>
         </div>
 
