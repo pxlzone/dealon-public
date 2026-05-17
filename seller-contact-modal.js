@@ -6,6 +6,7 @@
   var successFlow = document.getElementById('sellerContactSuccessFlow');
   var formError = document.getElementById('sellerContactFormError');
   var subjectField = document.getElementById('contactFormSubject');
+  var accessKeyField = document.getElementById('contactFormAccessKey');
   var topicField = document.getElementById('contact-topic');
   var messageEl = document.getElementById('contact-message');
   var websiteEl = document.getElementById('contact-website');
@@ -19,68 +20,22 @@
 
   if (!modal || !dialog || !form) return;
 
+  var SPLITFORMS_SUBMIT_URL = 'https://splitforms.com/api/submit';
+  var SPLITFORMS_ACCESS_KEY =
+    typeof window.DEALON_SPLITFORMS_ACCESS_KEY === 'string'
+      ? window.DEALON_SPLITFORMS_ACCESS_KEY.trim()
+      : '';
+
+  if (accessKeyField && SPLITFORMS_ACCESS_KEY) {
+    accessKeyField.value = SPLITFORMS_ACCESS_KEY;
+  }
+
   var PH_WEB_DEFAULT = 'https://company.com';
   var PH_WEB_BUYER = 'Fund / portfolio site or LinkedIn';
 
   var DEFAULT_MODAL_TITLE = 'Get in touch';
   var DEFAULT_MODAL_LEDE =
     'Brief details below — we usually reply within one business day.';
-
-  /* Checkbox v2. Google’s documented test site key passes locally; production: window.DEALON_RECAPTCHA_SITE_KEY = '…'; in <head> before scripts. */
-  var GOOGLE_RECAPTCHA_TEST_SITEKEY = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
-  var recaptchaSellerWidgetId = null;
-  var RECAPTCHA_SITE_KEY = '';
-  var rawRecaptchaCfg =
-    typeof window.DEALON_RECAPTCHA_SITE_KEY === 'string'
-      ? window.DEALON_RECAPTCHA_SITE_KEY.trim()
-      : '';
-  RECAPTCHA_SITE_KEY = rawRecaptchaCfg || GOOGLE_RECAPTCHA_TEST_SITEKEY;
-
-  function onRecaptchaStateChange() {
-    syncSubmitEnabled();
-  }
-
-  function tryRenderSellerRecaptcha() {
-    if (!RECAPTCHA_SITE_KEY) return;
-    var mount = document.getElementById('sellerContactRecaptcha');
-    if (!mount || recaptchaSellerWidgetId !== null) return;
-    if (typeof grecaptcha === 'undefined' || typeof grecaptcha.render !== 'function') return;
-    try {
-      var light =
-        typeof window.matchMedia === 'function' &&
-        window.matchMedia('(prefers-color-scheme: light)').matches;
-      recaptchaSellerWidgetId = grecaptcha.render(mount, {
-        sitekey: RECAPTCHA_SITE_KEY,
-        theme: light ? 'light' : 'dark',
-        callback: onRecaptchaStateChange,
-        'expired-callback': onRecaptchaStateChange,
-        'error-callback': onRecaptchaStateChange,
-      });
-      syncSubmitEnabled();
-    } catch (_err) {
-      recaptchaSellerWidgetId = null;
-    }
-  }
-
-  function syncRecaptchaOnModalOpen() {
-    if (!RECAPTCHA_SITE_KEY) return;
-    if (typeof grecaptcha === 'undefined') return;
-    if (recaptchaSellerWidgetId !== null) {
-      try {
-        grecaptcha.reset(recaptchaSellerWidgetId);
-      } catch (_e) {}
-      syncSubmitEnabled();
-      return;
-    }
-    tryRenderSellerRecaptcha();
-  }
-
-  function getFormSubmitAjaxUrl() {
-    var a = (form.getAttribute('action') || '').trim();
-    if (!a) return '';
-    if (/formsubmit\.co\/ajax\//i.test(a)) return a;
-    return a.replace(/formsubmit\.co\//i, 'formsubmit.co/ajax/');
-  }
 
   function isMandatoryComplete() {
     var nameOk = nameInput && nameInput.value.trim() !== '';
@@ -93,19 +48,6 @@
     return !!(nameOk && emailOk && webOk);
   }
 
-  function isRecaptchaComplete() {
-    if (!RECAPTCHA_SITE_KEY) return true;
-    if (recaptchaSellerWidgetId === null || typeof grecaptcha === 'undefined')
-      return false;
-    var token = '';
-    try {
-      token = grecaptcha.getResponse(recaptchaSellerWidgetId);
-    } catch (_e) {
-      return false;
-    }
-    return !!(token && String(token).trim() !== '');
-  }
-
   function syncSubmitEnabled() {
     if (!submitBtn) return;
     if (!modal.classList.contains('seller-contact-modal--open')) return;
@@ -114,7 +56,7 @@
       submitBtn.disabled = true;
       return;
     }
-    submitBtn.disabled = !(isMandatoryComplete() && isRecaptchaComplete());
+    submitBtn.disabled = !isMandatoryComplete();
   }
 
   function hideFormError() {
@@ -214,7 +156,7 @@
     }
   }
 
-  /* Human-readable enquiry goal in FormSubmit tables / CRM (synced from CTA). */
+  /* Human-readable enquiry goal in notification emails (synced from CTA). */
   function topicForIntent(intent) {
     switch (intent) {
       case 'start-deal':
@@ -328,6 +270,9 @@
     lastFocus = document.activeElement;
     resetModalView();
     form.reset();
+    if (accessKeyField && SPLITFORMS_ACCESS_KEY) {
+      accessKeyField.value = SPLITFORMS_ACCESS_KEY;
+    }
 
     lockScroll();
     modal.hidden = false;
@@ -342,7 +287,6 @@
     syncSubmitEnabled();
 
     window.requestAnimationFrame(function () {
-      syncRecaptchaOnModalOpen();
       syncSubmitEnabled();
       var focusEl = document.getElementById('contact-name');
       if (focusEl) {
@@ -360,6 +304,9 @@
     unlockScroll();
     resetModalView();
     form.reset();
+    if (accessKeyField && SPLITFORMS_ACCESS_KEY) {
+      accessKeyField.value = SPLITFORMS_ACCESS_KEY;
+    }
     syncSubmitEnabled();
     try {
       if (history.replaceState && location.hash === '#seller-contact') {
@@ -411,23 +358,11 @@
     if (submitBtn && submitBtn.disabled) return;
     hideFormError();
 
-    var ajaxUrl = getFormSubmitAjaxUrl();
-    if (!ajaxUrl) {
+    var accessKey =
+      (accessKeyField && accessKeyField.value.trim()) || SPLITFORMS_ACCESS_KEY;
+    if (!accessKey) {
       showFormError('Configuration error — please refresh and try again.');
       return;
-    }
-
-    if (RECAPTCHA_SITE_KEY) {
-      if (recaptchaSellerWidgetId === null || typeof grecaptcha === 'undefined') {
-        showFormError(
-          'Verification is still loading — wait a moment and try again.'
-        );
-        return;
-      }
-      if (!grecaptcha.getResponse(recaptchaSellerWidgetId)) {
-        showFormError('Please complete the verification below.');
-        return;
-      }
     }
 
     if (!submitBtn) return;
@@ -435,21 +370,33 @@
     submitBtn.setAttribute('aria-busy', 'true');
 
     var fd = new FormData(form);
-    fetch(ajaxUrl, {
+    if (!fd.get('access_key')) fd.set('access_key', accessKey);
+
+    fetch(SPLITFORMS_SUBMIT_URL, {
       method: 'POST',
       body: fd,
       headers: { Accept: 'application/json' },
     })
       .then(function (res) {
-        if (!res.ok) throw new Error('Request failed');
-        return res.text();
+        return res.json().then(function (json) {
+          return { ok: res.ok, json: json };
+        });
       })
-      .then(function () {
-        showSuccessInModal();
+      .then(function (result) {
+        if (result.ok && result.json && result.json.success) {
+          showSuccessInModal();
+          return;
+        }
+        var msg =
+          (result.json && result.json.message) ||
+          'Something went wrong. Try again shortly, or reach us via the links below.';
+        throw new Error(msg);
       })
-      .catch(function () {
+      .catch(function (err) {
         showFormError(
-          'Something went wrong. Try again shortly, or reach us via the links below.'
+          err && err.message
+            ? err.message
+            : 'Something went wrong. Try again shortly, or reach us via the links below.'
         );
         submitBtn.removeAttribute('aria-busy');
         syncSubmitEnabled();
@@ -475,9 +422,4 @@
   } else {
     bootstrapFromHash();
   }
-
-  window.dealonSellerContactRecaptchaLoaded = function () {
-    tryRenderSellerRecaptcha();
-    syncSubmitEnabled();
-  };
 })();

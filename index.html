@@ -7,7 +7,8 @@
 <meta name="description" content="DealOn combines world-class deal expertise with proprietary AI matching technology to find your perfect buyer or acquisition — faster, smarter, and with minimal upfront commitment.">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#060610">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f6f8fc">
-<script>window.DEALON_RECAPTCHA_SITE_KEY = '6LciTeAsAAAAALgqjz09YGdPrYjNIJrdaJ-4u7rX';</script>
+<!-- splitforms.com → Dashboard → Forms → access key. Restrict domains to dealon.ae (+ localhost for dev). -->
+<script>window.DEALON_SPLITFORMS_ACCESS_KEY = '24aa8d94530e4b118b40d879a860e6cf';</script>
 <!-- Open Graph: absolute URLs for social crawlers. Change the origin if the public site is not https://dealon.ae/ -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="DealOn">
@@ -1992,8 +1993,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   margin-bottom: 0.45rem;
 }
 
-.contact-field label .req,
-.seller-contact-modal__recaptcha-label .req {
+.contact-field label .req {
   color: var(--accent);
   font-weight: 500;
   margin-left: 0.15em;
@@ -2381,26 +2381,6 @@ button.btn {
   margin-top: 0.25rem;
 }
 
-.seller-contact-modal__recaptcha-wrap {
-  margin-bottom: 0.95rem;
-}
-
-.seller-contact-modal__recaptcha-label {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 0.45rem;
-}
-
-.seller-contact-modal__recaptcha-mount {
-  display: flex;
-  justify-content: flex-start;
-  margin-top: 0.15rem;
-}
-
 @media (prefers-color-scheme: light) {
   .seller-contact-modal__success {
     background: rgba(0, 185, 173, 0.1);
@@ -2692,11 +2672,11 @@ button.btn {
       Brief details below — we usually reply within one business day.
     </p>
 
-    <form id="contact-form" action="https://formsubmit.co/info@dealon.ae" method="post">
-      <input type="hidden" name="_subject" id="contactFormSubject" value="DealOn — Website enquiry">
-      <input type="hidden" name="_template" value="table">
+    <form id="contact-form" action="https://splitforms.com/api/submit" method="post">
+      <input type="hidden" name="access_key" id="contactFormAccessKey" value="24aa8d94530e4b118b40d879a860e6cf">
+      <input type="hidden" name="subject" id="contactFormSubject" value="DealOn — Website enquiry">
       <input type="hidden" name="topic" id="contact-topic" value="General">
-      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-10000px;height:0;width:0;opacity:0;">
+      <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
 
       <p id="sellerContactFormError" class="seller-contact-modal__form-error" hidden role="alert"></p>
 
@@ -2725,15 +2705,6 @@ button.btn {
         <textarea id="contact-message" name="message" placeholder="Brief context so we can reply usefully…"></textarea>
       </div>
 
-      <div class="contact-field seller-contact-modal__recaptcha-wrap">
-        <span class="seller-contact-modal__recaptcha-label" id="sellerContactRecaptchaLabel">
-          Verification<span class="req" aria-hidden="true">*</span>
-        </span>
-        <div
-          id="sellerContactRecaptcha"
-          class="seller-contact-modal__recaptcha-mount"
-          aria-labelledby="sellerContactRecaptchaLabel"></div>
-      </div>
 
       <button type="submit" class="btn btn--primary contact-submit">
         Send message <span class="btn-arrow">→</span>
@@ -3537,7 +3508,6 @@ if (canvas) {
 
 </script>
 <script src="seller-contact-modal.js"></script>
-<script src="https://www.google.com/recaptcha/api.js?onload=dealonSellerContactRecaptchaLoaded&render=explicit" async defer></script>
 <script src="header.js"></script>
 <!-- Explainers: seller/index.html + buyer/index.html (paths must survive /dealon vs /dealon/) -->
 <script>
