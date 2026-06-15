@@ -983,6 +983,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   border-radius: var(--radius-md);
   background: var(--bg-deep);
   overflow: hidden;
+  pointer-events: none;
 }
 
 /* Canvas out of flow so it cannot set a min-height above the copy column (neural resize still uses parent rect). */
@@ -992,6 +993,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   width: 100%;
   height: 100%;
   display: block;
+  pointer-events: none;
 }
 
 /* Animated neural network visualization */
@@ -1007,6 +1009,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   inset: 0;
   background: linear-gradient(180deg, transparent 30%, var(--bg-deep) 100%);
   z-index: 2;
+  pointer-events: none;
 }
 
 @media (prefers-color-scheme: light) {
@@ -2546,7 +2549,7 @@ button.btn {
   .services-header { grid-template-columns: 1fr; gap: 1.5rem; }
   .ai-visual { order: 1; }
   .ai-text { order: 2; }
-  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .stats-row { grid-template-columns: 1fr; }
   .reasons-grid { grid-template-columns: 1fr; }
   .sectors-grid { grid-template-columns: 1fr 1fr; }
   .sectors-grid .sector-cell:last-child { grid-column: 1 / -1; }
@@ -2885,7 +2888,7 @@ button.btn {
 <!-- ═══════════ ABOUT / WHY DEALON ═══════════ -->
 <section class="section section--violet-haze section--violet-haze--bl" id="about">
   <div class="container">
-    <div class="about-grid reveal">
+    <div class="about-grid">
       <div class="about-visual">
         <canvas id="neuralCanvas"></canvas>
         <div class="about-visual-overlay"></div>
@@ -2900,7 +2903,7 @@ button.btn {
           </div>
         </div>
       </div>
-      <div class="about-text">
+      <div class="about-text reveal">
         <div class="section-eyebrow">Why DealOn</div>
         <h2 class="section-heading">M&A built for the <em>AI age</em></h2>
         <p>DealOn is the EMEA's first fully AI-native M&A advisory. We were founded on the principle that business owners deserve better: faster deal timelines, smarter matching, and a fee model that only charges on success.</p>
@@ -3412,8 +3415,11 @@ faqItems.forEach(item => {
 const canvas = document.getElementById('neuralCanvas');
 if (canvas) {
   const ctx = canvas.getContext('2d');
-  let w, h, nodes = [], mouse = { x: 0, y: 0 };
+  let w = 0, h = 0, nodes = [];
   let networkPalette = getNetworkPalette();
+  let resizeRaf = 0;
+  let lastLayoutW = 0;
+  let lastLayoutH = 0;
 
   function getNetworkPalette() {
     const styles = getComputedStyle(document.documentElement);
@@ -3428,17 +3434,42 @@ if (canvas) {
 
   function resize() {
     const rect = canvas.parentElement.getBoundingClientRect();
-    w = canvas.width = rect.width;
-    h = canvas.height = rect.height;
+    const nextW = Math.max(1, Math.round(rect.width));
+    const nextH = Math.max(1, Math.round(rect.height));
+    if (nextW === lastLayoutW && nextH === lastLayoutH) return;
+
+    if (nodes.length && w > 0 && h > 0) {
+      const scaleX = nextW / w;
+      const scaleY = nextH / h;
+      nodes.forEach((node) => {
+        node.x *= scaleX;
+        node.y *= scaleY;
+      });
+    } else {
+      initNodes(nextW, nextH);
+    }
+
+    w = canvas.width = nextW;
+    h = canvas.height = nextH;
+    lastLayoutW = nextW;
+    lastLayoutH = nextH;
   }
 
-  function initNodes() {
+  function scheduleResize() {
+    if (resizeRaf) return;
+    resizeRaf = requestAnimationFrame(() => {
+      resizeRaf = 0;
+      resize();
+    });
+  }
+
+  function initNodes(width, height) {
     nodes = [];
     const count = networkPalette.nodeCount;
     for (let i = 0; i < count; i++) {
       nodes.push({
-        x: Math.random() * w,
-        y: Math.random() * h,
+        x: Math.random() * width,
+        y: Math.random() * height,
         vx: (Math.random() - 0.5) * 0.4,
         vy: (Math.random() - 0.5) * 0.4,
         r: Math.random() * 2.2 + 1,
@@ -3484,9 +3515,14 @@ if (canvas) {
   }
 
   resize();
-  initNodes();
   draw();
-  window.addEventListener('resize', () => { resize(); initNodes(); });
+
+  window.addEventListener('resize', scheduleResize, { passive: true });
+  if (typeof ResizeObserver === 'function') {
+    const visual = canvas.parentElement;
+    if (visual) new ResizeObserver(scheduleResize).observe(visual);
+  }
+
   const themeQuery = window.matchMedia('(prefers-color-scheme: light)');
   const handleThemeChange = () => { networkPalette = getNetworkPalette(); };
   if (typeof themeQuery.addEventListener === 'function') {
