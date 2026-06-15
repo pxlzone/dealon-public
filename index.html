@@ -1431,6 +1431,8 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   font-weight: 400;
 }
 
+.fee-val--short { display: none; }
+
 .fee-callout {
   padding: 2rem;
   background: var(--fee-callout-bg);
@@ -2554,16 +2556,30 @@ button.btn {
   .sectors-grid { grid-template-columns: 1fr 1fr; }
   .sectors-grid .sector-cell:last-child { grid-column: 1 / -1; }
   .team-grid { grid-template-columns: 1fr; }
-  .reason-card { padding-top: 3.5rem; }
+  .reason-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 0.75rem;
+    align-items: start;
+  }
   .reason-num {
-    position: absolute;
-    top: 1.25rem;
-    right: 1.5rem;
+    position: static;
+    grid-column: 2;
+    grid-row: 1;
     margin-bottom: 0;
-    font-size: 2rem;
+    font-size: 1.75rem;
     line-height: 1;
     opacity: 0.65;
     pointer-events: none;
+  }
+  .reason-title {
+    grid-column: 1;
+    grid-row: 1;
+    margin-bottom: 0.75rem;
+  }
+  .reason-text {
+    grid-column: 1 / -1;
+    grid-row: 2;
   }
   .hero-actions { flex-direction: column; align-items: flex-start; width: 100%; }
   .hero-actions .btn { width: 100%; justify-content: center; }
@@ -2613,11 +2629,24 @@ button.btn {
     font-size: var(--fs-xs);
   }
 
-  /* Match card interiors (service / reason / team) */
   .fee-table thead th,
   .fee-table tbody td {
-    padding: 1.35rem 1rem;
+    padding-block: 1.35rem;
+    padding-inline: 0.4rem;
   }
+
+  .fee-table thead th:first-child,
+  .fee-table tbody td:first-child {
+    padding-inline-start: 1rem;
+  }
+
+  .fee-table thead th:last-child,
+  .fee-table tbody td:last-child {
+    padding-inline-end: 1rem;
+  }
+
+  .fee-val--full { display: none; }
+  .fee-val--short { display: inline; }
 
   .service-card {
     padding: 1.35rem 1rem;
@@ -3143,9 +3172,9 @@ button.btn {
           <tbody>
             <tr>
               <td>Retainer Fees</td>
-              <td class="fee-free">£1,000</td>
-              <td class="fee-charged">£100,000+</td>
-              <td class="fee-charged">£100,000+</td>
+              <td class="fee-free"><span class="fee-val--full">£1,000</span><span class="fee-val--short">£1K</span></td>
+              <td class="fee-charged"><span class="fee-val--full">£100,000+</span><span class="fee-val--short">£100K+</span></td>
+              <td class="fee-charged"><span class="fee-val--full">£100,000+</span><span class="fee-val--short">£100K+</span></td>
             </tr>
             <tr>
               <td>Success Fee Basis</td>
