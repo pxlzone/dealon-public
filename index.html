@@ -894,8 +894,6 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .explainer-tab-slider{position:absolute;top:.3rem;bottom:.3rem;left:0;height:auto;border-radius:999px;background:var(--accent-soft);transition:transform .28s var(--ease-out-expo),width .28s var(--ease-out-expo),background-color .28s ease;pointer-events:none}
 .explainer-tab-slider.is-buyer{background:rgba(124,92,252,.14)}
 .explainer-tab-badge{font-family:var(--font-mono);font-size:var(--fs-micro);font-weight:500;letter-spacing:.13em;text-transform:uppercase;padding:.22rem .48rem;border-radius:var(--radius-sm);background:rgba(124,92,252,.14);color:#a68cff;border:1px solid rgba(124,92,252,.22);line-height:1;white-space:nowrap}
-.explainer-caveat{display:flex;width:fit-content;align-items:center;justify-content:center;gap:.85rem;font-family:var(--font-mono);font-size:var(--fs-micro);color:var(--text-muted);letter-spacing:.14em;text-transform:uppercase;margin:0 auto 1.75rem;opacity:.75}
-.explainer-caveat::before,.explainer-caveat::after{display:none}
 /* position + absolute iframe: height:100% inside aspect-ratio-only box often computes to 0 */
 /* Frame + ratio aligned with embedded explainer pattern (see index copy — how-explainer-frame) */
 .explainer-frame{
@@ -2714,7 +2712,7 @@ button.btn {
         By submitting this form, you agree DealOn may use the information you’ve provided to respond to your enquiry, as described in our <a href="privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
       </p>
 
-      <p class="contact-form-foot contact-form-foot--balance">Prefer to reach out directly? <a href="mailto:info@dealon.ae">info@dealon.ae</a> · <a href="tel:+971503746636">+971 50 374 6636</a></p>
+      <p class="contact-form-foot contact-form-foot--balance">Prefer to reach out directly? <a href="mailto:info@dealon.ae">info@dealon.ae</a></p>
     </form>
     </div>
 
@@ -2792,21 +2790,21 @@ button.btn {
           </div>
           <div class="insight-stat">
             <div class="insight-stat-value">68</div>
-            <div class="insight-stat-label">Days to Completion</div>
+            <div class="insight-stat-label">Days to Signing</div>
           </div>
         </div>
 
         <div class="insight-rows">
           <div class="insight-row">
             <span class="insight-row-label">Buyer database</span>
-            <span class="insight-row-value">Millions of potential buyers</span>
+            <span class="insight-row-value">10,000+</span>
           </div>
           <div class="insight-row">
             <span class="insight-row-label">Match confidence</span>
             <span class="insight-row-value insight-row-value--accent">94.2%</span>
           </div>
           <div class="insight-row">
-            <span class="insight-row-label">Deals completed</span>
+            <span class="insight-row-label">Deals signed</span>
             <span class="insight-row-value">£2B total value</span>
           </div>
         </div>
@@ -2826,11 +2824,10 @@ button.btn {
       <span class="ticker-item">M&A Advisory</span>
       <span class="ticker-item">Business Succession</span>
       <span class="ticker-item">Buyer Identification</span>
-      <span class="ticker-item">Due Diligence</span>
+      <span class="ticker-item">Due Diligence Preparation</span>
       <span class="ticker-item">Valuation Intelligence</span>
       <span class="ticker-item">Cross-Border Deals</span>
       <span class="ticker-item">Performance-Based Fees</span>
-      <span class="ticker-item">Post-Merger Integration</span>
       <span class="ticker-item">EMEA Mid-Market</span>
     </div>
     <div class="ticker-track" aria-hidden="true">
@@ -2838,11 +2835,10 @@ button.btn {
       <span class="ticker-item">M&A Advisory</span>
       <span class="ticker-item">Business Succession</span>
       <span class="ticker-item">Buyer Identification</span>
-      <span class="ticker-item">Due Diligence</span>
+      <span class="ticker-item">Due Diligence Preparation</span>
       <span class="ticker-item">Valuation Intelligence</span>
       <span class="ticker-item">Cross-Border Deals</span>
       <span class="ticker-item">Performance-Based Fees</span>
-      <span class="ticker-item">Post-Merger Integration</span>
       <span class="ticker-item">EMEA Mid-Market</span>
     </div>
   </div>
@@ -2856,8 +2852,8 @@ button.btn {
       <div class="stat-label">Cumulative Partners Deal Experience</div>
     </div>
     <div class="stat-cell">
-      <div class="stat-value">150 days</div>
-      <div class="stat-label">Avg Target to Deal Completion</div>
+      <div class="stat-value">~100 days</div>
+      <div class="stat-label">Avg Target to Deal Signing</div>
     </div>
     <div class="stat-cell">
       <div class="stat-value">97%</div>
@@ -2878,7 +2874,6 @@ button.btn {
       <button class="explainer-tab active" data-persona="seller" role="tab" aria-selected="true">For Sellers</button>
       <button class="explainer-tab" data-persona="buyer" role="tab" aria-selected="false">For Buyers</button>
     </div>
-    <div class="explainer-caveat">UK only &middot; other countries coming soon</div>
     <div class="explainer-frame">
       <iframe id="explainerFrame" title="DealOn explainer" allow="autoplay"></iframe>
     </div>
@@ -2908,14 +2903,14 @@ button.btn {
       <div class="about-text">
         <div class="section-eyebrow">Why DealOn</div>
         <h2 class="section-heading">M&A built for the <em>AI age</em></h2>
-        <p>DealOn is the EMEA's first fully AI-native M&A advisory. We were founded on the principle that business owners deserve better — faster deal timelines, smarter matching, and a fee model that only charges on success.</p>
-        <p>Our proprietary AI engine analyses thousands of buyer and seller profiles simultaneously, identifying synergistic matches that traditional advisors miss. Combined with our experienced deal team — drawn from the City's top investment banks and advisory houses — we close deals in a fraction of the time.</p>
+        <p>DealOn is the EMEA's first fully AI-native M&A advisory. We were founded on the principle that business owners deserve better: faster deal timelines, smarter matching, and a fee model that only charges on success.</p>
+        <p>Our proprietary AI engine analyses thousands of buyer and seller profiles simultaneously, identifying synergistic matches that traditional advisors miss. Combined with our experienced deal team, drawn from Europe's top investment banks and advisory houses, we close deals in a fraction of the time with minimal upfront costs.</p>
 
         <div class="about-highlights">
           <div class="about-hl">
             <div class="about-hl-icon"><i class="ph ph-rocket-launch"></i></div>
             <div class="about-hl-title">Speed</div>
-            <div class="about-hl-text">Deals closed in as few as 49 days — versus the industry average of 9-12 months.</div>
+            <div class="about-hl-text">Deals closed in ~100 days versus the industry average of 9-12 months.</div>
           </div>
           <div class="about-hl">
             <div class="about-hl-icon"><i class="ph ph-target"></i></div>
@@ -2930,7 +2925,7 @@ button.btn {
           <div class="about-hl">
             <div class="about-hl-icon"><i class="ph ph-globe-hemisphere-west"></i></div>
             <div class="about-hl-title">Reach</div>
-            <div class="about-hl-text">Access to millions of potential buyers in Europe and the Gulf, scored for their likelihood to acquire your company.</div>
+            <div class="about-hl-text">Access to 10,000+ potential buyers in Europe and the Gulf, scored for their likelihood to acquire your company.</div>
           </div>
         </div>
       </div>
@@ -2950,22 +2945,22 @@ button.btn {
       <div class="reason-card">
         <div class="reason-num">01</div>
         <div class="reason-title">Near-zero upfront cost — success-based fees</div>
-        <div class="reason-text">Unlike most M&A advisors who charge retainers of £100,000+ during the first phase of the transaction, DealOn charges just a nominal £1,000 retainer to secure your mandate — no monthly charges, no interim milestone fees. Our success fee is only triggered upon legal completion of the deal. This is our commitment that we are invested in your outcome, not your engagement letter.</div>
+        <div class="reason-text">Unlike most M&A advisors who charge retainers of £100,000+ during the first phase of the transaction, DealOn charges just a nominal £1,000 retainer to secure your mandate — no monthly charges, no interim milestone fees. Our success fee is only triggered upon signing of the deal. This is our commitment that we are invested in your outcome, not your engagement letter.</div>
       </div>
       <div class="reason-card">
         <div class="reason-num">02</div>
         <div class="reason-title">AI-powered matching finds buyers others can't</div>
-        <div class="reason-text">Our proprietary matching engine scans and scores millions of potential acquirers against your company profile in real-time. By analysing financial fit, strategic synergy, acquisition history, and sector dynamics, we surface high-probability matches that manual processes systematically miss — expanding your buyer universe dramatically.</div>
+        <div class="reason-text">Our proprietary matching engine scans and scores tens of thousands of potential acquirers against your company profile in real-time. By analysing financial fit, strategic synergy, acquisition history, and sector dynamics, we surface high-probability matches that manual processes systematically miss, expanding your buyer universe dramatically.</div>
       </div>
       <div class="reason-card">
         <div class="reason-num">03</div>
-        <div class="reason-title">City-calibre advisors, not junior associates</div>
-        <div class="reason-text">Your deal is led by senior professionals with direct experience at firms like Rothschild, Lazard, Deloitte, and Goldman Sachs. At DealOn, senior people run deals — not supervise them from a distance. You get a named lead advisor who is accountable from mandate to completion, supported by our AI infrastructure.</div>
+        <div class="reason-title">Senior advisors, not junior associates</div>
+        <div class="reason-text">Your deal is led by senior professionals with direct experience at firms like Barclays, Rothschild, Lazard, Deloitte, and Goldman Sachs. At DealOn, senior people run deals, not supervise them from a distance. You get a named lead advisor who is accountable from mandate to signing, supported by our AI infrastructure.</div>
       </div>
       <div class="reason-card">
         <div class="reason-num">04</div>
         <div class="reason-title">Close in weeks, not years</div>
-        <div class="reason-text">The EMEA mid-market average is 9–12 months from mandate to completion. DealOn's combination of AI-driven buyer identification, parallel processing, and structured deal acceleration has brought our target completion timeline to 150 days or less, with the fastest closing in just 49 days. Speed protects value and reduces deal fatigue for both parties.</div>
+        <div class="reason-text">The EMEA mid-market average is 9–12 months from mandate to signing. DealOn's combination of AI-driven buyer identification, parallel processing, and structured deal acceleration has brought our target signing timeline to ~100 days or less. Speed protects value and reduces deal fatigue for both parties.</div>
       </div>
     </div>
   </div>
@@ -2981,7 +2976,7 @@ button.btn {
         <div class="section-eyebrow">Services</div>
         <h2 class="section-heading">Full-spectrum <em>deal capability</em></h2>
       </div>
-      <div class="section-desc">From initial valuation through to post-completion integration, DealOn covers every stage of the transaction lifecycle with AI-augmented precision.</div>
+      <div class="section-desc">From initial valuation through to deal signing, DealOn covers every stage of the transaction lifecycle with AI-augmented precision.</div>
     </div>
 
     <div class="services-grid reveal">
@@ -2991,7 +2986,7 @@ button.btn {
           <i class="ph ph-stack"></i>
         </div>
         <div class="service-title">Sell-Side Advisory</div>
-        <div class="service-desc">End-to-end management of your company sale — from preparation and valuation through to buyer negotiation and completion. We maximise your price and protect your legacy.</div>
+        <div class="service-desc">End-to-end management of your company sale — from preparation and valuation through to buyer negotiation and signing. We maximise your price and protect your legacy.</div>
         <div class="service-tags">
           <span class="service-tag">Valuation</span>
           <span class="service-tag">Information Memorandum</span>
@@ -3061,7 +3056,7 @@ button.btn {
           <i class="ph ph-globe-hemisphere-west"></i>
         </div>
         <div class="service-title">Cross-Border M&A</div>
-        <div class="service-desc">Specialist capability in EMEA-international transactions, with particular expertise in European and GCC cross-border deals. We handle regulatory, and cultural complexity.</div>
+        <div class="service-desc">Specialist capability in EMEA-international transactions, with particular expertise in European and GCC cross-border deals.</div>
         <div class="service-tags">
           <span class="service-tag">Europe</span>
           <span class="service-tag">GCC</span>
@@ -3092,15 +3087,11 @@ button.btn {
         <div class="ai-features">
           <div class="ai-feature">
             <div class="ai-feature-check">✓</div>
-            <div class="ai-feature-text"><strong>Intelligent Matching</strong> — Analyses millions of potential buyers against multiple compatibility dimensions including financial capacity, strategic fit, and M&A history.</div>
+            <div class="ai-feature-text"><strong>Intelligent Matching</strong> — Analyses tens of thousands of potential buyers against multiple compatibility dimensions including financial capacity, strategic fit, and M&A history.</div>
           </div>
           <div class="ai-feature">
             <div class="ai-feature-check">✓</div>
             <div class="ai-feature-text"><strong>Predictive Valuation</strong> — Real-time market multiples and comparable transaction analysis, updated daily from live deal databases.</div>
-          </div>
-          <div class="ai-feature">
-            <div class="ai-feature-check">✓</div>
-            <div class="ai-feature-text"><strong>Risk Radar</strong> — Natural language processing scans legal, financial, and commercial documents to flag due diligence risks before they surface in negotiation.</div>
           </div>
           <div class="ai-feature">
             <div class="ai-feature-check">✓</div>
@@ -3122,7 +3113,7 @@ button.btn {
 
     <div class="fee-layout reveal">
       <div>
-        <p class="section-desc" style="margin-bottom:1.5rem;">Most EMEA M&A advisors charge retainers, monthly fees, or interim payments regardless of outcome. We believe that's fundamentally misaligned with your interests. At DealOn, you pay nothing until your deal completes.</p>
+        <p class="section-desc" style="margin-bottom:1.5rem;">Most M&A advisors charge retainers, monthly fees, or interim payments regardless of outcome. We believe that's fundamentally misaligned with your interests. At DealOn, you pay only £1,000 until your deal is signed.</p>
 
         <div class="fee-callout">
           <div class="fee-callout-title">The DealOn Promise</div>
@@ -3160,7 +3151,7 @@ button.btn {
               <td>Enterprise Value or Total Assets</td>
             </tr>
             <tr>
-              <td>Success Fee (≤£5m)</td>
+              <td>Success Fee</td>
               <td class="fee-free">5%</td>
               <td class="fee-charged">5-10%</td>
               <td class="fee-charged">5-10%</td>
@@ -3184,7 +3175,7 @@ button.btn {
 <section class="section section--dark section--violet-haze section--violet-haze--tr" id="sectors">
   <div class="container">
     <div class="section-eyebrow reveal">Sectors</div>
-    <h2 class="section-heading reveal">Deep expertise across <em>EMEA industries</em></h2>
+    <h2 class="section-heading reveal">Deep expertise across <em>industries</em></h2>
     <p class="section-desc reveal">We have closed deals across every major sector. Our AI engine is trained on sector-specific transaction data, giving us an edge in valuation accuracy and buyer matching.</p>
 
     <div class="sectors-grid reveal">
@@ -3257,17 +3248,17 @@ button.btn {
             <span class="faq-icon"><i class="ph ph-plus"></i></span>
           </button>
           <div class="faq-a">
-            <p>Almost. DealOn charges a nominal £1,000 retainer fee to secure your mandate — but no monthly charges, no interim milestone fees. Our success fee is only triggered upon legal completion of the deal. This applies to all sell-side mandates without exception.</p>
+            <p>Almost. DealOn charges a nominal £1,000 retainer fee to secure your mandate — but no monthly charges, no interim milestone fees. Our success fee is only triggered upon signing of the deal. This applies to all sell-side mandates without exception.</p>
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-q">
-            How long does a typical deal take from mandate to completion?
+            How long does a typical deal take from mandate to signing?
             <span class="faq-icon"><i class="ph ph-plus"></i></span>
           </button>
           <div class="faq-a">
-            <p>Our target average is 150 days, with our platform designed to achieve completion in as few as 49 days. The EMEA industry average is 9–12 months. Our speed comes from AI-powered buyer matching, parallel workstream management, and senior-led execution — we don't waste time on unqualified leads.</p>
+            <p>Our target average is ~100 days, with our platform designed to achieve signing in as few as possible. The industry average is 9–12 months. Our speed comes from AI-powered buyer matching, parallel workstream management, and senior-led execution; we don't waste time on unqualified leads.</p>
           </div>
         </div>
 
@@ -3287,7 +3278,7 @@ button.btn {
             <span class="faq-icon"><i class="ph ph-plus"></i></span>
           </button>
           <div class="faq-a">
-            <p>Our engine analyses your company across multiple dimensions — sector, size, geography, growth profile, customer concentration, recurring revenue, margin profile, and more. It then scores every buyer in our database of millions of companies across Europe and the Gulf for compatibility, surfacing the highest-probability matches for human review by your lead advisor.</p>
+            <p>Our engine analyses your company across multiple dimensions: sector, size, geography, growth profile, customer concentration, recurring revenue, margin profile, and more. It then scores every buyer in our database of companies across Europe and the Gulf for compatibility, surfacing the highest-probability matches for human review by your lead advisor.</p>
           </div>
         </div>
 
@@ -3345,7 +3336,6 @@ button.btn {
       <div class="footer-col-title">Connect</div>
       <div class="footer-links">
         <a href="mailto:info@dealon.ae">info@dealon.ae</a>
-        <a href="tel:+971503746636">+971 50 374 6636</a>
         <a href="#seller-contact" class="seller-contact-open" data-contact-intent="footer">Contact form</a>
       </div>
     </div>

@@ -194,7 +194,7 @@
       case 'start-deal':
         return {
           message:
-            'Sector, geography, rough revenue band, and when you aim to complete…',
+            'Sector, geography, rough revenue band, and when you aim to sign…',
         };
       case 'valuation':
         return {
