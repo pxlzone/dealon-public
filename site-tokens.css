@@ -1,0 +1,43 @@
+/**
+ * Design tokens shared by legal pages (and any standalone page without index.html :root).
+ * Values match index.html.
+ */
+:root {
+  --bg-void: #060610;
+  --text-primary: #eeeef0;
+  --text-secondary: #aeb0cf;
+  --text-muted: #9395b8;
+  --text-dim: #7a7c9f;
+  --accent: #00e5bf;
+  --border: rgba(255, 255, 255, 0.04);
+  --gradient-hero: linear-gradient(32deg, #00E5BF 10%, #7C5CFC 54%, #FF6B9D 132%);
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --max-w: 1040px;
+  --fs-micro: clamp(0.69rem, 0.67rem + 0.14vw, 0.8125rem);
+  --fs-xs: clamp(0.76rem, 0.74rem + 0.16vw, 0.86rem);
+  --fs-sm: clamp(0.86rem, 0.84rem + 0.18vw, 0.96rem);
+  --fs-body: clamp(1rem, 0.97rem + 0.2vw, 1.08rem);
+  --fs-title-md: clamp(1.12rem, 1.06rem + 0.38vw, 1.32rem);
+  --violet-blur-gradient-strong: radial-gradient(ellipse at center, rgba(124, 92, 252, 0.22) 0%, rgba(124, 92, 252, 0.08) 38%, transparent 72%);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-void: #f6f8fc;
+    --text-primary: #11172c;
+    --text-secondary: #3f4d78;
+    --text-muted: #4b587f;
+    --text-dim: #6b769a;
+    --accent: #00b9ad;
+    --border: rgba(17, 23, 44, 0.1);
+    --violet-blur-gradient-strong: radial-gradient(ellipse at center, rgba(124, 92, 252, 0.16) 0%, rgba(124, 92, 252, 0.055) 38%, transparent 72%);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  body::after {
+    opacity: 0.01;
+  }
+}
