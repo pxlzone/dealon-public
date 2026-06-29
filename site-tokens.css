@@ -15,6 +15,9 @@
   --font-body: 'Outfit', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
   --max-w: var(--content-max-w, 1280px);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --legal-table-bg: color-mix(in srgb, var(--bg-void) 72%, transparent);
   --fs-micro: clamp(0.69rem, 0.67rem + 0.14vw, 0.8125rem);
   --fs-xs: clamp(0.76rem, 0.74rem + 0.16vw, 0.86rem);
   --fs-sm: clamp(0.86rem, 0.84rem + 0.18vw, 0.96rem);
@@ -33,6 +36,7 @@
     --accent: #00b9ad;
     --border: rgba(17, 23, 44, 0.1);
     --violet-blur-gradient-strong: radial-gradient(ellipse at center, rgba(124, 92, 252, 0.16) 0%, rgba(124, 92, 252, 0.055) 38%, transparent 72%);
+    --legal-table-bg: rgba(248, 251, 255, 0.95);
   }
 }
 

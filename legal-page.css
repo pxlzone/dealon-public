@@ -146,38 +146,51 @@ img {
   margin-bottom: 0.5rem;
 }
 
-.wrap table {
+.wrap .legal-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+  background: var(--legal-table-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.wrap .legal-table-wrap table {
   width: 100%;
+  margin-bottom: 0;
+  min-width: 36rem;
   border-collapse: collapse;
-  margin: 0 0 1.5rem;
   font-size: var(--fs-sm);
 }
 
-.wrap th,
-.wrap td {
+.wrap .legal-table-wrap th,
+.wrap .legal-table-wrap td {
   text-align: left;
   vertical-align: top;
-  padding: 0.65rem 0.75rem;
-  border: 1px solid var(--border);
+  padding: 0.85rem 1rem;
+  border: none;
+  border-bottom: 1px solid var(--border);
   color: var(--text-secondary);
   font-weight: 300;
   line-height: 1.6;
 }
 
-.wrap th {
+.wrap .legal-table-wrap th:not(:last-child),
+.wrap .legal-table-wrap td:not(:last-child) {
+  border-right: 1px solid var(--border);
+}
+
+.wrap .legal-table-wrap thead th {
   font-weight: 500;
   color: var(--text-primary);
   background: rgba(255, 255, 255, 0.02);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.wrap .legal-table-wrap {
-  overflow-x: auto;
-  margin-bottom: 1.5rem;
-}
-
-.wrap .legal-table-wrap table {
-  margin-bottom: 0;
-  min-width: 36rem;
+.wrap .legal-table-wrap tbody tr:last-child td {
+  border-bottom: none;
 }
 
 .wrap code {
