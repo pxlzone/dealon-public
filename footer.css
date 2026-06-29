@@ -32,7 +32,7 @@
 }
 
 .footer-grid {
-  max-width: 1280px;
+  max-width: var(--content-max-w);
   margin: 0 auto;
   display: grid;
   grid-template-columns: minmax(0, 2.5fr) minmax(220px, 1fr);
@@ -85,10 +85,20 @@
 }
 
 .footer-bottom {
-  max-width: 1280px;
-  margin: 3rem auto 0;
+  margin-top: 3rem;
   padding-top: 2rem;
+  position: relative;
+}
+
+.footer-bottom::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
   border-top: 1px solid var(--border);
+  pointer-events: none;
 }
 
 .footer-legal-block {
@@ -96,6 +106,93 @@
   flex-direction: column;
   gap: 0.85rem;
   width: 100%;
+  max-width: var(--content-max-w);
+  margin: 0 auto;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+@media (min-width: 900px) {
+  .footer-legal-block {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 2.5rem;
+    row-gap: 0.85rem;
+    align-items: start;
+  }
+
+  .footer-reg {
+    max-width: none;
+  }
+
+  .footer-legal-block > .footer-reg:nth-child(1) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .footer-legal-block > .footer-reg:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+
+  .footer-col {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .footer-meta {
+    grid-column: 1 / -1;
+    margin-top: 0.35rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .footer-legal-block {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.25fr) minmax(0, 0.85fr);
+  }
+
+  .footer-legal-block > .footer-reg:nth-child(1) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .footer-legal-block > .footer-reg:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+
+  .footer-col {
+    grid-column: 3;
+    grid-row: 1;
+  }
+}
+
+.footer-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+@media (min-width: 900px) {
+  .footer-meta {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .footer-meta .footer-legal {
+    margin-top: 0;
+  }
+
+  .footer-copyright {
+    text-align: right;
+    flex-shrink: 0;
+  }
 }
 
 .footer-legal {

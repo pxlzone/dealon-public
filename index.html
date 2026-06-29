@@ -753,7 +753,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .section--dark { background: var(--bg-deep); }
 
 .container {
-  max-width: 1280px;
+  max-width: var(--content-max-w);
   margin: 0 auto;
 }
 
@@ -3260,17 +3260,21 @@ button.btn {
   </div>
   <div class="footer-bottom">
     <div class="footer-legal-block">
-      <p class="footer-reg">© 2026 DEALON LTD. All rights reserved.</p>
       <p class="footer-reg">DEALON LTD is a company registered in England and Wales under company number 17303287. Registered office: 45 Albemarle Street, Mayfair, London, W1S 4JL, United Kingdom.</p>
       <p class="footer-reg">DEALON LTD is not authorised or regulated by the Financial Conduct Authority. The content of this website is provided for general information only and does not constitute financial, investment, legal or tax advice, nor an offer or solicitation to buy or sell any security or business.</p>
-      <p class="footer-reg">DEALON LTD is in the process of establishing a presence in the Abu Dhabi Global Market (ADGM); registration is pending.</p>
-      <p class="footer-reg">General enquiries: <a href="mailto:info@dealon.ae">info@dealon.ae</a></p>
-      <p class="footer-legal">
-        <a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp;
-        <a href="cookie-policy.html">Cookie Policy</a> &nbsp;·&nbsp;
-        <a href="terms.html">Platform Terms of Use</a> &nbsp;·&nbsp;
-        <a href="ai-disclosure.html">AI Disclosure Notice</a>
-      </p>
+      <div class="footer-col">
+        <p class="footer-reg">DEALON LTD is in the process of establishing a presence in the Abu Dhabi Global Market (ADGM); registration is pending.</p>
+        <p class="footer-reg">General enquiries: <a href="mailto:info@dealon.ae">info@dealon.ae</a></p>
+      </div>
+      <div class="footer-meta">
+        <p class="footer-legal">
+          <a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp;
+          <a href="cookie-policy.html">Cookie Policy</a> &nbsp;·&nbsp;
+          <a href="terms.html">Platform Terms of Use</a> &nbsp;·&nbsp;
+          <a href="ai-disclosure.html">AI Disclosure Notice</a>
+        </p>
+        <p class="footer-reg footer-copyright">© 2026 DEALON LTD. All rights reserved.</p>
+      </div>
     </div>
   </div>
 </footer>

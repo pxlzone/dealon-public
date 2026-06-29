@@ -14,7 +14,7 @@
   --font-display: 'Playfair Display', Georgia, serif;
   --font-body: 'Outfit', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
-  --max-w: 1040px;
+  --max-w: var(--content-max-w, 1280px);
   --fs-micro: clamp(0.69rem, 0.67rem + 0.14vw, 0.8125rem);
   --fs-xs: clamp(0.76rem, 0.74rem + 0.16vw, 0.86rem);
   --fs-sm: clamp(0.86rem, 0.84rem + 0.18vw, 0.96rem);

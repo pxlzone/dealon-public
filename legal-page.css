@@ -47,14 +47,12 @@ img {
 .wrap {
   position: relative;
   z-index: 1;
-  max-width: var(--max-w);
-  margin: 0 auto;
   padding-top: calc(160px + env(safe-area-inset-top, 0px));
   padding-bottom: 4rem;
   padding-inline: var(--page-pad-inline);
 }
 
-/* Matches .section-eyebrow on index.html */
+/* Matches .section + .container on index.html */
 .eyebrow {
   font-family: var(--font-mono);
   font-size: var(--fs-xs);
